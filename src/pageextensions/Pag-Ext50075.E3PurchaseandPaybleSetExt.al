@@ -25,7 +25,12 @@ pageextension 50075 "E3 Purchase & Payable Ext" extends "Purchases & Payables Se
                 ApplicationArea = All;
                 ToolTip = 'Specify a GRN Vendor Code Check field.';
             }
-
+            field("Enable Advance Settlement"; Rec."Enable Advance Settlement")
+            {
+                ApplicationArea = All;
+                Caption = 'Enable Advance Settlement';
+                ToolTip = 'Enable or Disable Advance Settlement functionality';
+            }
         }
 
     }

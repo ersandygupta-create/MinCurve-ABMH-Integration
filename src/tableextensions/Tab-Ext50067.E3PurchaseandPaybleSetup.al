@@ -18,7 +18,11 @@ tableextension 50067 "E3 Purchase & Payable Setup" extends "Purchases & Payables
             Caption = 'GRN Vendor Code Check';
             DataClassification = CustomerContent;
         }
-
+        field(50003; "Enable Advance Settlement"; Boolean)
+        {
+            Caption = 'Enable Advance Settlement';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

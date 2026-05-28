@@ -21,6 +21,57 @@ pageextension 50061 "E3 HIS Purchase Invoice Card" extends "Purchase Invoice"
             }
         }
     }
+    actions
+    {
+        addbefore(Post)
+        {
+            action(CheckAdvance)
+            {
+                ApplicationArea = All;
+                ToolTip = 'To Check advance settlement';
+                Image = Action;
+                Caption = 'Check Advance for Vendor';
+                Promoted = true;
+
+                trigger OnAction()
+
+                begin
+                    CheckAdvance(Rec);
+                end;
+            }
+        }
+    }
+
+    local procedure CheckAdvance(PurchaseHeader: Record "Purchase Header")
+    var
+        PurchPaybleSetup: Record "Purchases & Payables Setup";
+        AdvanceSettlementtSetup: Record E3AdvanceSetllementSetup;
+        VendLedgerEntry: Record "Vendor Ledger Entry";
+        vendor: Record Vendor;
+        remAmount: Decimal;
+    begin
+        PurchPaybleSetup.Get();
+        if PurchPaybleSetup."Enable Advance Settlement" then begin
+            vendor.get(Rec."Buy-from Vendor No.");
+            AdvanceSettlementtSetup.Reset();
+            AdvanceSettlementtSetup.SetRange(VendorPostingGroup, vendor."Vendor Posting Group");
+            AdvanceSettlementtSetup.SetRange(Enable, true);
+            if AdvanceSettlementtSetup.Find('-') then begin
+                VendLedgerEntry.Reset();
+                VendLedgerEntry.SetRange("Vendor No.", vendor."No.");
+                VendLedgerEntry.SetFilter("Document Type", '%1|%2', "Gen. Journal Document Type"::Payment, "Gen. Journal Document Type"::"Credit Memo");
+                if VendLedgerEntry.FindSet() then
+                    repeat
+                        VendLedgerEntry.CalcFields("Remaining Amount");
+                        remAmount += VendLedgerEntry."Remaining Amount";
+                    until VendLedgerEntry.Next() = 0;
+                if remAmount <> 0 then
+                    //Message('Hi');
+                Message('Remaining vendor advance of %1 LCY is available', remAmount);
+            end;
+        end;
+    end;
+
     local procedure UpdatePurchCommentLines(PurchaseHeader: Record "Purchase Header")
     var
         PurchCommentLine: Record "Purch. Comment Line";
