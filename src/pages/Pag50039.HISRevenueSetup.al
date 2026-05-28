@@ -88,6 +88,26 @@ page 50039 "E3 HIS Revenue Setup"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the MOU Discount G/L Account Name field.';
                 }
+                field("CGST G/L Account"; Rec."CGST G/L Account")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the CGST G/L Account field.';
+                }
+                field("CGST G/L Account Name"; Rec."CGST G/L Account Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the CGST G/L Account Name field.';
+                }
+                field("SGST G/L Account"; Rec."SGST G/L Account")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the SGST G/L Account field.';
+                }
+                field("SGST G/L Account Name"; Rec."SGST G/L Account Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the SGST G/L Account Name field.';
+                }
 
             }
         }

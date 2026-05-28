@@ -187,6 +187,32 @@ table 50004 "E3 HIS GL Accounts Mapping"
             FieldClass = FlowField;
             CalcFormula = lookup("G/L Account".Name where("No." = field("MOU Discount G/L Account")));
         }
+        field(40; "CGST G/L Account"; Code[20])
+        {
+            Caption = 'CGST G/L Account';
+            DataClassification = CustomerContent;
+            TableRelation = "G/L Account" where(Blocked = filter(false), "Direct Posting" = filter(true));
+        }
+        field(41; "CGST G/L Account Name"; Text[100])
+        {
+            Caption = 'CGST G/L Account Name';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("G/L Account".Name where("No." = field("CGST G/L Account")));
+        }
+        field(42; "SGST G/L Account"; Code[20])
+        {
+            Caption = 'SGST G/L Account';
+            DataClassification = CustomerContent;
+            TableRelation = "G/L Account" where(Blocked = filter(false), "Direct Posting" = filter(true));
+        }
+        field(43; "SGST G/L Account Name"; Text[100])
+        {
+            Caption = 'SGST G/L Account Name';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("G/L Account".Name where("No." = field("SGST G/L Account")));
+        }
     }
     keys
     {

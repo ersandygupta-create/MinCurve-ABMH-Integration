@@ -3765,7 +3765,21 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         GenJournalLine.VALIDATE("Document Date", HISRevenueHeader."Document Date");
                         GenJournalLine.VALIDATE("Posting Date", HISRevenueHeader."Posting Date");
                         GenJournalLine.VALIDATE("Account Type", GenJournalLine."Account Type"::"G/L Account");
-                        GenJournalLine.VALIDATE("Account No.", InvoicePostingBuffer."G/L Account");
+                        //CGST & SGST
+                        if (invoicepostingbuffer."Tax Group Code" = 'CGST') then begin
+                            HISGLAccountMapping.Reset();
+                            HISGLAccountMapping.SetRange("his code", invoicepostingbuffer."Job No.");
+                            hisglaccountmapping.SetRange("Service/Station Head", invoicepostingbuffer."Tax Area Code");
+                            if hisglaccountmapping.FindFirst() then
+                                GenJournalLine.VALIDATE("Account No.", hisglaccountmapping."CGST G/L Account");
+                        end else if (invoicepostingbuffer."Tax Group Code" = 'SGST') then begin
+                            HISGLAccountMapping.Reset();
+                            HISGLAccountMapping.SetRange("his code", invoicepostingbuffer."Job No.");
+                            hisglaccountmapping.SetRange("Service/Station Head", invoicepostingbuffer."Tax Area Code");
+                            if hisglaccountmapping.FindFirst() then
+                                GenJournalLine.VALIDATE("Account No.", hisglaccountmapping."SGST G/L Account");
+                        end else //CGST & SGST
+                            GenJournalLine.VALIDATE("Account No.", InvoicePostingBuffer."G/L Account");
                         GenJournalLine."Location Code" := HISRevenueHeader."Location Code";
                         GenJournalLine."Your Reference" := HISRevenueHeader."Reference Invoice No.";
                         IF (HISRevenueHeader."Record Type" = HISRevenueHeader."Record Type"::Revenue) AND (HISRevenueHeader."Document Type" = HISRevenueHeader."Document Type"::Invoice) THEN
