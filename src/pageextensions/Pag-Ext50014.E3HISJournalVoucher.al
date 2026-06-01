@@ -25,5 +25,20 @@ pageextension 50014 "E3 HIS Journal Voucher" extends "Journal Voucher"
                 ToolTip = 'Specifies the value of the UTR No. field.';
             }
         }
+        addafter(Amount)
+        {
+            field("DebitAmount"; Rec."Debit Amount")
+            {
+                ApplicationArea = All;
+                Caption = 'Debit Amount';
+                ToolTip = 'Specifies the value of the Debit Amount field.';
+            }
+            field("CreditAmount"; Rec."Credit Amount")
+            {
+                ApplicationArea = All;
+                Caption = 'Credit Amount';
+                ToolTip = 'Specifies the value of the Credit Amount field.';
+            }
+        }
     }
 }

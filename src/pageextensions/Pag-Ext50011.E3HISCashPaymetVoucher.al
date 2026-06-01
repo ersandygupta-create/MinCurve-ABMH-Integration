@@ -14,7 +14,21 @@ pageextension 50011 "E3 HIS Cash Payment Voucherr" extends "Cash Payment Voucher
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Narrantion field.';
             }
-
+        }
+        addafter(Amount)
+        {
+            field("DebitAmount"; Rec."Debit Amount")
+            {
+                ApplicationArea = All;
+                Caption = 'Debit Amount';
+                ToolTip = 'Specifies the value of the Debit Amount field.';
+            }
+            field("CreditAmount"; Rec."Credit Amount")
+            {
+                ApplicationArea = All;
+                Caption = 'Credit Amount';
+                ToolTip = 'Specifies the value of the Credit Amount field.';
+            }
         }
     }
 }

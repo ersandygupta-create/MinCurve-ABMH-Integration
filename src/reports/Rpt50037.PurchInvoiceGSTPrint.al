@@ -273,6 +273,9 @@ report 50037 "Purchase Invoice Print GST"
                     column(PricIncVAT_PurchInvHeaderCaption; "Purch. Inv. Header".FieldCaption("Prices Including VAT"))
                     {
                     }
+                    column(VendorOrderNo_PurchInvHeader; "Purch. Inv. Header"."Vendor Order No.")
+                    {
+                    }
                     dataitem(DimensionLoop1; Integer)
                     {
                         DataItemLinkReference = "Purch. Inv. Header";
