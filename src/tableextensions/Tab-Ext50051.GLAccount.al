@@ -44,6 +44,11 @@ tableextension 50051 "GL Account" extends "G/L Account"
             Caption = 'Name 2';
             DataClassification = CustomerContent;
         }
+        field(50055; "Block Negative Balance"; Boolean)
+        {
+            Caption = 'Block Negative Balance';
+            DataClassification = CustomerContent;
+        }
 
     }
     trigger OnBeforeRename()

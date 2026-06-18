@@ -100,6 +100,14 @@ page 50001 "E3 HIS Vendor Staging Card"
                 {
                     ApplicationArea = ALL;
                 }
+                field("E-Mail"; Rec."E-Mail")
+                {
+                    ApplicationArea = All;
+                }
+                field("Mobile No."; Rec."Mobile No.")
+                {
+                    ApplicationArea = All;
+                }
 
 
             }

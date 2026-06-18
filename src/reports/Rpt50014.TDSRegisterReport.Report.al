@@ -2,7 +2,7 @@ report 50014 "TDS Register Report"
 {
     Caption = 'TDS Register';
     DefaultLayout = RDLC;
-    RDLCLayout = './src/reports/Rpt50014.TDSRegisterReport.rdlc';
+    RDLCLayout = './src/reports/Rpt50014.TDSRegisterReport.rdl';
     ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
 
@@ -271,8 +271,7 @@ report 50014 "TDS Register Report"
             {
 
             }
-
-
+            column(GLName; GLName) { }
             trigger OnAfterGetRecord()
             begin
 
@@ -358,6 +357,7 @@ report 50014 "TDS Register Report"
                         txtPurchInvComment += PurchCommentLine.Comment;
                     until PurchCommentLine.Next() = 0;
                 end;
+                Clear(GLName);
                 LineNarration := '';
                 GLEntry.Reset();
                 GLEntry.SetRange("Document No.", "Document No.");
@@ -365,6 +365,8 @@ report 50014 "TDS Register Report"
                 IF GLEntry.FindFirst() then begin
                     repeat
                         LineNarration := GLEntry."E3 Narration";
+                        if GLAcc.Get(GLEntry."G/L Account No.") then
+                            GLName := GLAcc.Name;
                     until GLEntry.Next() = 0;
                 end;
 
@@ -506,5 +508,7 @@ report 50014 "TDS Register Report"
         CalculateStructure: Codeunit "Calculate Statistics";
         TotalGSTAmount: Decimal;
         RecCompanyName: Code[100];
+        GLAcc: Record "G/L Account";
+        GLName: Text[100];
 }
 

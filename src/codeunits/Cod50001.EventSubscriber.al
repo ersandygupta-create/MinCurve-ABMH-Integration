@@ -218,13 +218,45 @@ codeunit 50001 "E3 HIS Event Subscriber"
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeInsertGlobalGLEntry', '', false, false)]
-    local procedure InitPostedNarration(
-        GenJournalLine: Record "Gen. Journal Line";
-        var GlobalGLEntry: Record "G/L Entry")
+    local procedure InitPostedNarration(GenJournalLine: Record "Gen. Journal Line"; var GlobalGLEntry: Record "G/L Entry")
     var
         GenJnlNarration: Record "Gen. Journal Narration";
         PostedNarration: Record "Posted Narration";
+        GLAccount: Record "G/L Account";
+        CurrentBalance: Decimal;
+        PostingAmount: Decimal;
     begin
+
+        if GenJournalLine."Account Type" <> GenJournalLine."Account Type"::"G/L Account" then
+            exit;
+
+        if GenJournalLine."Account No." = '' then
+            exit;
+
+        if not GLAccount.Get(GenJournalLine."Account No.") then
+            exit;
+
+        // Check only accounts marked for validation
+        if not GLAccount."Block Negative Balance" then
+            exit;
+
+        GLAccount.CalcFields(Balance);
+        CurrentBalance := GLAccount.Balance;
+
+        // Credit amount is negative
+        if GenJournalLine.Amount < 0 then begin
+            PostingAmount := Abs(GenJournalLine.Amount);
+
+            if PostingAmount > CurrentBalance then
+                Error(
+                    'Negative balance is not allowed for G/L Account %1.\' +
+                    'Current Balance : %2\' +
+                    'Posting Amount : %3',
+                    GLAccount."No.",
+                    CurrentBalance,
+                    PostingAmount);
+        end;
+
 
         if (GenJournalLine."Source Code" <> 'PURCHASES') then
             exit;

@@ -16,6 +16,11 @@ pageextension 50063 "Chart of Accounts Card" extends "G/L Account Card"
                 Caption = 'KPIs Mapping Name';
                 ToolTip = 'Specifies the value of the KPIs Mapping Name field.';
             }
+            field("Block Negative Balance"; Rec."Block Negative Balance")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Block Negative Balance field.';
+            }
         }
         addafter(Name)
         {

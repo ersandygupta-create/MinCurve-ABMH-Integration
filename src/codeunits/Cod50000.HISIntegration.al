@@ -96,6 +96,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         VendorRec.VALIDATE(City, HisMasterStaging.City);
                         VendorRec.Contact := HisMasterStaging.Contact;
                         VendorRec."Phone No." := HisMasterStaging."Phone No.";
+                        VendorRec."Mobile Phone No." := HisMasterStaging."Mobile No.";
+                        VendorRec."E-Mail" := HisMasterStaging."E-Mail";
                         VendorRec.INSERT();
                         VendorRec.VALIDATE("Vendor Posting Group", HisMasterStaging."Vendor Posting Group");
                         VendorRec.VALIDATE("Country/Region Code", HisMasterStaging."Country/Region Code");
