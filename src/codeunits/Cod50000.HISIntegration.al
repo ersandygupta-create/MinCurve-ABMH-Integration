@@ -3122,6 +3122,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 PurchHeader.Validate("Order Address Code", HISPurchaseSaleHeader."Address Code");
             PurchHeader.VALIDATE("Order Date", HISPurchaseSaleHeader."Document Date");
             PurchHeader.VALIDATE("Posting Date", HISPurchaseSaleHeader."Posting Date");
+            PurchHeader.Validate("Document Date", HISPurchaseSaleHeader."Vendor Invoice Date");
             if PurchHeader."Document Type" in [PurchHeader."Document Type"::Order, PurchHeader."Document Type"::Invoice] then
                 PurchHeader.VALIDATE("Vendor Invoice No.", HISPurchaseSaleHeader."Vendor Invoice No.")
             else
