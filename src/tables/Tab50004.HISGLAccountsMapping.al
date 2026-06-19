@@ -176,13 +176,13 @@ table 50004 "E3 HIS GL Accounts Mapping"
         }
         field(38; "MOU Discount G/L Account"; Code[20])
         {
-            Caption = 'Discount G/L Account';
+            Caption = 'MOU Discount G/L Account';
             DataClassification = CustomerContent;
             TableRelation = "G/L Account" where(Blocked = filter(false), "Direct Posting" = filter(true));
         }
         field(39; "MOU Discount G/L Account Name"; Text[100])
         {
-            Caption = 'Discount G/L Account Name';
+            Caption = 'MOU Discount G/L Account Name';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("G/L Account".Name where("No." = field("MOU Discount G/L Account")));

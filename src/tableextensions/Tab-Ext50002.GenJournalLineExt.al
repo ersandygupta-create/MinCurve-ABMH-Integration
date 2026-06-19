@@ -139,7 +139,11 @@ tableextension 50002 "E3 Gen. Journal Line Exts" extends "Gen. Journal Line"
             Caption = 'Bank Integration';
             DataClassification = CustomerContent;
         }
-
+        field(50112; "HIS User Name"; Text[100])
+        {
+            Caption = 'HIS User Name';
+            DataClassification = CustomerContent;
+        }
 
     }
 }

@@ -81,11 +81,13 @@ page 50039 "E3 HIS Revenue Setup"
                 field("MOU Discount G/L Account"; Rec."MOU Discount G/L Account")
                 {
                     ApplicationArea = All;
+                    Caption = 'MOU Discount G/L Account';
                     ToolTip = 'Specifies the value of the MOU Discount G/L Account field.';
                 }
                 field("MOU Discount G/L Account Name"; Rec."MOU Discount G/L Account Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'MOU Discount G/L Account Name';
                     ToolTip = 'Specifies the value of the MOU Discount G/L Account Name field.';
                 }
                 field("CGST G/L Account"; Rec."CGST G/L Account")

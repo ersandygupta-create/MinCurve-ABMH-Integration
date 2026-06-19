@@ -142,7 +142,12 @@ pageextension 50005 "E3 HIS G/L Entries" extends "General Ledger Entries"
                 Editable = false;
                 ToolTip = 'Specifies the value of the SystemCreatedBy field.';
             }
-
+            field("HIS User Name"; Rec."HIS User Name")
+            {
+                Caption = 'HIS User Name';
+                Editable = false;
+                ApplicationArea = All;
+            }
 
         }
     }

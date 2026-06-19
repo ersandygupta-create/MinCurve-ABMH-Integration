@@ -59,11 +59,11 @@ page 50144 "Create HIS Bill Collection"
                     ToolTip = 'Specifies the value of the Reference No. field';
                     ApplicationArea = All;
                 }
-                // field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
-                // {
-                //     ToolTip = 'Specifies the value of the Shortcut Dimension 1 Code field';
-                //     ApplicationArea = All;
-                // }
+                field("HIS User Name"; Rec."HIS User Name")
+                {
+                    Caption = 'HIS User Name';
+                    ApplicationArea = All;
+                }
             }
         }
     }

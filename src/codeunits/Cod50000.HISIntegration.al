@@ -702,6 +702,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     GenJournalLine."E3 Patient Name" := HISRevenueStaging."Patient Name";
                     GenJournalLine."E3 Transaction Type" := HISRevenueStaging.TRANSACTION_TYPE;
                     GenJournalLine."E3 Encounter No." := HISRevenueStaging."Encounter No.";
+                    GenJournalLine."HIS User Name" := HISRevenueStaging."HIS User Name";
                     GenJournalLine.INSERT();
 
                     GenJournalLine.INIT();
@@ -748,6 +749,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     GenJournalLine."E3 Patient Name" := HISRevenueStaging."Patient Name";
                     GenJournalLine."E3 Transaction Type" := HISRevenueStaging.TRANSACTION_TYPE;
                     GenJournalLine."E3 Encounter No." := HISRevenueStaging."Encounter No.";
+                    GenJournalLine."HIS User Name" := HISRevenueStaging."HIS User Name";
                     GenJournalLine.INSERT();
 
                     HISRevenueStaging."Created By" := USERID;
@@ -3890,6 +3892,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         GenJournalLine.Validate("E3 Receipt No.", HISBillCollection."Receipt No.");
                         GenJournalLine.VALIDATE("Document Date", HISBillCollection."Receipt Date");
                         GenJournalLine.VALIDATE("Posting Date", HISBillCollection."Receipt Date");
+                        GenJournalLine."E3 UTR No." := HISBillCollection."Reference No.";
+                        GenJournalLine."HIS User Name" := HISBillCollection."HIS User Name";
                         HISGLAccountMapping.RESET();
                         HISGLAccountMapping.SETRANGE(Type, HISGLAccountMapping.Type::MOP);
                         HISGLAccountMapping.SETRANGE("MOP Code", HISBillCollection."Mode of Payment");

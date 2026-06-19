@@ -22,6 +22,8 @@ codeunit 50001 "E3 HIS Event Subscriber"
         GLEntry."E3 Sponsor Name" := GenJournalLine."E3 Sponsor Name";
         GLEntry."E3 Payer Code" := GenJournalLine."E3 Payer Code";
         GLEntry."E3 Payer Name" := GenJournalLine."E3 Payer Name";
+        GLEntry."HIS User Name" := GenJournalLine."HIS User Name";
+
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Cust. Ledger Entry", 'OnAfterCopyCustLedgerEntryFromGenJnlLine', '', false, false)]

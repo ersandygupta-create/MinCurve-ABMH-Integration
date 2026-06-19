@@ -71,18 +71,11 @@ table 50028 "E3 HIS Bill Collection"
             Caption = 'Receipt No.';
             DataClassification = CustomerContent;
         }
-        // field(13; "Record Type"; Option)
-        // {
-        //     Caption = 'Record Type';
-        //     OptionMembers = ,Revenue,"Revenue Cancel";
-        //     DataClassification = ToBeClassified;
-        // }
-        // field(14; "Document Type"; Option)
-        // {
-        //     Caption = 'Document Type';
-        //     OptionMembers = ,Invoice,"Credit Memo";
-        //     DataClassification = ToBeClassified;
-        // }
+        field(13; "HIS User Name"; Text[100])
+        {
+            Caption = 'HIS User Name';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
