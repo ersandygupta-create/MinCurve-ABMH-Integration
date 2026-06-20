@@ -8,5 +8,10 @@ tableextension 50017 "E3 HIS Purch. Recpt. Line" extends "Purch. Rcpt. Line"
             Caption = 'Item Type';
             DataClassification = CustomerContent;
         }
+        field(50001; "Pack Size"; Text[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Pack Size';
+        }
     }
 }

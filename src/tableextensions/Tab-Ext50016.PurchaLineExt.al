@@ -24,8 +24,10 @@ tableextension 50016 "E3 HIS Purcha Line" extends "Purchase Line"
                 end;
             end;
         }
-
-
+        field(50001; "Pack Size"; Text[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Pack Size';
+        }
     }
-
 }

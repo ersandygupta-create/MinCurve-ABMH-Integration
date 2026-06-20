@@ -3177,6 +3177,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     PurchLine.VALIDATE(PurchLine."GST Credit", HISPurchaseSaleLine."Credit Type");
                     PurchLine.VALIDATE("Line Discount Amount", HISPurchaseSaleLine.Discount);
                     PurchLine."Vendor Item No." := HISPurchaseSaleLine."Item No.";
+                    PurchLine."Pack Size" := HISPurchaseSaleLine."Pack Size";
 
                     PurchLine.INSERT(TRUE);
                 UNTIL HISPurchaseSaleLine.NEXT() = 0;

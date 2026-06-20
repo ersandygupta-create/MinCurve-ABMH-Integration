@@ -8,7 +8,11 @@ tableextension 50018 "E3 HIS Purch. Inv. Line" extends "Purch. Inv. Line"
             Caption = 'Item Type';
             DataClassification = CustomerContent;
         }
-
+        field(50001; "Pack Size"; Text[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Pack Size';
+        }
         field(50002; "E3 HIS Type"; Enum "E3 HIS Type")
         {
             Caption = 'HIS Type';

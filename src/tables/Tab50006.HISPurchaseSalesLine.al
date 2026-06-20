@@ -380,7 +380,7 @@ table 50006 "E3 HIS Purchase Line"
             DataClassification = CustomerContent;
             Caption = 'Unit of Measurement';
         }
-        field(120; "Pack Size"; Text[10])
+        field(120; "Pack Size"; Text[20])
         {
             DataClassification = CustomerContent;
             Caption = 'Pack Size';
