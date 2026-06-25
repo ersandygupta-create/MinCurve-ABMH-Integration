@@ -1004,6 +1004,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 GenJournalLine.VALIDATE("Document Type", HISDoctorPayoutEntries."Document Type");
                 GenJournalLine.VALIDATE("Document No.", HISDoctorPayoutEntries."Document No.");
                 GenJournalLine.VALIDATE("Posting Date", HISDoctorPayoutEntries."Document Date");
+                if HISDoctorPayoutEntries."TDS Section" <> '' then
+                    GenJournalLine.Validate("TDS Section Code", HISDoctorPayoutEntries."TDS Section");
 
                 HISGLAccountMapping.Reset();
                 HISGLAccountMapping.SetRange(Type, HISGLAccountMapping.Type::Doctor);
