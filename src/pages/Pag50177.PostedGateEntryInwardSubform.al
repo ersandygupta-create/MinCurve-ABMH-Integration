@@ -1,4 +1,4 @@
-page 50165 "E3 Gate Entry Inward Subform"
+page 50177 "E3 Posted Gate Ent Inward Line"
 {
     Caption = 'Gate Entry Inward Subform';
     AutoSplitKey = true;
@@ -6,8 +6,9 @@ page 50165 "E3 Gate Entry Inward Subform"
     LinksAllowed = false;
     MultipleNewLines = true;
     PageType = ListPart;
-    SourceTable = "E3 Gate Entry Line";
-    SourceTableView = sorting("Entry No.");
+    SourceTable = "E3 Posted Gate Entry Line";
+    SourceTableView = sorting("Posted Entry No.");
+    Editable = false;
 
     layout
     {
@@ -18,7 +19,6 @@ page 50165 "E3 Gate Entry Inward Subform"
                 field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                     ToolTip = 'Specifies the value of the Document No. field.';
                 }
                 field("Line No."; Rec."Line No.")
@@ -34,7 +34,6 @@ page 50165 "E3 Gate Entry Inward Subform"
                 field("Item Name"; Rec."Item Name")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                     ToolTip = 'Specifies the value of the Item Name field.';
                 }
                 field("Variant Code"; Rec."Variant Code")
@@ -50,37 +49,17 @@ page 50165 "E3 Gate Entry Inward Subform"
                 field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
-                    Editable = false;
                     ToolTip = 'Specifies the value of the Qty field.';
-                }
-                field("Ship Qty"; Rec."Ship Qty")
-                {
-                    ApplicationArea = All;
-                    Visible = false;
-                    ToolTip = 'Specifies the value of the Ship Qty field.';
                 }
                 field("Qty to Receive"; Rec."Qty to Receive")
                 {
                     ApplicationArea = All;
-                    Caption = 'Qty to Receive';
                     ToolTip = 'Specifies the value of the Qty to Receive field.';
                 }
                 field("Quantity Received"; Rec."Quantity Received")
                 {
-                    ApplicationArea = Suite;
-                    BlankZero = true;
-
-                    trigger OnDrillDown()
-                    var
-                        PurchRcptLine: Record "E3 Posted Gate Entry Line";
-                    begin
-                        // PurchRcptLine.SetCurrentKey("Document No.", "Document No.");
-                        PurchRcptLine.SetRange("Document No.", Rec."Document No.");
-                        PurchRcptLine.SetRange("Line No.", Rec."Line No.");
-                        PurchRcptLine.SetFilter("Quantity Received", '<>%1', 0);
-                        PAGE.RunModal(50105, PurchRcptLine);
-                    end;
-
+                    ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Pending Qty"; Rec."Pending Qty")
                 {
@@ -88,7 +67,12 @@ page 50165 "E3 Gate Entry Inward Subform"
                     Visible = false;
                     ToolTip = 'Specifies the value of the Pending Qty field.';
                 }
-                field("Estimated Value"; Rec."Estimated Value Receive")
+                field("Estimated Value Receive"; Rec."Estimated Value Receive")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Estimated Value Receive field.';
+                }
+                field("Estimated Value"; Rec."Estimated Value")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Estimated Value field.';

@@ -1,4 +1,4 @@
-table 50031 "E3 Gate Entry Line"
+table 50035 "E3 Posted Gate Entry Line"
 {
     Caption = 'Gate Entry Line';
     DataClassification = CustomerContent;
@@ -8,9 +8,9 @@ table 50031 "E3 Gate Entry Line"
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
-            AutoIncrement = true;
-            BlankZero = true;
-            MinValue = 1;
+            // AutoIncrement = true;
+            // BlankZero = true;
+            // MinValue = 1;
             Editable = false;
             DataClassification = CustomerContent;
         }
@@ -29,14 +29,6 @@ table 50031 "E3 Gate Entry Line"
             Caption = 'Item No.';
             DataClassification = CustomerContent;
             TableRelation = Item;
-            trigger OnValidate()
-            begin
-                "Item Name" := '';
-                "Unit of Measurement" := '';
-                if Item.Get("Item No.") then
-                    "Item Name" := Item.Description;
-                "Unit of Measurement" := Item."Base Unit of Measure";
-            end;
         }
         field(5; "Item Name"; Text[100])
         {
@@ -58,22 +50,11 @@ table 50031 "E3 Gate Entry Line"
         {
             Caption = 'Quantity';
             DataClassification = CustomerContent;
-            trigger OnValidate()
-            begin
-                if (Quantity <> 0) then
-                    rec."Cost/Qty" := "Estimated Value" / Quantity;
-            end;
         }
         field(9; "Qty to Receive"; Decimal)
         {
             Caption = 'Qty to Receive';
             DataClassification = CustomerContent;
-            trigger OnValidate()
-            begin
-                if (Rec."Quantity Received" + Rec."Qty to Receive" > rec.Quantity) then
-                    Error('Quantity received and quantity to receive shoul not more than Quantity');
-                rec."Estimated Value Receive" := "Qty to Receive" * "Cost/Qty";
-            end;
         }
         field(10; "Pending Qty"; Decimal)
         {
@@ -84,30 +65,11 @@ table 50031 "E3 Gate Entry Line"
         {
             Caption = 'Estimated Value';
             DataClassification = CustomerContent;
-            trigger OnValidate()
-            begin
-                if (rec.Quantity <> 0) then
-                    rec."Cost/Qty" := "Estimated Value" / Quantity;
-            end;
         }
-
         field(12; "Asset No."; Code[20])
         {
             Caption = 'Asset No.';
             DataClassification = CustomerContent;
-            TableRelation = "Fixed Asset"."No.";
-            trigger OnValidate()
-            var
-                FA: Record "Fixed Asset";
-            begin
-                if FA.Get("Asset No.") then begin
-                    "Fixed Asset Name" := FA.Description;
-                    "Serial No." := FA."Serial No.";
-                end else begin
-                    "Fixed Asset Name" := '';
-                    "Serial No." := '';
-                end;
-            end;
         }
         field(13; "Serial No."; Code[50])
         {
@@ -138,6 +100,11 @@ table 50031 "E3 Gate Entry Line"
             ToolTip = 'Specifies how many units of the item on the line have been posted as received.';
 
         }
+        field(18; PostedNo; Code[20])
+        {
+            Caption = 'No.';
+            DataClassification = CustomerContent;
+        }
         field(31; "Cost/Qty"; Decimal)
         {
             Caption = 'Cost per Qty';
@@ -147,18 +114,32 @@ table 50031 "E3 Gate Entry Line"
             Caption = 'Received Estimated Value';
             DataClassification = CustomerContent;
             Editable = false;
-            FieldClass = Normal;
         }
         field(33; "Fixed Asset Name"; Text[100])
         {
             Caption = 'Fixed Asset Name';
             DataClassification = CustomerContent;
         }
+        field(99; "Posted Entry No."; Integer)
+        {
+            Caption = 'Posted Entry No.';
+            AutoIncrement = true;
+            DataClassification = CustomerContent;
+        }
+        field(201; "Inward Document No."; COde[20])
+        {
+            Caption = 'Posted Inward Document No.';
+            DataClassification = CustomerContent;
+        }
+        field(202; "Outward Document No."; Code[20])
+        {
+            Caption = 'Posted Outward Document No.';
+        }
 
     }
     keys
     {
-        key(PK; "Entry No.", "Document No.", "Line No.")
+        key(PK; "Posted Entry No.")
         {
             Clustered = true;
         }
@@ -181,6 +162,5 @@ table 50031 "E3 Gate Entry Line"
 
     var
         GateEntryHdr: Record "E3 Gate Entry Header";
-        Item: Record Item;
 
 }

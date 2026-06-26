@@ -642,25 +642,54 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                 {
                     Caption = 'Gate Entry';
 
-                    action("E3 Gate Entry Inward")
+                    group("E3 Gate Entry Creation")
                     {
-                        AccessByPermission = TableData "E3 Gate Entry Header" = IMD;
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Create Gate Entry Inward';
-                        Image = Archive;
-                        RunObject = Page "E3 Gate Entry Inward List";
-                        RunPageMode = Create;
-                        ToolTip = 'Create a new Gate Entry Inward for Vendor.';
+                        Caption = 'Gate Entry Creation';
+                        action("E3 Gate Entry Outward")
+                        {
+                            AccessByPermission = TableData "E3 Gate Entry Header" = R;
+                            ApplicationArea = Basic, Suite;
+                            Caption = 'Create Gate Entry Outward';
+                            Image = Archive;
+                            RunObject = Page "E3 Gate Entry Outward List";
+                            RunPageMode = Create;
+                            ToolTip = 'Created a Gate Entry Outward for Vendor.';
+                        }
+                        action("E3 Gate Entry Inward")
+                        {
+                            AccessByPermission = TableData "E3 Gate Entry Header" = IMD;
+                            ApplicationArea = Basic, Suite;
+                            Caption = 'Create Gate Entry Inward';
+                            Image = Archive;
+                            RunObject = Page "E3 Gate Entry Inward List";
+                            RunPageMode = Create;
+                            ToolTip = 'Create a new Gate Entry Inward for Vendor.';
+                        }
                     }
-                    action("E3 Gate Entry Outward")
+
+                    group("E3 Posted Gate Entry")
                     {
-                        AccessByPermission = TableData "E3 Gate Entry Header" = R;
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Create Gate Entry Outward';
-                        Image = Archive;
-                        RunObject = Page "E3 Gate Entry Outward List";
-                        RunPageMode = Create;
-                        ToolTip = 'Created a Gate Entry Outward for Vendor.';
+                        Caption = 'Posted Gate Entry';
+                        action("E3 Posted Gate Entry Inward")
+                        {
+                            AccessByPermission = TableData "E3 Posted Gate Entry Header" = IMD;
+                            ApplicationArea = Basic, Suite;
+                            Caption = 'Posted Gate Entry Inward';
+                            Image = Archive;
+                            RunObject = Page "E3 Posted Gate Ent Inward List";
+                            RunPageMode = Create;
+                            ToolTip = 'Create a new Gate Entry Inward for Vendor.';
+                        }
+                        action("E3 Posted Gate Entry Outward")
+                        {
+                            AccessByPermission = TableData "E3 Posted Gate Entry Header" = IMD;
+                            ApplicationArea = Basic, Suite;
+                            Caption = 'Posted Gate Entry Outward';
+                            Image = Archive;
+                            RunObject = Page "E3Posted Gate Ent Outward List";
+                            RunPageMode = Create;
+                            ToolTip = 'Create a new Gate Entry Outward for Vendor.';
+                        }
                     }
                 }
             }
@@ -874,160 +903,37 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                         ToolTip = 'Specify the Exported BLE File';
                     }
                 }
-
-
-
-                //}
-                //}
-                // addbefore(Action39)
-                // {
-                //     group("LIMS Interface")
-                //     {
-                //         Caption = 'LIMS Interface';
-
-                //         group("LIMS Setup")
-                //         {
-                //             Caption = 'LIMS Integration Setup';
-                //             action("LIMS Setups")
-                //             {
-                //                 ApplicationArea = Basic, Suite;
-                //                 Caption = 'Integration Setup';
-                //                 Image = Setup;
-                //                 RunObject = Page "E3 Integration Setup";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Executes the Integration Setup action.';
-                //             }
-                //             group("Masters Setups")
-                //             {
-                //                 Caption = 'LIMS Setups';
-                //                 action("MOP Setup")
-                //                 {
-                //                     ApplicationArea = Basic, Suite;
-                //                     Caption = 'LIMS MOP Setup';
-                //                     Image = Setup;
-                //                     RunObject = Page "E3 LIMS MOP Revenue Setup";
-                //                     RunPageMode = Create;
-                //                     ToolTip = 'Executes the MOP Setup action.';
-                //                 }
-                //                 action("LIMS Collection Setup")
-                //                 {
-                //                     ApplicationArea = Basic, Suite;
-                //                     Caption = 'LIMS Collection Setup';
-                //                     Image = Setup;
-                //                     RunObject = Page "E3 LIMS Coll. Setup";
-                //                     RunPageMode = Create;
-                //                     ToolTip = 'Executes the Collection Setup action.';
-                //                 }
-                //                 action("LIMS Revenue Setup")
-                //                 {
-                //                     ApplicationArea = Basic, Suite;
-                //                     Caption = 'LIMS Revenue Setup';
-                //                     Image = Setup;
-                //                     RunObject = Page "E3 LIMS Revenue Setup";
-                //                     RunPageMode = Create;
-                //                     ToolTip = 'Executes the Revenue Setup action.';
-                //                 }
-                //             }
-                //         }
-                //         group("LIMS Collection Staging")
-                //         {
-                //             Caption = 'LIMS Collection Entries';
-
-                //             action("Create LIMS Collection Entries")
-                //             {
-                //                 AccessByPermission = TableData "E3 HIS Collection Staging" = IMD;
-                //                 ApplicationArea = Basic, Suite;
-                //                 Caption = 'Create Collection Entries';
-                //                 Image = Archive;
-                //                 RunObject = Page "E3 HIS Collection Stagging";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Create a new Collection Entries for Companies.';
-                //             }
-                //             action("Create LIMS Revenue Entries")
-                //             {
-                //                 AccessByPermission = TableData "E3 HIS Collection Staging" = IMD;
-                //                 ApplicationArea = Basic, Suite;
-                //                 Caption = 'Create Revenue Entries';
-                //                 Image = Archive;
-                //                 RunObject = Page "E3 LIMS Revenue Stagging";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Create a new Revenue Entries for Companies.';
-                //             }
-                //             action("Create LIMS Revenue CN Entries")
-                //             {
-                //                 AccessByPermission = TableData "E3 HIS Collection Staging" = IMD;
-                //                 ApplicationArea = Basic, Suite;
-                //                 Caption = 'Create Revenue Cancel Entries';
-                //                 Image = Archive;
-                //                 RunObject = Page "E3 LIMS Revenue CN Entries";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Create a new Revenue Cancel Entries for Companies.';
-                //             }
-                //             action("LIMS Created Collection Entries")
-                //             {
-                //                 AccessByPermission = TableData "E3 HIS Collection Staging" = IMD;
-                //                 ApplicationArea = Basic, Suite;
-                //                 Caption = 'Created Collection Entries';
-                //                 Image = Archive;
-                //                 RunObject = Page "E3 Posted HIS Coll. Stagging";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Check a new Collection Entries for Companies.';
-                //             }
-
-                //         }
-                //         group("LIMS Revenue Invoice Entries")
-                //         {
-                //             Caption = 'Revenue Invoice Entries';
-                //             action("LIMS Revenue Invoice")
-                //             {
-                //                 AccessByPermission = TableData "E3 LIMS Revenue Header" = IMD;
-                //                 ApplicationArea = Basic, Suite;
-                //                 Caption = 'Create Revenue Invoice';
-                //                 Image = Archive;
-                //                 RunObject = Page "E3 LIMS Revenue List";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Executes the Create Revenue Invoice action.';
-                //             }
-                //             action("LIMS Created Revenue Invoice")
-                //             {
-                //                 AccessByPermission = TableData "E3 LIMS Revenue Header" = IMD;
-                //                 ApplicationArea = Basic, Suite;
-                //                 Image = Archive;
-                //                 RunObject = Page "E3 Posted LIMS Revenue List";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Executes the Created Revenue Invoice action.';
-                //                 Caption = 'Created Revenue Invoice';
-                //             }
-                //         }
-                //         group("LIMS Revenue Cancel Entries")
-                //         {
-                //             Caption = 'Revenue Cancel Entries';
-                //             action("LIMS Revenue Cancel")
-                //             {
-                //                 AccessByPermission = TableData "E3 LIMS Revenue Header" = IMD;
-                //                 ApplicationArea = Basic, Suite;
-                //                 Image = Archive;
-                //                 RunObject = Page "E3 LIMS Revenue Cancel List";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Executes the Revenue Cancel action.';
-                //                 Caption = 'Create Revenue Cancel';
-                //             }
-                //             action("LIMS Created Revenue Cancel")
-                //             {
-                //                 AccessByPermission = TableData "E3 LIMS Revenue Header" = IMD;
-                //                 ApplicationArea = Basic, Suite;
-                //                 Image = Archive;
-                //                 RunObject = Page "E3 LIMS Posted Rev Can. List";
-                //                 RunPageMode = Create;
-                //                 ToolTip = 'Executes the Created Revenue Cancel action.';
-                //                 Caption = 'Created Revenue Cancel';
-                //             }
-                //         }
-                //     }
-                // }
+            }
+        }
+        addbefore(Action39)
+        {
+            group("E3 Indent Module")
+            {
+                Caption = 'Indent Module';
+                action("E3 Indent Entries")
+                {
+                    AccessByPermission = TableData "E3 Indent Header" = IMD;
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Create Indent Entries';
+                    Image = Archive;
+                    RunObject = Page "E3 Indent List";
+                    RunPageMode = Create;
+                    ToolTip = 'Executes the Create Indent Entries action.';
+                }
+                action("E3 Indenter Master")
+                {
+                    AccessByPermission = TableData "E3 Indenter Master" = IMD;
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Indenter Master';
+                    Image = Archive;
+                    RunObject = Page "E3 Indenter Master List";
+                    RunPageMode = Create;
+                    ToolTip = 'Executes the Create Indenter Entries action.';
+                }
             }
         }
     }
 }
+
 
 

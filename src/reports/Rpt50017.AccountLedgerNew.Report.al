@@ -1,6 +1,6 @@
 report 50017 "Account Ledger Report Excel"
 {
-    Caption = 'Ledger Account Statement';
+    Caption = 'Account Ledger Report';
     ProcessingOnly = true;
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
@@ -158,6 +158,7 @@ report 50017 "Account Ledger Report Excel"
         ExcelBuffer_gRecTmp.AddColumn('Credit Amount', false, '', true, false, true, '', ExcelBuffer_gRecTmp."Cell Type"::Text);
         ExcelBuffer_gRecTmp.AddColumn('External Document No.', false, '', true, false, true, '', ExcelBuffer_gRecTmp."Cell Type"::Text);
         ExcelBuffer_gRecTmp.AddColumn('Narration', false, '', true, false, true, '', ExcelBuffer_gRecTmp."Cell Type"::Text);
+        ExcelBuffer_gRecTmp.AddColumn('Voucher Narration', false, '', true, false, true, '', ExcelBuffer_gRecTmp."Cell Type"::Text);
         ExcelBuffer_gRecTmp.AddColumn('UTR No.', false, '', true, false, true, '', ExcelBuffer_gRecTmp."Cell Type"::Text);
         ExcelBuffer_gRecTmp.AddColumn('HIS Document Type', false, '', true, false, true, '', ExcelBuffer_gRecTmp."Cell Type"::Text);
         ExcelBuffer_gRecTmp.AddColumn('Unit Code', false, '', true, false, true, '', ExcelBuffer_gRecTmp."Cell Type"::Text);
@@ -214,7 +215,9 @@ report 50017 "Account Ledger Report Excel"
             ExcelBuffer_gRecTmp.AddColumn('', false, '', false, false, false, '', ExcelBuffer_gRecTmp."Cell Type"::Text);                                    //Credit Amount
         ExcelBuffer_gRecTmp.AddColumn("G/L Entry"."External Document No.", false, '', false, false, false, '', ExcelBuffer_gRecTmp."Cell Type"::Text);   //External Document No.  
 
-        ExcelBuffer_gRecTmp.AddColumn("G/L Entry"."E3 Narration", false, '', false, false, false, '', ExcelBuffer_gRecTmp."Cell Type"::Text); //Running Balance
+        ExcelBuffer_gRecTmp.AddColumn("G/L Entry"."E3 Narration", false, '', false, false, false, '', ExcelBuffer_gRecTmp."Cell Type"::Text); //Narration
+        "G/L Entry".CalcFields("E3 Voucher Narration");
+        ExcelBuffer_gRecTmp.AddColumn("G/L Entry"."E3 Voucher Narration", false, '', false, false, false, '', ExcelBuffer_gRecTmp."Cell Type"::Text); //Voucher Narration
         ExcelBuffer_gRecTmp.AddColumn("G/L Entry"."E3 UTR No.", false, '', false, false, false, '', ExcelBuffer_gRecTmp."Cell Type"::Text);           //Narration
         ExcelBuffer_gRecTmp.AddColumn("G/L Entry"."E3 HIS Document Type", false, '', false, false, false, '', ExcelBuffer_gRecTmp."Cell Type"::Text);       //Line Narration
         ExcelBuffer_gRecTmp.AddColumn("G/L Entry"."Global Dimension 1 Code", false, '', false, false, false, '', ExcelBuffer_gRecTmp."Cell Type"::Text);               //Type

@@ -1,20 +1,21 @@
-page 50167 "E3 Gate Entry Outward Header"
+page 50175 "E3 Posted Gate Ent Inward List"
 {
-    Caption = 'Gate Entry Outward Header';
-    PageType = Document;
-    DelayedInsert = true;
-    RefreshOnActivate = true;
-    SourceTable = "E3 Gate Entry Header";
-    SourceTableView = sorting("Entry No.") where("Entry Type" = Filter(Outward));
-
+    ApplicationArea = All;
+    Caption = 'Gate Entry Inward List';
+    PageType = List;
+    Editable = false;
+    CardPageId = "E3 Posted Gate Ent Inward Hdr";
+    InsertAllowed = false;
+    SourceTable = "E3 Posted Gate Entry Header";
+    SourceTableView = sorting("Posted Entry No.") where("Entry Type" = filter(Inward));
+    UsageCategory = Lists;
 
     layout
     {
         area(Content)
         {
-            group(General)
+            repeater(General)
             {
-                Caption = 'General';
                 field("Gate Pass Type"; Rec."Gate Pass Type")
                 {
                     ToolTip = 'Specifies the value of the Gate Pass Type field';
@@ -25,11 +26,15 @@ page 50167 "E3 Gate Entry Outward Header"
                     ToolTip = 'Specifies the value of the Entry Type field';
                     ApplicationArea = All;
                 }
+                field("Posted Entry No."; Rec."Posted Entry No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Posted Entry No. field';
+                }
                 field("Document No."; Rec."Document No.")
                 {
                     ToolTip = 'Specifies the value of the Document No. field';
                     ApplicationArea = All;
-                    Editable = false;
                 }
                 field("Purpose Code"; Rec."Purpose Code")
                 {
@@ -73,18 +78,6 @@ page 50167 "E3 Gate Entry Outward Header"
                 {
                     ToolTip = 'Specifies the value of the To Destination field';
                     ApplicationArea = All;
-                    Caption = 'Location Code';
-                }
-                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Shortcut Dimension 1 Code field';
-                }
-                field("Location Name"; Rec."Location Name")
-                {
-                    ToolTip = 'Specifies the value of the Location Name field';
-                    ApplicationArea = All;
-                    Caption = 'Location Name';
                 }
                 field("Vendor No."; Rec."Vendor No.")
                 {
@@ -124,13 +117,6 @@ page 50167 "E3 Gate Entry Outward Header"
                     ApplicationArea = All;
                 }
             }
-            part(HISPurchaseSubform; "E3 Gate Entry Outward Subform")
-            {
-                ApplicationArea = Basic, Suite;
-                UpdatePropagation = Both;
-                SubPageLink = "Document No." = FIELD("Document No.");
-                Caption = 'Gate Entry Outward Line';
-            }
         }
     }
 
@@ -138,63 +124,16 @@ page 50167 "E3 Gate Entry Outward Header"
     {
         area(Processing)
         {
-            action(Ship)
+            action(ActionName)
             {
-                Caption = 'Ship';
-                Image = Shipment;
-                ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ShortCutKey = 'F9';
 
                 trigger OnAction()
-                var
-                    GateTransfer: Codeunit "E3 Gate Entry Transfer";
-                    Inward: Boolean;
-                    PurchPaybleSetup: Record "Purchases & Payables Setup";
                 begin
-                    PurchPaybleSetup.Get();
-                    //  PurchPaybleSetup.TestField("Posted Gate Entry Inward No.");
-                    PurchPaybleSetup.TestField("Posted Gate Entry Outward No.");
-
-                    Inward := true;
-                    if Rec."Gate Pass Type" = Rec."Gate Pass Type"::"Non-Returnable" then begin
-                        Message('Inward cannot be created for Gate Pass Type Non-Returnable.');
-                        Inward := false;
-                        GateTransfer.PostOutwardGateEntry(Rec, Inward);
-                    end
-                    else
-                        GateTransfer.PostOutwardGateEntry(Rec, Inward);
 
                 end;
             }
         }
     }
 
-    trigger OnNewRecord(BelowxRec: Boolean)
-    var
-        PurchasesPayablesSetup: Record "Purchases & Payables Setup";
-        NoSeries: Codeunit "No. Series";
-        UserSetup: Record "User Setup";
-        ResponsibiltyCenter: Record "Responsibility Center";
-    begin
-        UserSetup.Reset();
-        UserSetup.SetRange("User ID", UserId());
-        If UserSetup.Find('-') then begin
-            ResponsibiltyCenter.Reset();
-            ResponsibiltyCenter.SetRange(Code, UserSetup."Purchase Resp. Ctr. Filter");
-            if ResponsibiltyCenter.Find('-') then;
-        end;
-        Rec."Entry Type" := Rec."Entry Type"::Outward;
-        PurchasesPayablesSetup.Get();
-        PurchasesPayablesSetup.TestField("Gate Entry Nos.");
-
-        Rec."No. Series" := PurchasesPayablesSetup."Gate Entry Nos.";
-        Rec."Document No." := NoSeries.GetNextNo(Rec."No. Series", WorkDate(), true);
-        Rec."Location Name" := ResponsibiltyCenter."Location Code";
-        rec."Department Code" := ResponsibiltyCenter."Global Dimension 2 Code";
-        Rec."Shortcut Dimension 1 Code" := ResponsibiltyCenter."Global Dimension 1 Code";
-    end;
 
 }

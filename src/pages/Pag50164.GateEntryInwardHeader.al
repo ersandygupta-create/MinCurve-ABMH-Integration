@@ -2,7 +2,7 @@ page 50164 "E3 Gate Entry Inward Header"
 {
     Caption = 'Gate Entry Inward Header';
     PageType = Document;
-    DelayedInsert = true;
+    DelayedInsert = false;
     RefreshOnActivate = true;
     SourceTable = "E3 Gate Entry Header";
     SourceTableView = sorting("Entry No.") where("Entry Type" = Filter(Inward));
@@ -29,45 +29,78 @@ page 50164 "E3 Gate Entry Inward Header"
                 {
                     ToolTip = 'Specifies the value of the Document No. field';
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Purpose Code"; Rec."Purpose Code")
                 {
                     ToolTip = 'Specifies the value of the Purpose Code field';
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Vehicle No."; Rec."Vehicle No.")
                 {
                     ToolTip = 'Specifies the value of the Vehicle No. field';
                     ApplicationArea = All;
                 }
-                field("Posting Date/Time"; Rec."Posting Date/Time")
+                field("Posting Date"; Rec."Posting Date")
                 {
-                    ToolTip = 'Specifies the value of the Posting Date/Time field';
+                    ToolTip = 'Specifies the value of the Posting Date field';
+                    ApplicationArea = All;
+                }
+                field("From Department Code"; Rec."From Department Code")
+                {
+                    ToolTip = 'Specifies the value of the Department Code field';
+                    ApplicationArea = All;
+                    Caption = 'From Department Code';
+                }
+                field("From Department Name"; Rec."From Department Name")
+                {
+                    ToolTip = 'Specifies the value of the To Department Code field';
                     ApplicationArea = All;
                 }
                 field("Department Code"; Rec."Department Code")
                 {
                     ToolTip = 'Specifies the value of the Department Code field';
                     ApplicationArea = All;
+                    Caption = 'To Department Code';
+                }
+                field("To Department Name"; Rec."To Department Name")
+                {
+                    ToolTip = 'Specifies the value of the To Department Code field';
+                    ApplicationArea = All;
                 }
                 field("To Destination"; Rec."To Destination")
                 {
                     ToolTip = 'Specifies the value of the To Destination field';
                     ApplicationArea = All;
+                    Caption = 'Location Code';
+                }
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 1 Code field';
+                }
+                field("Location Name"; Rec."Location Name")
+                {
+                    ToolTip = 'Specifies the value of the Location Name field';
+                    ApplicationArea = All;
+                    Caption = 'Location Name';
                 }
                 field("Vendor No."; Rec."Vendor No.")
                 {
                     ToolTip = 'Specifies the value of the Vendor No. field';
                     ApplicationArea = All;
+                    Caption = 'Party Code';
                 }
                 field("Vendor Name"; Rec."Vendor Name")
                 {
                     ToolTip = 'Specifies the value of the Vendor Name field';
                     ApplicationArea = All;
+                    Caption = 'Party Name';
                 }
-                field("Employee Code"; Rec."Employee Code")
+                field(Person; Rec.Person)
                 {
-                    ToolTip = 'Specifies the value of the Employee Code field';
+                    ToolTip = 'Specifies the value of the Person field';
                     ApplicationArea = All;
                 }
                 field(Status; Rec.Status)
@@ -100,6 +133,35 @@ page 50164 "E3 Gate Entry Inward Header"
             }
         }
     }
+    actions
+    {
+        area(processing)
+        {
+            group("P&osting")
+            {
+                Caption = 'P&osting';
+                Image = Post;
+                action("Po&st")
+                {
+                    Caption = 'Po&st';
+                    Image = Post;
+                    Promoted = true;
+                    ApplicationArea = All;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    RunObject = Codeunit 50004;
+                    ShortCutKey = 'F9';
+                }
+            }
+        }
+    }
+    trigger OnNewRecord(BelowxRec: Boolean)
+    var
+        PurchasesPayablesSetup: Record "Purchases & Payables Setup";
+        NoSeries: Codeunit "No. Series";
+    begin
+        Rec."Entry Type" := Rec."Entry Type"::Inward;
 
+    end;
 
 }
