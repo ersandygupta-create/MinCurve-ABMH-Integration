@@ -135,57 +135,6 @@ table 50037 "E3 Indent Line"
             Caption = 'Requested Received Date';
             DataClassification = CustomerContent;
         }
-        field(12; "First Price"; Decimal)
-        {
-            DataClassification = CustomerContent;
-        }
-        field(13; "Second Price"; Decimal)
-        {
-            DataClassification = CustomerContent;
-        }
-        field(14; "Third Price"; Decimal)
-        {
-            DataClassification = CustomerContent;
-        }
-        field(15; "First Amount"; Decimal)
-        {
-            DataClassification = CustomerContent;
-        }
-        field(16; "Second Amount"; Decimal)
-        {
-            DataClassification = CustomerContent;
-        }
-        field(17; "Third Amount"; Decimal)
-        {
-            DataClassification = CustomerContent;
-        }
-        field(18; "First Vendor No."; Code[20])
-        {
-            TableRelation = Vendor;
-            DataClassification = CustomerContent;
-        }
-        field(19; "Second Vendor No."; Code[20])
-        {
-            TableRelation = Vendor;
-            DataClassification = CustomerContent;
-        }
-        field(20; "Third Vendor No."; Code[20])
-        {
-            TableRelation = Vendor;
-            DataClassification = CustomerContent;
-        }
-        field(21; "Quotation No."; Option)
-        {
-            OptionMembers = "Quote 1","Quote 2","Quote 3";
-        }
-        field(22; "Price Quoted"; Decimal)
-        {
-            DataClassification = CustomerContent;
-        }
-        field(23; "Finalized"; Boolean)
-        {
-            DataClassification = CustomerContent;
-        }
         field(24; "Entry No."; Code[50])
         {
             Caption = 'Entry No.';

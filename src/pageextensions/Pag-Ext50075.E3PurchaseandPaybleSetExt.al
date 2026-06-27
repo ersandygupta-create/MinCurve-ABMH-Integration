@@ -31,6 +31,34 @@ pageextension 50075 "E3 Purchase & Payable Ext" extends "Purchases & Payables Se
                 Caption = 'Enable Advance Settlement';
                 ToolTip = 'Enable or Disable Advance Settlement functionality';
             }
+            field("Gate Entry Nos."; Rec."Gate Entry Nos.")
+            {
+                ApplicationArea = All;
+            }
+            field("E3 Order Address Number"; Rec."E3 Order Address Number")
+            {
+                ApplicationArea = All;
+                Visible = false;
+            }
+            field("Gate Entry Receipt Series"; Rec."Gate Entry Receipt Series")
+            {
+                ApplicationArea = All;
+            }
+            field("Posted Gate Entry Inward No."; Rec."Posted Gate Entry Inward No.")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Posted Inward Gate Entry number Sequence';
+            }
+            field("Posted Gate Entry Outward No."; rec."Posted Gate Entry Outward No.")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Posted Outward Gate Entry number Sequence';
+            }
+            field("Indent Nos."; Rec."Indent Nos.")
+            {
+                ApplicationArea = All;
+            }
+
         }
 
     }
