@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>3f4ea256-d5a3-4990-ba55-8a1ff8b60068</rd:ReportID>
   <am:AuthoringMetadata>
     <am:CreatedBy>
       <am:Name>MSRB</am:Name>
@@ -7,18 +9,18 @@
     </am:CreatedBy>
     <am:UpdatedBy>
       <am:Name>MSRB</am:Name>
-      <am:Version>15.0.20283.0</am:Version>
+      <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-06-06T12:12:06.0182058Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-06-29T09:05:03.1196112Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
+      <rd:SecurityType>None</rd:SecurityType>
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
         <ConnectString />
       </ConnectionProperties>
-      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>db441639-ae45-42f8-8756-7cbd145a80d4</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -186,7 +188,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                               <TablixBody>
                                 <TablixColumns>
                                   <TablixColumn>
-                                    <Width>0.74054in</Width>
+                                    <Width>0.53962in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
                                     <Width>0.5059in</Width>
@@ -195,19 +197,22 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                     <Width>1.05391in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>1.28695in</Width>
+                                    <Width>1.17584in</Width>
+                                  </TablixColumn>
+                                  <TablixColumn>
+                                    <Width>0.68056in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
                                     <Width>0.75991in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.70647in</Width>
+                                    <Width>0.60744in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.65361in</Width>
+                                    <Width>0.48828in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.83277in</Width>
+                                    <Width>0.7286in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
                                     <Width>0.8623in</Width>
@@ -220,6 +225,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox54">
+                                            <rd:DefaultName>Textbox54</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -240,15 +246,15 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox54</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Bottom</VerticalAlign>
                                               <PaddingRight>5pt</PaddingRight>
                                             </Style>
                                           </Textbox>
-                                          <ColSpan>9</ColSpan>
+                                          <ColSpan>10</ColSpan>
                                         </CellContents>
                                       </TablixCell>
+                                      <TablixCell />
                                       <TablixCell />
                                       <TablixCell />
                                       <TablixCell />
@@ -302,7 +308,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Parameters!DocType_VendLedgEntry1Caption.Value</Value>
+                                                    <Value>Type</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -360,6 +366,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox2">
+                                            <rd:DefaultName>Textbox2</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -380,7 +387,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox2</rd:DefaultName>
                                             <ZIndex>42</ZIndex>
                                             <Style>
                                               <Border>
@@ -395,7 +401,39 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       </TablixCell>
                                       <TablixCell>
                                         <CellContents>
+                                          <Textbox Name="textbox99">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>Invoice Date</Value>
+                                                    <Style>
+                                                      <FontStyle>Normal</FontStyle>
+                                                      <FontFamily>Segoe UI</FontFamily>
+                                                      <FontSize>8pt</FontSize>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <ZIndex>32</ZIndex>
+                                            <Style>
+                                              <VerticalAlign>Bottom</VerticalAlign>
+                                              <PaddingRight>5pt</PaddingRight>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
                                           <Textbox Name="Textbox14">
+                                            <rd:DefaultName>Textbox14</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -416,7 +454,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox14</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Bottom</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -428,6 +465,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox1">
+                                            <rd:DefaultName>Textbox1</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -448,7 +486,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox1</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Bottom</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -460,6 +497,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox6">
+                                            <rd:DefaultName>Textbox6</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -480,7 +518,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox6</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Bottom</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -492,6 +529,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox30">
+                                            <rd:DefaultName>Textbox30</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -512,7 +550,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox30</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Bottom</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -561,6 +598,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox141">
+                                            <rd:DefaultName>Textbox141</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -580,7 +618,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox141</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -597,6 +634,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox142">
+                                            <rd:DefaultName>Textbox142</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -616,7 +654,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox142</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -634,6 +671,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox143">
+                                            <rd:DefaultName>Textbox143</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -653,7 +691,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox143</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -671,6 +708,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox145">
+                                            <rd:DefaultName>Textbox145</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -688,7 +726,41 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox145</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <BottomBorder>
+                                                <Style>Solid</Style>
+                                              </BottomBorder>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>5pt</PaddingLeft>
+                                              <PaddingRight>5pt</PaddingRight>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox25">
+                                            <rd:DefaultName>Textbox25</rd:DefaultName>
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value />
+                                                    <Style>
+                                                      <FontStyle>Normal</FontStyle>
+                                                      <FontFamily>Segoe UI</FontFamily>
+                                                      <FontSize>8pt</FontSize>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style />
+                                              </Paragraph>
+                                            </Paragraphs>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -706,6 +778,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox15">
+                                            <rd:DefaultName>Textbox15</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -725,7 +798,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox15</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -743,6 +815,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox3">
+                                            <rd:DefaultName>Textbox3</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -762,7 +835,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox3</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -780,6 +852,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox7">
+                                            <rd:DefaultName>Textbox7</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -799,7 +872,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox7</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -817,6 +889,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox33">
+                                            <rd:DefaultName>Textbox33</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -836,7 +909,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox33</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -854,6 +926,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox146">
+                                            <rd:DefaultName>Textbox146</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -873,7 +946,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox146</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -896,6 +968,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox133">
+                                            <rd:DefaultName>Textbox133</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -915,7 +988,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox133</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingRight>5pt</PaddingRight>
@@ -926,6 +998,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox134">
+                                            <rd:DefaultName>Textbox134</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -945,7 +1018,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox134</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -957,6 +1029,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox135">
+                                            <rd:DefaultName>Textbox135</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -976,7 +1049,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox135</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -988,6 +1060,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox137">
+                                            <rd:DefaultName>Textbox137</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1005,7 +1078,35 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox137</rd:DefaultName>
+                                            <Style>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>5pt</PaddingLeft>
+                                              <PaddingRight>5pt</PaddingRight>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox32">
+                                            <rd:DefaultName>Textbox32</rd:DefaultName>
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value />
+                                                    <Style>
+                                                      <FontStyle>Normal</FontStyle>
+                                                      <FontFamily>Segoe UI</FontFamily>
+                                                      <FontSize>8pt</FontSize>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style />
+                                              </Paragraph>
+                                            </Paragraphs>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1017,6 +1118,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox16">
+                                            <rd:DefaultName>Textbox16</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1036,7 +1138,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox16</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1048,6 +1149,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox4">
+                                            <rd:DefaultName>Textbox4</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1067,7 +1169,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox4</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1079,6 +1180,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox9">
+                                            <rd:DefaultName>Textbox9</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1098,7 +1200,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox9</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1110,6 +1211,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox34">
+                                            <rd:DefaultName>Textbox34</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1129,7 +1231,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox34</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1141,6 +1242,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox138">
+                                            <rd:DefaultName>Textbox138</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1160,7 +1262,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox138</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1176,19 +1277,19 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
-                                          <Textbox Name="textbox11">
+                                          <Textbox Name="DocDate_VendLedgEntry">
+                                            <rd:DefaultName>DocDate_VendLedgEntry</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!PostingDate_VendLedgEntry1.Value</Value>
+                                                    <Value>=Fields!DocDate_VendLedgEntry.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
-                                                      <Format>d</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -1197,7 +1298,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <ZIndex>7</ZIndex>
                                             <Style>
                                               <VerticalAlign>Top</VerticalAlign>
                                               <PaddingRight>5pt</PaddingRight>
@@ -1297,7 +1397,39 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       </TablixCell>
                                       <TablixCell>
                                         <CellContents>
+                                          <Textbox Name="textbox11">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>=Fields!PostingDate_VendLedgEntry1.Value</Value>
+                                                    <Style>
+                                                      <FontStyle>Normal</FontStyle>
+                                                      <FontFamily>Segoe UI</FontFamily>
+                                                      <FontSize>8pt</FontSize>
+                                                      <Format>d</Format>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <ZIndex>7</ZIndex>
+                                            <Style>
+                                              <VerticalAlign>Top</VerticalAlign>
+                                              <PaddingRight>5pt</PaddingRight>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
                                           <Textbox Name="Textbox17">
+                                            <rd:DefaultName>Textbox17</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1318,7 +1450,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox17</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -1333,6 +1464,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="decInvGSTAmount">
+                                            <rd:DefaultName>decInvGSTAmount</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1353,7 +1485,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>decInvGSTAmount</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Top</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1365,6 +1496,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="InvTDSAmt">
+                                            <rd:DefaultName>InvTDSAmt</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1385,7 +1517,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>InvTDSAmt</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Top</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1397,6 +1528,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="OriginalAmtLCY">
+                                            <rd:DefaultName>OriginalAmtLCY</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1417,7 +1549,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>OriginalAmtLCY</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Top</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1467,6 +1598,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                               </TablixBody>
                               <TablixColumnHierarchy>
                                 <TablixMembers>
+                                  <TablixMember />
                                   <TablixMember />
                                   <TablixMember />
                                   <TablixMember />
@@ -1563,6 +1695,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="textbox43">
+                                            <rd:DefaultName>textbox43</rd:DefaultName>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
@@ -1575,7 +1708,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>textbox43</rd:DefaultName>
                                             <ZIndex>15</ZIndex>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
@@ -1587,6 +1719,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="textbox44">
+                                            <rd:DefaultName>textbox44</rd:DefaultName>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
@@ -1599,7 +1732,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>textbox44</rd:DefaultName>
                                             <ZIndex>14</ZIndex>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
@@ -1612,6 +1744,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="textbox45">
+                                            <rd:DefaultName>textbox45</rd:DefaultName>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
@@ -1624,7 +1757,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>textbox45</rd:DefaultName>
                                             <ZIndex>13</ZIndex>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
@@ -1637,6 +1769,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox10">
+                                            <rd:DefaultName>Textbox10</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1650,7 +1783,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox10</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1662,6 +1794,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox18">
+                                            <rd:DefaultName>Textbox18</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1675,7 +1808,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox18</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1687,6 +1819,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox40">
+                                            <rd:DefaultName>Textbox40</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1700,7 +1833,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox40</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1712,6 +1844,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox41">
+                                            <rd:DefaultName>Textbox41</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1725,7 +1858,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox41</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1737,6 +1869,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox42">
+                                            <rd:DefaultName>Textbox42</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1750,7 +1883,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox42</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1762,6 +1894,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="textbox48">
+                                            <rd:DefaultName>textbox48</rd:DefaultName>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
@@ -1774,7 +1907,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 <Style />
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>textbox48</rd:DefaultName>
                                             <ZIndex>10</ZIndex>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
@@ -1792,6 +1924,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox26">
+                                            <rd:DefaultName>Textbox26</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1811,7 +1944,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox26</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingRight>5pt</PaddingRight>
@@ -1822,6 +1954,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox27">
+                                            <rd:DefaultName>Textbox27</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1841,7 +1974,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox27</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1853,6 +1985,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox28">
+                                            <rd:DefaultName>Textbox28</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1872,7 +2005,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox28</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1884,6 +2016,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox31">
+                                            <rd:DefaultName>Textbox31</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1903,7 +2036,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox31</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Top</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1915,6 +2047,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox35">
+                                            <rd:DefaultName>Textbox35</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1934,7 +2067,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox35</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -1949,6 +2081,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox36">
+                                            <rd:DefaultName>Textbox36</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1968,7 +2101,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox36</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -1980,6 +2112,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox37">
+                                            <rd:DefaultName>Textbox37</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -1999,7 +2132,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox37</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -2011,6 +2143,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox38">
+                                            <rd:DefaultName>Textbox38</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -2030,7 +2163,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox38</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -2042,6 +2174,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox39">
+                                            <rd:DefaultName>Textbox39</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -2061,7 +2194,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox39</rd:DefaultName>
                                             <Style>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>5pt</PaddingLeft>
@@ -2388,6 +2520,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="textbox63">
+                                            <rd:DefaultName>textbox63</rd:DefaultName>
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -2408,7 +2541,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>textbox63</rd:DefaultName>
                                             <ZIndex>3</ZIndex>
                                             <Style>
                                               <VerticalAlign>Bottom</VerticalAlign>
@@ -2537,6 +2669,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                               <Style />
                             </Tablix>
                             <Textbox Name="Textbox29">
+                              <rd:DefaultName>Textbox28</rd:DefaultName>
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
@@ -2593,7 +2726,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox28</rd:DefaultName>
                               <Top>1.92939in</Top>
                               <Left>0.03477in</Left>
                               <Height>0.71739in</Height>
@@ -2754,9 +2886,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>3.51266cm</Top>
-              <Left>2.28161cm</Left>
+              <Left>1.13577cm</Left>
               <Height>13.7pt</Height>
-              <Width>10.19731cm</Width>
+              <Width>11.34315cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <VerticalAlign>Top</VerticalAlign>
@@ -2783,7 +2915,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="EMail : " &amp; " " &amp; First(Fields!VenEmail.Value, "DataSet_Result")</Value>
+                      <Value>="E-Mail : " &amp; " " &amp; First(Fields!VenEmail.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Segoe UI</FontFamily>
@@ -2829,9 +2961,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>4.06652cm</Top>
-              <Left>2.28161cm</Left>
+              <Left>1.13577cm</Left>
               <Height>45.70214pt</Height>
-              <Width>10.19731cm</Width>
+              <Width>11.34315cm</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <VerticalAlign>Top</VerticalAlign>
@@ -2897,6 +3029,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox13">
+              <rd:DefaultName>Textbox13</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -2914,7 +3047,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox13</rd:DefaultName>
               <Left>5.25163in</Left>
               <Height>0.16667in</Height>
               <Width>2.1615in</Width>
@@ -2930,6 +3062,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox57">
+              <rd:DefaultName>Textbox8</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -2948,7 +3081,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox8</rd:DefaultName>
               <Top>0.18132in</Top>
               <Height>0.24791in</Height>
               <Width>7.41313in</Width>
@@ -3079,6 +3211,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox11">
+              <rd:DefaultName>Textbox8</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3094,15 +3227,14 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Right</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox8</rd:DefaultName>
-              <Top>1.37195in</Top>
+              <Top>1.35945in</Top>
               <Left>0.01077in</Left>
-              <Height>0.2in</Height>
-              <Width>0.86694in</Width>
+              <Height>0.2125in</Height>
+              <Width>0.43638in</Width>
               <ZIndex>12</ZIndex>
               <Style>
                 <Border>
@@ -3116,6 +3248,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox19">
+              <rd:DefaultName>Textbox8</rd:DefaultName>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
@@ -3145,11 +3278,10 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox8</rd:DefaultName>
               <Top>2.23574in</Top>
-              <Left>0.19158in</Left>
+              <Left>0in</Left>
               <Height>0.20739in</Height>
-              <Width>1.14125in</Width>
+              <Width>1.33283in</Width>
               <ZIndex>13</ZIndex>
               <Style>
                 <Border>
@@ -3163,6 +3295,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox21">
+              <rd:DefaultName>Textbox20</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3179,11 +3312,10 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox20</rd:DefaultName>
               <Top>2.44313in</Top>
-              <Left>0.19158in</Left>
+              <Left>0in</Left>
               <Height>0.22951in</Height>
-              <Width>6.95719in</Width>
+              <Width>7.14877in</Width>
               <ZIndex>14</ZIndex>
               <Style>
                 <Border>
@@ -3196,6 +3328,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox94">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3213,7 +3346,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>6.9014cm</Top>
               <Left>0.02736cm</Left>
               <Height>0.5cm</Height>
@@ -3250,6 +3382,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox95">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3267,7 +3400,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>6.9014cm</Top>
               <Left>2.61858cm</Left>
               <Height>0.5cm</Height>
@@ -3304,6 +3436,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox96">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3321,7 +3454,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>6.89435cm</Top>
               <Left>5.90125cm</Left>
               <Height>0.5cm</Height>
@@ -3358,6 +3490,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox97">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3377,7 +3510,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>6.89435cm</Top>
               <Left>11.25667cm</Left>
               <Height>0.5cm</Height>
@@ -3414,6 +3546,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox98">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3433,7 +3566,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>6.9014cm</Top>
               <Left>13.56928cm</Left>
               <Height>0.5cm</Height>
@@ -3470,6 +3602,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox99">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3489,7 +3622,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>6.9014cm</Top>
               <Left>16.21695cm</Left>
               <Height>0.5cm</Height>
@@ -3526,6 +3658,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox100">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3534,7 +3667,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                     <TextRun>
                       <Value>=Code.GetData(40,1)</Value>
                       <Style>
-                        <FontFamily>Segoe UI</FontFamily>
+                        <FontFamily>Calibri</FontFamily>
                         <FontSize>8pt</FontSize>
                       </Style>
                     </TextRun>
@@ -3542,7 +3675,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>7.39435cm</Top>
               <Height>0.93862cm</Height>
               <Width>2.61239cm</Width>
@@ -3578,6 +3710,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox101">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3628,7 +3761,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>7.39787cm</Top>
               <Left>2.61858cm</Left>
               <Height>0.9351cm</Height>
@@ -3665,6 +3797,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox102">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3673,20 +3806,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                     <TextRun>
                       <Value>=Code.GetData(43,1)</Value>
                       <Style>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <Format>dd MMM yyyy</Format>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Code.GetData(44,1)</Value>
-                      <Style>
-                        <FontFamily>Segoe UI</FontFamily>
+                        <FontFamily>Calibri</FontFamily>
                         <FontSize>8pt</FontSize>
                         <Format>dd MMM yyyy</Format>
                       </Style>
@@ -3695,7 +3815,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>7.39435cm</Top>
               <Left>5.90125cm</Left>
               <Height>0.93862cm</Height>
@@ -3732,6 +3851,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox103">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3751,7 +3871,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>7.4014cm</Top>
               <Left>11.25667cm</Left>
               <Height>0.93157cm</Height>
@@ -3761,26 +3880,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 <Border>
                   <Style>Solid</Style>
                 </Border>
-                <TopBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </TopBorder>
-                <BottomBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </BottomBorder>
-                <LeftBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </LeftBorder>
-                <RightBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </RightBorder>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -3788,6 +3887,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox104">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3807,7 +3907,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>7.40845cm</Top>
               <Left>13.56928cm</Left>
               <Height>0.92452cm</Height>
@@ -3817,26 +3916,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 <Border>
                   <Style>Solid</Style>
                 </Border>
-                <TopBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </TopBorder>
-                <BottomBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </BottomBorder>
-                <LeftBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </LeftBorder>
-                <RightBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </RightBorder>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -3844,6 +3923,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox105">
+              <rd:DefaultName>Textbox94</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3863,7 +3943,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox94</rd:DefaultName>
               <Top>7.40845cm</Top>
               <Left>16.21695cm</Left>
               <Height>0.92452cm</Height>
@@ -3884,7 +3963,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               <Value>=First(Fields!CompanyPicture.Value, "DataSet_Result")</Value>
               <MIMEType>image/jpeg</MIMEType>
               <Sizing>FitProportional</Sizing>
-              <Top>0.46055cm</Top>
+              <Top>0.56639cm</Top>
               <Left>0.02736cm</Left>
               <Height>1.79299cm</Height>
               <Width>4.40667cm</Width>
@@ -3896,6 +3975,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Image>
             <Textbox Name="Textbox5">
+              <rd:DefaultName>Textbox5</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3921,7 +4001,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox5</rd:DefaultName>
               <Top>1.74379in</Top>
               <Left>4.91296in</Left>
               <Height>0.23761in</Height>
@@ -3938,6 +4017,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox8">
+              <rd:DefaultName>Textbox8</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -3963,7 +4043,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox8</rd:DefaultName>
               <Top>1.9814in</Top>
               <Left>4.91296in</Left>
               <Height>0.19879in</Height>
@@ -3980,6 +4059,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               </Style>
             </Textbox>
             <Textbox Name="Textbox22">
+              <rd:DefaultName>Textbox22</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -4005,7 +4085,6 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox22</rd:DefaultName>
               <Top>2.18018in</Top>
               <Left>4.91296in</Left>
               <Height>0.26295in</Height>
@@ -4226,8 +4305,6 @@ Public Function SetData(NewData as Object,Group as integer)
 End Function</Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>3f4ea256-d5a3-4990-ba55-8a1ff8b60068</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
@@ -4273,14 +4350,14 @@ End Function</Code>
         <Field Name="VendNo_VendLedgEntry">
           <DataField>VendNo_VendLedgEntry</DataField>
         </Field>
+        <Field Name="DocDate_VendLedgEntry">
+          <DataField>DocDate_VendLedgEntry</DataField>
+        </Field>
         <Field Name="VenBankAccountNo">
           <DataField>VenBankAccountNo</DataField>
         </Field>
         <Field Name="VenIFSCCode">
           <DataField>VenIFSCCode</DataField>
-        </Field>
-        <Field Name="DocDate_VendLedgEntry">
-          <DataField>DocDate_VendLedgEntry</DataField>
         </Field>
         <Field Name="LocationName">
           <DataField>LocationName</DataField>

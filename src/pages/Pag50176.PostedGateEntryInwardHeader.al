@@ -13,7 +13,7 @@ page 50176 "E3 Posted Gate Ent Inward Hdr"
     {
         area(Content)
         {
-            repeater(General)
+            group(General)
             {
                 Caption = 'General';
                 field("Gate Pass Type"; Rec."Gate Pass Type")
