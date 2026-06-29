@@ -53,6 +53,15 @@ pageextension 50000 "E3 HIS Vendor Card" extends "Vendor Card"
             }
 
         }
+        addafter("E-Mail")
+        {
+            field("Payment Advice E-mail"; Rec."Payment Advice E-mail")
+            {
+                ApplicationArea = All;
+                Caption = 'Cc Payment Advice Email';
+                ToolTip = 'Specifies the value of the Payment Advice E-mail field';
+            }
+        }
     }
 
     actions

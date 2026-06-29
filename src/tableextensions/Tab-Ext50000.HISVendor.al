@@ -74,6 +74,17 @@ tableextension 50000 "E3 HIS Vendor Ext" extends Vendor
             Caption = 'Bank Integration Enabled';
             DataClassification = CustomerContent;
         }
+        field(50054; "Payment Advice E-mail"; Text[250])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Payment Advice Email';
+            ExtendedDatatype = EMail;
+
+            trigger OnValidate()
+            begin
+                ValidateEmail();
+            end;
+        }
 
         modify("Date Filter")
         {
@@ -99,4 +110,25 @@ tableextension 50000 "E3 HIS Vendor Ext" extends Vendor
     //     if "E3 Sync Record Exists" then
     //         Error('Record synchronized to HIS, rename is not allowed');
     // end;
+    local procedure ValidateEmail()
+    var
+        MailManagement: Codeunit "Mail Management";
+        IsHandled: Boolean;
+    begin
+        IsHandled := false;
+        OnBeforeValidateEmail(Rec, IsHandled, xRec);
+        if IsHandled then
+            exit;
+
+        if "E-Mail" = '' then
+            exit;
+        MailManagement.CheckValidEmailAddresses("E-Mail");
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeValidateEmail(var Vendor: Record Vendor; var IsHandled: Boolean; xVendor: Record Vendor)
+    begin
+    end;
+
+
 }

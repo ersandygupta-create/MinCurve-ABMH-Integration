@@ -5,13 +5,6 @@ codeunit 50002 "E3 HIS Auto E-Mail"
     trigger OnRun()
     begin
         for i := 1 to 3 do begin
-            // Vendor.Reset();
-            // Vendor.SetRange("E3 Auto E-Mail", true);
-            // Vendor.SETFILTER("E-Mail", '<>%1', '');
-            // if Vendor.FindSet() then
-            //     repeat
-            // IF Vendor.FindFirst() THEN
-            // repeat
             VendorLedgerEntry1.Reset();
             // VendorLedgerEntry1.SetRange("Vendor No.", Vendor."No.");
             VendorLedgerEntry1.SETRANGE("E3 Send E-Mail", FALSE);
@@ -36,26 +29,15 @@ codeunit 50002 "E3 HIS Auto E-Mail"
 
     procedure SendMailforVendorLedgerEntryPaymentAdviceJob(VendLedgerEntry: Record "Vendor Ledger Entry")
     begin
-        // VendLedgerEntry.SETRANGE("E3 Send E-Mail", FALSE);
-        // VendLedgerEntry.SetRange("E3 Select E-Mail", true);
-        // VendLedgerEntry.SetRange("Journal Entry", false);
-        // //VendLedgerEntry.SetFilter("Document Type", '%1|%2', VendLedgerEntry."Document Type"::Payment, VendLedgerEntry."Document Type"::" ");
-        // VendorLedgerEntry1.SetFilter("Source Code", 'BANKPYMTV');
-        // VendLedgerEntry.CalcFields("Remaining Amt. (LCY)");
-        // VendLedgerEntry.SetFilter("Remaining Amt. (LCY)", '%1', 0);
-        // IF VendLedgerEntry.FindFirst() then begin
-        //     repeat
         EMailSetup.Get();
         VendorLedgerEntry1.Reset();
         VendorLedgerEntry1.SetRange("Document Type", VendLedgerEntry."Document Type");
-        //  VendorLedgerEntry1.SetRange("Document No.", VendLedgerEntry."Document No.");
-        // VendorLedgerEntry1.SetRange("Vendor No.", VendLedgerEntry."Vendor No.");
         VendorLedgerEntry1.SetRange("Entry No.", VendLedgerEntry."Entry No.");
         IF VendorLedgerEntry1.FindFirst() then begin
             EMailSetup.Get();
             DocumentNo := DELCHR(VendorLedgerEntry1."Document No.", '=', '\,/,-');
-            Postingdate := FORMAT(VendorLedgerEntry1."Posting Date");
-            FileNameVar1 := EMailSetup."Folder Path" + DocumentNo + Postingdate;
+            Postingdate := UpperCase(Format(VendorLedgerEntry1."Posting Date", 0, '<Day,2>-<Month Text,3>-<Year,2>'));
+            FileNameVar1 := EMailSetup."Folder Path" + DocumentNo + '-' + Postingdate;
             Vendor.Get(VendorLedgerEntry1."Vendor No.");
             IF Vendor."E-Mail" <> '' then begin
                 RecRef.GetTable(VendorLedgerEntry1);
@@ -66,10 +48,23 @@ codeunit 50002 "E3 HIS Auto E-Mail"
                 Subject := 'Payment Advice' + ' - ' + VendorLedgerEntry1."Document No." + ' [' + VendorLedgerEntry1."Vendor No." + ' - ' + VendorLedgerEntry1."Vendor Name" + '] ';
                 EmailMessage.Create(Vendor."E-Mail", Subject, EMailSetup."E-Mail Body");
 
-                //IF EMailSetup."CC E-Mail ID" <> '' THEN begin
-                //  Evaluate(AddCC, EMailSetup."CC E-Mail ID");
-                // EmailMessage.GetRecipients(Enum::"Email Recipient Type"::Cc, Addcc);
-                //end;
+                Clear(Addcc);
+
+                EmailMessage.Create(
+                    Vendor."E-Mail",
+                    Subject,
+                    EMailSetup."E-Mail Body",
+                    false);
+
+                // Add CC from Vendor Card - Payment Advice E-Mail
+                if Vendor."Payment Advice E-mail" <> '' then
+                    foreach CCMail in Vendor."Payment Advice E-mail".Split(';') do begin
+                        CCMail := DelChr(CCMail, '<>', ' ');
+                        if CCMail <> '' then
+                            EmailMessage.AddRecipient(
+                                Enum::"Email Recipient Type"::Cc,
+                                CCMail);
+                    end;
                 EmailMessage.AddAttachment(FileNameVar1 + '.pdf', 'PDF', InStr);
                 Email.Send(EmailMessage, Enum::"Email Scenario"::"Hospital E-Mail");
                 VendLedgerEntry."E3 Send E-Mail" := true;
@@ -105,8 +100,8 @@ codeunit 50002 "E3 HIS Auto E-Mail"
                 IF VendorLedgerEntry1.FindFirst() then begin
                     EMailSetup.Get();
                     DocumentNo := DELCHR(VendorLedgerEntry1."Document No.", '=', '\,/,-');
-                    Postingdate := FORMAT(VendorLedgerEntry1."Posting Date");
-                    FileNameVar1 := EMailSetup."Folder Path" + DocumentNo + Postingdate;
+                    Postingdate := UpperCase(Format(VendorLedgerEntry1."Posting Date", 0, '<Day,2>-<Month Text,3>-<Year,2>'));
+                    FileNameVar1 := EMailSetup."Folder Path" + DocumentNo + '-' + Postingdate;
                     Vendor.Get(VendorLedgerEntry1."Vendor No.");
                     IF Vendor."E-Mail" <> '' then begin
                         RecRef.GetTable(VendorLedgerEntry1);
@@ -117,10 +112,14 @@ codeunit 50002 "E3 HIS Auto E-Mail"
                         Subject := 'Payment Advice' + ' - ' + VendorLedgerEntry1."Document No." + ' [' + VendorLedgerEntry1."Vendor No." + ' - ' + VendorLedgerEntry1."Vendor Name" + '] ';
                         EmailMessage.Create(Vendor."E-Mail", Subject, EMailSetup."E-Mail Body");
 
-                        //IF EMailSetup."CC E-Mail ID" <> '' THEN begin
-                        //  Evaluate(AddCC, EMailSetup."CC E-Mail ID");
-                        // EmailMessage.GetRecipients(Enum::"Email Recipient Type"::Cc, Addcc);
-                        //end;
+                        if Vendor."Payment Advice E-mail" <> '' then
+                            foreach CCMail in Vendor."Payment Advice E-mail".Split(';') do begin
+                                CCMail := DelChr(CCMail, '<>', ' ');
+                                if CCMail <> '' then
+                                    EmailMessage.AddRecipient(
+                                        Enum::"Email Recipient Type"::Cc,
+                                        CCMail);
+                            end;
                         EmailMessage.AddAttachment(FileNameVar1 + '.pdf', 'PDF', InStr);
                         Email.Send(EmailMessage, Enum::"Email Scenario"::"Hospital E-Mail");
                         VendLedgerEntry."E3 Send E-Mail" := true;
@@ -142,7 +141,7 @@ codeunit 50002 "E3 HIS Auto E-Mail"
         VendorLedgerEntry1: Record "Vendor Ledger Entry";
         FileNameVar1: Text[500];
         DocumentNo: Text[20];
-        Postingdate: Text[50];
+        Postingdate: Text;
         EmailAccount: Record "Email Account";
         Subject: Text[1000];
         Email: Codeunit Email;
@@ -161,6 +160,7 @@ codeunit 50002 "E3 HIS Auto E-Mail"
         ToEmailID: List of [Text];
         EmailItem: Record "Email Item";
         i: Integer;
+        CCMail: Text;
 
 
 }
