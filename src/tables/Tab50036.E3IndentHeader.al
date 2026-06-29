@@ -328,6 +328,9 @@ table 50036 "E3 Indent Header"
 
             "Document No." :=
                 NoSeries.GetNextNo(PurchSetup."Indent Nos.", WorkDate());
+
+            if "Request Date" = 0D then
+                "Request Date" := Today;
         end;
     end;
 

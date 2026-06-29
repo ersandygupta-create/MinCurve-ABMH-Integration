@@ -149,7 +149,7 @@ page 50164 "E3 Gate Entry Inward Header"
                     ApplicationArea = All;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
-                    RunObject = Codeunit 50004;
+                    RunObject = Codeunit 50030;
                     ShortCutKey = 'F9';
                 }
             }

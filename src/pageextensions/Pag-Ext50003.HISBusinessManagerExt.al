@@ -930,6 +930,16 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                     RunPageMode = Create;
                     ToolTip = 'Executes the Create Indenter Entries action.';
                 }
+                action("E3 Item Make Master")
+                {
+                    AccessByPermission = TableData "E3 Item Make Master" = IMD;
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Item Make Master';
+                    Image = Archive;
+                    RunObject = Page "E3 Item Make Master";
+                    RunPageMode = Create;
+                    ToolTip = 'Executes the Create Make Entries action.';
+                }
             }
         }
     }

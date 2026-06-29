@@ -229,5 +229,8 @@ permissionset 50000 "E3 HIS Permission"
     page "E3 Indenter Master List" = X,
     table "E3 Voucher Type" = X,
     tabledata "E3 Voucher Type" = RIMD,
-    page "E3 Voucher Types" = X;
+    page "E3 Voucher Types" = X,
+    table "E3 Item Make Master" = X,
+    tabledata "E3 Item Make Master" = RIMD,
+    page "E3 Item Make Master" = X;
 }

@@ -16,7 +16,7 @@ codeunit 50030 "E3 Gate Entry Mgmt."
 
         GateEntryHeader: Record "E3 Gate Entry Header";
         GateEntryLine: Record "E3 Gate Entry Line";
-        GateEntryPost: Codeunit 50030;
+        GateEntryPost: Codeunit 50031;
 
     local procedure Code()
     begin

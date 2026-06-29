@@ -91,6 +91,21 @@ pageextension 50050 "E3 HIS Purch. Order Subform" extends "Purchase Order Subfor
         {
             Editable = IsLineEditable;
         }
+        addafter("Expected Receipt Date")
+        {
+            field("Indent No."; Rec."Indent No.")
+            {
+                ApplicationArea = All;
+                Caption = 'Indent No;';
+                ToolTip = 'Specifies Indent No. for the line.';
+            }
+            field("Indent Line No."; Rec."Indent Line No.")
+            {
+                ApplicationArea = All;
+                Caption = 'Indent Line No.';
+                ToolTip = 'Specifies Indent Line No. for the line.';
+            }
+        }
     }
     var
         IsLineEditable: Boolean;

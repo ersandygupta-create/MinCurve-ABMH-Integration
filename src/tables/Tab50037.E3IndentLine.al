@@ -144,6 +144,22 @@ table 50037 "E3 Indent Line"
         {
             Caption = 'Item Make Code';
             DataClassification = CustomerContent;
+            TableRelation = "E3 Item Make Master".Code;
+
+            trigger OnValidate()
+            var
+                ItemMake: Record "E3 Item Make Master";
+            begin
+                if "Item Make Code" = '' then begin
+                    "Item Make Name" := '';
+                    exit;
+                end;
+
+                if ItemMake.Get("Item Make Code") then
+                    "Item Make Name" := ItemMake.Description
+                else
+                    "Item Make Name" := '';
+            end;
 
         }
         field(26; "Ordered Qty"; Decimal)
