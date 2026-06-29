@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="LocationCode">
+          <DataField>LocationCode</DataField>
+        </Field>
+        <Field Name="LocationAdd">
+          <DataField>LocationAdd</DataField>
+        </Field>
+        <Field Name="LocationAdd2">
+          <DataField>LocationAdd2</DataField>
+        </Field>
+        <Field Name="LocationPhoneNo">
+          <DataField>LocationPhoneNo</DataField>
+        </Field>
+        <Field Name="EntryTypeFilter">
+          <DataField>EntryTypeFilter</DataField>
+        </Field>
+        <Field Name="Entry_Type">
+          <DataField>Entry_Type</DataField>
+        </Field>
+        <Field Name="DocumentNoFilter">
+          <DataField>DocumentNoFilter</DataField>
+        </Field>
+        <Field Name="Document_No_">
+          <DataField>Document_No_</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="Posted_Entry_No_">
+          <DataField>Posted_Entry_No_</DataField>
+        </Field>
+        <Field Name="Posting_Date">
+          <DataField>Posting_Date</DataField>
+        </Field>
+        <Field Name="From_Department_Code">
+          <DataField>From_Department_Code</DataField>
+        </Field>
+        <Field Name="From_Department_Name">
+          <DataField>From_Department_Name</DataField>
+        </Field>
+        <Field Name="ToDept">
+          <DataField>ToDept</DataField>
+        </Field>
+        <Field Name="FromDept">
+          <DataField>FromDept</DataField>
+        </Field>
+        <Field Name="To_Department_Name">
+          <DataField>To_Department_Name</DataField>
+        </Field>
+        <Field Name="Vendor_Name">
+          <DataField>Vendor_Name</DataField>
+        </Field>
+        <Field Name="PurposeCode">
+          <DataField>PurposeCode</DataField>
+        </Field>
+        <Field Name="Location_Code">
+          <DataField>Location_Code</DataField>
+        </Field>
+        <Field Name="LocationName">
+          <DataField>LocationName</DataField>
+        </Field>
+        <Field Name="SystemCreatedBy">
+          <DataField>SystemCreatedBy</DataField>
+        </Field>
+        <Field Name="Vehicle_No_">
+          <DataField>Vehicle_No_</DataField>
+        </Field>
+        <Field Name="Party_No">
+          <DataField>Party_No</DataField>
+        </Field>
+        <Field Name="Person">
+          <DataField>Person</DataField>
+        </Field>
+        <Field Name="BU">
+          <DataField>BU</DataField>
+        </Field>
+        <Field Name="Expected_Return_Date">
+          <DataField>Expected_Return_Date</DataField>
+        </Field>
+        <Field Name="Reference_Document_No_">
+          <DataField>Reference_Document_No_</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="FromDate">
+          <DataField>FromDate</DataField>
+        </Field>
+        <Field Name="ToDate">
+          <DataField>ToDate</DataField>
+        </Field>
+        <Field Name="PrintedBy">
+          <DataField>PrintedBy</DataField>
+        </Field>
+        <Field Name="EntryType">
+          <DataField>EntryType</DataField>
+        </Field>
+        <Field Name="GatePassTypeFilter">
+          <DataField>GatePassTypeFilter</DataField>
+        </Field>
+        <Field Name="GatePassType">
+          <DataField>GatePassType</DataField>
+        </Field>
+        <Field Name="FromDepartmentFilter">
+          <DataField>FromDepartmentFilter</DataField>
+        </Field>
+        <Field Name="DestinationFilter">
+          <DataField>DestinationFilter</DataField>
+        </Field>
+        <Field Name="ToDepartmentFilter">
+          <DataField>ToDepartmentFilter</DataField>
+        </Field>
+        <Field Name="Item_No_">
+          <DataField>Item_No_</DataField>
+        </Field>
+        <Field Name="ItemName">
+          <DataField>ItemName</DataField>
+        </Field>
+        <Field Name="Variant_Code">
+          <DataField>Variant_Code</DataField>
+        </Field>
+        <Field Name="UnitOfMeasurement">
+          <DataField>UnitOfMeasurement</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
+        <Field Name="Quantity_Received">
+          <DataField>Quantity_Received</DataField>
+        </Field>
+        <Field Name="Quantity_ReceivedFormat">
+          <DataField>Quantity_ReceivedFormat</DataField>
+        </Field>
+        <Field Name="Estimated_Value_Receive">
+          <DataField>Estimated_Value_Receive</DataField>
+        </Field>
+        <Field Name="Estimated_Value_ReceiveFormat">
+          <DataField>Estimated_Value_ReceiveFormat</DataField>
+        </Field>
+        <Field Name="EstimatedValue">
+          <DataField>EstimatedValue</DataField>
+        </Field>
+        <Field Name="EstimatedValueFormat">
+          <DataField>EstimatedValueFormat</DataField>
+        </Field>
+        <Field Name="AssetNo">
+          <DataField>AssetNo</DataField>
+        </Field>
+        <Field Name="Fixed_Asset_Name">
+          <DataField>Fixed_Asset_Name</DataField>
+        </Field>
+        <Field Name="Serial_No_">
+          <DataField>Serial_No_</DataField>
+        </Field>
+        <Field Name="LineRemarks">
+          <DataField>LineRemarks</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

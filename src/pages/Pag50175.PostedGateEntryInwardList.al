@@ -124,16 +124,32 @@ page 50175 "E3 Posted Gate Ent Inward List"
     {
         area(Processing)
         {
-            action(ActionName)
+            action(GatePassInward)
             {
+                ApplicationArea = All;
+                Caption = 'Gate Pass Inward Print';
+                Image = Print;
+                Promoted = true;
+                PromotedCategory = Report;
+                ToolTip = 'Print the Gate Pass Inward report.';
 
                 trigger OnAction()
+                var
+                    GateEntryHeader: Record "E3 Posted Gate Entry Header";
                 begin
-
+                    GateEntryHeader.Reset();
+                    GateEntryHeader.SetRange("Posted Entry No.", Rec."Posted Entry No.");
+                    if GateEntryHeader.FindFirst() then
+                        Report.RunModal(
+                            Report::"E3 Gate In Print",
+                            true,
+                            true,
+                            GateEntryHeader)
+                    else
+                        Error('No posted gate entry found.');
                 end;
             }
+
         }
     }
-
-
 }

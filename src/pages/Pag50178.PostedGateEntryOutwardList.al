@@ -114,6 +114,37 @@ page 50178 "E3Posted Gate Ent Outward List"
             }
         }
     }
+    actions
+    {
+        area(processing)
+        {
+            action(GatePassoutward)
+            {
+                ApplicationArea = All;
+                Caption = 'Gate Pass Outward Print';
+                Image = Print;
+                Promoted = true;
+                PromotedCategory = Report;
+                ToolTip = 'Print the Gate Pass Outward report.';
+
+                trigger OnAction()
+                var
+                    GateEntryHeader: Record "E3 Posted Gate Entry Header";
+                begin
+                    GateEntryHeader.Reset();
+                    GateEntryHeader.SetRange("Document No.", Rec."Document No.");
+                    if GateEntryHeader.FindFirst() then
+                        Report.RunModal(
+                            Report::"E3 Gate OutWard Print",
+                            true,
+                            true,
+                            GateEntryHeader)
+                    else
+                        Error('No posted gate entry found.');
+                end;
+            }
+        }
+    }
 
 
 }
