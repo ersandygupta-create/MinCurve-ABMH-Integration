@@ -14,6 +14,46 @@ pageextension 50062 "E3 HIS Fixed Assets Card" extends "Fixed Asset Card"
                 ToolTip = 'Specifies the value of the Model No. field.';
             }
         }
+        addafter(Description)
+        {
+            field("Old Asset Code"; Rec."Old Asset Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Old Asset No.';
+                ToolTip = 'Old Asset No.';
+            }
+        }
+        addafter("FA Subclass Code")
+        {
+            field("Sub Asset Group Name"; Rec."Sub Asset Group Name")
+            {
+                Caption = 'Sub Asset Group Name';
+                ApplicationArea = All;
+                ToolTip = 'Sub Asset Group Name';
+            }
+            field("Nature Of Asset"; Rec."Nature Of Asset")
+            {
+                Caption = 'Nature of Asset';
+                ToolTip = 'Nature of Asset';
+                ApplicationArea = All;
+            }
+
+        }
+        addlast(General)
+        {
+            field(Qty; Rec.Qty)
+            {
+                Caption = 'Quantity';
+                ToolTip = 'Quantity';
+                ApplicationArea = All;
+            }
+            field(Remark; Rec.Remark)
+            {
+                Caption = 'Remark';
+                ToolTip = 'Remark';
+                ApplicationArea = All;
+            }
+        }
         addlast(factboxes)
         {
             part(QRFactBox; "FA QR Code")

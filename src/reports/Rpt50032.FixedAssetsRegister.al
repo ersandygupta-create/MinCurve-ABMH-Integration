@@ -21,6 +21,13 @@ report 50032 "EDC Fixed Assets Register"
             column(FALocation; "FA Location Code") { }
             column(SerialNo; "Serial No.") { }
             column(ModelNo; "Model No.") { }
+            column(Old_Asset_Code; "Old Asset Code")
+            { }
+            column(Nature_Of_Asset; Format("Nature Of Asset"))
+            { }
+            column(Remark; Remark) { }
+            column(Qty; Qty) { }
+            column(Sub_Asset_Group_Name; "Sub Asset Group Name") { }
 
             column(UnitCode; "Global Dimension 1 Code") { }
             column(UnitName; UnitName) { }
@@ -41,6 +48,7 @@ report 50032 "EDC Fixed Assets Register"
             column(VendorName; VendorName) { }
             column(VendorInvNo; VendorInvNo) { }
             column(VendorInvDate; VendorInvDate) { }
+            column(DeptName; DeptName) { }
 
             // ================= PRIMARY VENDOR (FA MASTER) =================
             column(PrimaryVendorNo; PrimaryVendorNo) { }
@@ -85,6 +93,7 @@ report 50032 "EDC Fixed Assets Register"
                 GetPrimaryVendor();     // FA Master Vendor
                 GetUnitName();
                 CalcAmounts();
+                GetDeptName("No.");
             end;
         }
     }
@@ -134,6 +143,7 @@ report 50032 "EDC Fixed Assets Register"
         DepPeriodRemaining: Decimal;
 
         UnitName: Text[100];
+        DeptName: Text[100];
 
         OpenCost, AddCost, DispCost, CloseCost : Decimal;
         OpenDep, AddDep, DepDisp, CloseDep : Decimal;
@@ -298,6 +308,18 @@ report 50032 "EDC Fixed Assets Register"
 
         if DimValue.FindFirst() then
             UnitName := DimValue.Name;
+    end;
+
+    local procedure GetDeptName(var FANumber: Code[20])
+    var
+        DefaultDimension: Record "Default Dimension";
+    begin
+        Clear(DeptName);
+        DefaultDimension.Reset();
+        DefaultDimension.SetRange("No.", FANumber);
+        DefaultDimension.SetFilter("Dimension Code", '%1', 'DEPT');
+        IF DefaultDimension.Find('-') then
+            DeptName := DefaultDimension."Dimension Value Name";
     end;
 
     local procedure ClearAmounts()
