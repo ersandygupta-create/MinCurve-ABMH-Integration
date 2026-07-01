@@ -1004,8 +1004,6 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 GenJournalLine.VALIDATE("Document Type", HISDoctorPayoutEntries."Document Type");
                 GenJournalLine.VALIDATE("Document No.", HISDoctorPayoutEntries."Document No.");
                 GenJournalLine.VALIDATE("Posting Date", HISDoctorPayoutEntries."Document Date");
-                if HISDoctorPayoutEntries."TDS Section" <> '' then
-                    GenJournalLine.Validate("TDS Section Code", HISDoctorPayoutEntries."TDS Section");
 
                 HISGLAccountMapping.Reset();
                 HISGLAccountMapping.SetRange(Type, HISGLAccountMapping.Type::Doctor);
@@ -1017,6 +1015,10 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     GenJournalLine.VALIDATE("Bal. Account No.", HISGLAccountMapping."Account No.");
                 end ELSE
                     Error(MOPLbl, HISDoctorPayoutEntries."HIS Document Type");//ak
+
+                // --- CRITICAL TDS FIX: Assign Section before calculating Amount ---
+                if HISDoctorPayoutEntries."TDS Section" <> '' then
+                    GenJournalLine.VALIDATE("TDS Section Code", HISDoctorPayoutEntries."TDS Section");
 
                 GenJournalLine.VALIDATE(Amount, -HISDoctorPayoutEntries.Amount);
                 GenJournalLine.VALIDATE("Account Type", GenJournalLine."Account Type"::Vendor);
@@ -1037,40 +1039,9 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 GenJournalLine."E3 Receipt No." := HISDoctorPayoutEntries."IP No.";
                 GenJournalLine."E3 Patient Name" := HISDoctorPayoutEntries."Patient Name";
                 GenJournalLine."E3 Transaction Type" := HISDoctorPayoutEntries.TRANSACTION_TYPE;
+
                 GenJournalLine.INSERT();
 
-                // GenJournalLine.INIT();
-                // GenJournalLine.VALIDATE(GenJournalLine."Journal Template Name", IntegrationSetupLine."General Journal Template Code");
-                // GenJournalLine.VALIDATE(GenJournalLine."Journal Batch Name", IntegrationSetupLine."General Journal Batch Code");
-                // intLineNo += 10000;
-                // GenJournalLine."Line No." := intLineNo;
-                // GenJournalLine.VALIDATE("Document Type", HISDoctorPayoutEntries."Document Type");
-                // GenJournalLine.VALIDATE("Document No.", HISDoctorPayoutEntries."Document No.");
-                // GenJournalLine.VALIDATE("Posting Date", HISDoctorPayoutEntries."Document Date");
-
-                // GenJournalLine.VALIDATE(Amount, -HISDoctorPayoutEntries.Amount);
-                // GenJournalLine.validate("Account Type", HISDoctorPayoutEntries."Account Type");
-                // GenJournalLine.validate("Account No.", HISDoctorPayoutEntries."Bal. Account No");
-                // if HISDoctorPayoutEntries."Shortcut Dimension 1 Code" <> '' then begin
-                //     GenJournalLine.VALIDATE("Location Code", HISDoctorPayoutEntries."Shortcut Dimension 1 Code");
-                //     GenJournalLine.VALIDATE("Shortcut Dimension 1 Code", HISDoctorPayoutEntries."Shortcut Dimension 1 Code");
-                // end;
-
-                // if HISDoctorPayoutEntries."Shortcut Dimension 1 Code" <> '' then
-                //     GenJournalLine.VALIDATE("Shortcut Dimension 2 Code", GetMappedDimension(HISDoctorPayoutEntries."Shortcut Dimension 2 Code"));
-
-                // GenJournalLine.VALIDATE("External Document No.", HISDoctorPayoutEntries."External Document No.");
-                // GenJournalLine."E3 Narration" := COPYSTR(HISDoctorPayoutEntries."Line Narration", 1, 50);
-                // GenJournalLine."E3 HIS Document Type" := COPYSTR(HISDoctorPayoutEntries."HIS Document Type", 1, 60);
-                // GenJournalLine."E3 UHID" := HISDoctorPayoutEntries.UHID;
-                // GenJournalLine."E3 Encounter No." := HISDoctorPayoutEntries."Encounter No.";
-                // GenJournalLine."E3 Receipt No." := HISDoctorPayoutEntries."IP No.";
-                // GenJournalLine."E3 Patient Name" := HISDoctorPayoutEntries."Patient Name";
-                // GenJournalLine."E3 Transaction Type" := HISDoctorPayoutEntries.TRANSACTION_TYPE;
-                // GenJournalLine.INSERT();
-
-                // HISDoctorPayoutEntries."Created By" := USERID;
-                // HISDoctorPayoutEntries."Created Date Time" := CURRENTDATETIME;
                 HISDoctorPayoutEntries."General Entries Created" := TRUE;
                 HISDoctorPayoutEntries.MODIFY();
             UNTIL HISDoctorPayoutEntries.NEXT() = 0;
