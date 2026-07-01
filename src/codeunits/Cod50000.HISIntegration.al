@@ -964,6 +964,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
         GenJournalLine: Record "Gen. Journal Line";
         HISGLAccountMapping: Record "E3 HIS GL Accounts Mapping";
         intLineNo: Integer;
+        CalculateTax: Codeunit "Calculate Tax";
         MOPLbl: Label 'Doctor Setup not found for Mode of payment %1.';
         DocumentTypeLbl: Label 'Setup not found for Document Type %1.';
     begin
@@ -985,7 +986,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
         HISDoctorPayoutEntries.RESET();
         HISDoctorPayoutEntries.SETFILTER(HISDoctorPayoutEntries."General Entries Created", '%1', FALSE);
         HISDoctorPayoutEntries.SETFILTER(HISDoctorPayoutEntries.Amount, '<>%1', 0);
-        //HISRevenueStaging.SETFILTER(HISRevenueStaging."Account No.", '<>%1', '');
+
         IF HISDoctorPayoutEntries.FINDSET() THEN
             REPEAT
                 GenJournalLine.RESET();
@@ -1007,22 +1008,26 @@ codeunit 50000 "E3 HIS Integration Mgmt."
 
                 HISGLAccountMapping.Reset();
                 HISGLAccountMapping.SetRange(Type, HISGLAccountMapping.Type::Doctor);
-                //HISGLAccountMapping.SetRange("MOP Code", HISDoctorPayoutEntries."Mode of Payment");//ak
                 HISGLAccountMapping.SetRange("MOP Code", HISDoctorPayoutEntries."HIS Document Type");
                 if HISGLAccountMapping.FindFirst() then begin
-
                     GenJournalLine.VALIDATE("Bal. Account Type", HISGLAccountMapping."Account Type");
                     GenJournalLine.VALIDATE("Bal. Account No.", HISGLAccountMapping."Account No.");
                 end ELSE
-                    Error(MOPLbl, HISDoctorPayoutEntries."HIS Document Type");//ak
+                    Error(MOPLbl, HISDoctorPayoutEntries."HIS Document Type");
 
-                // --- CRITICAL TDS FIX: Assign Section before calculating Amount ---
+                // --- STEP 1: Define the Vendor Details First ---
+                GenJournalLine.VALIDATE("Account Type", GenJournalLine."Account Type"::Vendor);
+                GenJournalLine.VALIDATE("Account No.", HISDoctorPayoutEntries."Bal. Account No");
+
+
+                // --- STEP 3: Now Validate the Amount (Tax engine will compute properly now) ---
+                GenJournalLine.VALIDATE(Amount, -HISDoctorPayoutEntries.Amount);
+                // --- STEP 2: Assign the TDS Section ---
                 if HISDoctorPayoutEntries."TDS Section" <> '' then
                     GenJournalLine.VALIDATE("TDS Section Code", HISDoctorPayoutEntries."TDS Section");
 
-                GenJournalLine.VALIDATE(Amount, -HISDoctorPayoutEntries.Amount);
-                GenJournalLine.VALIDATE("Account Type", GenJournalLine."Account Type"::Vendor);
-                GenJournalLine.validate("Account No.", HISDoctorPayoutEntries."Bal. Account No");
+
+                // --- Remaining Fields ---
                 if HISDoctorPayoutEntries."Shortcut Dimension 1 Code" <> '' then begin
                     GenJournalLine.VALIDATE("Location Code", HISDoctorPayoutEntries."Shortcut Dimension 1 Code");
                     GenJournalLine.VALIDATE("Shortcut Dimension 1 Code", HISDoctorPayoutEntries."Shortcut Dimension 1 Code");
@@ -1040,14 +1045,14 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 GenJournalLine."E3 Patient Name" := HISDoctorPayoutEntries."Patient Name";
                 GenJournalLine."E3 Transaction Type" := HISDoctorPayoutEntries.TRANSACTION_TYPE;
 
-                GenJournalLine.INSERT();
-
+                // Use INSERT(true) to make sure table-level triggers fire if required by your setup
+                GenJournalLine.INSERT(true);
+                commit();
+                calculateTax.CallTaxEngineOnGenJnlLine(GenJournalLine, GenJournalLine);
                 HISDoctorPayoutEntries."General Entries Created" := TRUE;
                 HISDoctorPayoutEntries.MODIFY();
             UNTIL HISDoctorPayoutEntries.NEXT() = 0;
-
     end;
-
     //ak
     procedure ConsHISDocumentDateValidation(HISConsumptionEntry1: Record "E3 HIS Consumption Entries"): Boolean
     var
@@ -3657,7 +3662,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 IF HISRevenueLine.FINDFIRST() THEN
                     REPEAT
                         AmountToCustomer += HISRevenueLine."Payor Payable";
-                        PatientPayble += HISRevenueLine."Patient Payable";
+                        // PatientPayble += HISRevenueLine."Patient Payable";
+                        PatientPayble += HISRevenueLine.Amount + Hisrevenueline."MOU Discount" + HISRevenueLine.Discount;
 
                         InvoicePostingBuffer.SetRange("G/L Account", HISRevenueLine."Account No.");
                         InvoicePostingBuffer.SetRange("Global Dimension 1 Code", HISRevenueLine."Shortcut Dimension 1 Code");
@@ -3925,6 +3931,9 @@ codeunit 50000 "E3 HIS Integration Mgmt."
 
 
             end;
+
+            if (HISRevenueHeader."Document Type" = HISRevenueHeader."Document Type"::"Credit Memo") then
+                settleAmt := -settleAmt;
             // change for patient payble amount
             PatientPayble := PatientPayble - settleAmt;
             if PatientPayble <> 0 then begin
