@@ -37,19 +37,19 @@ tableextension 50067 "E3 Purchase & Payable Setup" extends "Purchases & Payables
         field(50006; "Gate Entry Receipt Series"; Code[20])
         {
             Caption = 'Gate Entry Receipt Series';
-            TableRelation = "No. Series".Code;
+            TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
         field(50007; "Posted Gate Entry Inward No."; Code[20])
         {
             Caption = 'Posted Gate Entry Inward Document No.';
-            TableRelation = "No. Series".Code;
+            TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
         field(50008; "Posted Gate Entry Outward No."; Code[20])
         {
             Caption = 'Posted Gate Entry Outward Document No.';
-            TableRelation = "No. Series".Code;
+            TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
         field(50009; "Indent Nos."; Code[20])

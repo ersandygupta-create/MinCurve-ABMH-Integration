@@ -15,6 +15,9 @@ report 50047 "E3 Gate OutWard Print"
             column(GateNo; "Document No.")
             {
             }
+            column(CompPicture; compInfo.Picture)
+            {
+            }
             column(LocationCode; "To Destination")
             {
             }
@@ -176,6 +179,12 @@ report 50047 "E3 Gate OutWard Print"
             // }
         }
     }
+    trigger OnPreReport()
+    begin
+        CompInfo.GET;
+        CompInfo.CALCFIELDS(Picture);
+    end;
+
     var
         GateNo: Code[20];
         GatePassType: Text[50];
@@ -194,6 +203,7 @@ report 50047 "E3 Gate OutWard Print"
         LocationPhoneNo: Text[30];
         LocationName: Text[100];
         UserC: Record User;
+        compInfo: Record "Company Information";
 
 
 }

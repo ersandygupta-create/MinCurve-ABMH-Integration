@@ -20,7 +20,7 @@ codeunit 50032 "E3 Gate Entry Transfer"
         if not GateEntryLine.FindFirst() then
             Error('No lines exist for posting.');
 
-        ShipmentNo := NoSeriesMgt.GetNextNo('SHIPMENT', Today, true);
+        //ShipmentNo := NoSeriesMgt.GetNextNo('SHIPMENT', Today, true);
 
         PostedHeader.Init();
         PostedHeader.TransferFields(GateEntryHeader);
@@ -80,6 +80,8 @@ codeunit 50032 "E3 Gate Entry Transfer"
         NoSeriesMgt: Codeunit "No. Series";
         GateEntrLine: Record "E3 Gate Entry Line";
         LastEntryNo: Integer;
+        PurchasesPayablesSetup: Record "Purchases & Payables Setup";
+        NoSeries: Codeunit "No. Series";
     begin
         //-----------------------------------------
         // Validate Quantity
@@ -94,13 +96,20 @@ codeunit 50032 "E3 Gate Entry Transfer"
         //-----------------------------------------
         // Create Inward Header
         //-----------------------------------------
+        PurchasesPayablesSetup.Get();
+        PurchasesPayablesSetup.TestField("Posted Gate Entry Inward No.");
+
         InwardHeader.Init();
 
         InwardHeader."Entry Type" := InwardHeader."Entry Type"::Inward;
-        InwardHeader."Document No." := NoSeriesMgt.GetNextNo('INWARD', Today, true);
+
+        InwardHeader."Document No." :=
+            NoSeries.GetNextNo(
+                PurchasesPayablesSetup."Posted Gate Entry Inward No.",
+                WorkDate(),
+                true);
         InwardHeader."Gate Pass Type" := OutwardHeader."Gate Pass Type";
         InwardHeader."Purpose Code" := OutwardHeader."Purpose Code";
-        InwardHeader."Vehicle No." := OutwardHeader."Vehicle No.";
         InwardHeader."Department Code" := OutwardHeader."Department Code";
         InwardHeader."To Destination" := OutwardHeader."To Destination";
         InwardHeader."Posting Date" := Today;
@@ -116,6 +125,8 @@ codeunit 50032 "E3 Gate Entry Transfer"
         InwardHeader."From Department Name" := OutwardHeader."From Department Name";
         InwardHeader."Shortcut Dimension 1 Code" := OutwardHeader."Shortcut Dimension 1 Code";
         InwardHeader."Location Name" := OutwardHeader."Location Name";
+        InwardHeader."Reference Document Date" := OutwardHeader."Reference Document Date";
+        InwardHeader."Procurement Type" := OutwardHeader."Procurement Type";
 
         InwardHeader.Insert(true);
 

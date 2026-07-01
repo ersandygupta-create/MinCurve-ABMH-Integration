@@ -34,6 +34,7 @@ pageextension 50075 "E3 Purchase & Payable Ext" extends "Purchases & Payables Se
             field("Gate Entry Nos."; Rec."Gate Entry Nos.")
             {
                 ApplicationArea = All;
+                Caption = 'Gate Entry OutWard Nos.';
             }
             field("E3 Order Address Number"; Rec."E3 Order Address Number")
             {

@@ -169,6 +169,17 @@ table 50034 "E3 Posted Gate Entry Header"
             ValidateTableRelation = false;
             DataClassification = CustomerContent;
         }
+
+        field(27; "Reference Document Date"; Date)
+        {
+            Caption = 'Reference Document Date';
+            DataClassification = CustomerContent;
+        }
+        field(28; "Procurement Type"; Enum "E3 Capex Type")
+        {
+            Caption = 'Procurement Type';
+            DataClassification = CustomerContent;
+        }
         field(201; "Inward Document No."; COde[20])
         {
             Caption = 'Posted Inward Document No.';
@@ -178,6 +189,7 @@ table 50034 "E3 Posted Gate Entry Header"
         {
             Caption = 'Posted Outward Document No.';
         }
+
     }
 
     keys
