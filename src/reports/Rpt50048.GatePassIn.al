@@ -4,6 +4,7 @@ report 50048 "E3 Gate In Print"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
+    Caption = 'Gate Inward Print';
     RDLCLayout = './src/reports/Rpt50048.GatePassIn.rdl';
 
     dataset

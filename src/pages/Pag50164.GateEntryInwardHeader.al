@@ -123,6 +123,17 @@ page 50164 "E3 Gate Entry Inward Header"
                     ToolTip = 'Specifies the value of the Remarks field';
                     ApplicationArea = All;
                 }
+                field("Reference Document Date"; Rec."Reference Document Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the date of the reference document associated with this record.';
+                }
+
+                field("Procurement Type"; Rec."Procurement Type")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the procurement type, such as Capex or Opex, for this record.';
+                }
             }
             part(HISPurchaseSubform; "E3 Gate Entry Inward Subform")
             {
