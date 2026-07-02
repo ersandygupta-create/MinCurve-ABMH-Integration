@@ -3549,6 +3549,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
         AmountToCustomer: Decimal;
         PatientPayble: Decimal;
         LineNo: Integer;
+        DimenValue3: Code[20];
     begin
         AmountToCustomer := 0;
         PatientPayble := 0;
@@ -3668,6 +3669,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         InvoicePostingBuffer.SetRange("G/L Account", HISRevenueLine."Account No.");
                         InvoicePostingBuffer.SetRange("Global Dimension 1 Code", HISRevenueLine."Shortcut Dimension 1 Code");
                         InvoicePostingBuffer.SetRange("Global Dimension 2 Code", HISRevenueLine."Shortcut Dimension 2 Code");
+                        invoicepostingbuffer.setrange("Deferral Code", hisrevenueline."Shortcut Dimension 3 Code");
                         if InvoicePostingBuffer.FindFirst() then begin
                             InvoicePostingBuffer.Amount := InvoicePostingBuffer.Amount + (-(HISRevenueLine.Amount));
                             InvoicePostingBuffer.Modify();
@@ -3678,6 +3680,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                             InvoicePostingBuffer."G/L Account" := HISRevenueLine."Account No.";
                             InvoicePostingBuffer."Global Dimension 1 Code" := HISRevenueLine."Shortcut Dimension 1 Code";
                             InvoicePostingBuffer."Global Dimension 2 Code" := HISRevenueLine."Shortcut Dimension 2 Code";
+                            invoicepostingbuffer."Deferral Code" := hisrevenueline."Shortcut Dimension 3 Code";
                             InvoicePostingBuffer.Amount := -(HISRevenueLine.Amount);
                             InvoicePostingBuffer.Insert();
                         end;
@@ -3687,6 +3690,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                             InvoicePostingBuffer.SetRange("G/L Account", HISRevenueLine."Discount G/L Account");
                             InvoicePostingBuffer.SetRange("Global Dimension 1 Code", HISRevenueLine."Shortcut Dimension 1 Code");
                             InvoicePostingBuffer.SetRange("Global Dimension 2 Code", HISRevenueLine."Shortcut Dimension 2 Code");
+                            InvoicePostingBuffer.SetRange("Deferral Code", HISRevenueLine."Shortcut Dimension 3 Code");
                             if InvoicePostingBuffer.FindFirst() then begin
                                 InvoicePostingBuffer.Amount := InvoicePostingBuffer.Amount + (-HISRevenueLine.Discount);
                                 InvoicePostingBuffer.Modify();
@@ -3697,6 +3701,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                                 InvoicePostingBuffer."G/L Account" := HISRevenueLine."Discount G/L Account";
                                 InvoicePostingBuffer."Global Dimension 1 Code" := HISRevenueLine."Shortcut Dimension 1 Code";
                                 InvoicePostingBuffer."Global Dimension 2 Code" := HISRevenueLine."Shortcut Dimension 2 Code";
+                                invoicepostingbuffer."Deferral Code" := hisrevenueline."Shortcut Dimension 3 Code";
                                 InvoicePostingBuffer.Amount := -HISRevenueLine.Discount;
                                 InvoicePostingBuffer.Insert();
                             end;
@@ -3707,6 +3712,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                             InvoicePostingBuffer.SetRange("G/L Account", HISRevenueLine."MOU Discount G/L Account");
                             InvoicePostingBuffer.SetRange("Global Dimension 1 Code", HISRevenueLine."Shortcut Dimension 1 Code");
                             InvoicePostingBuffer.SetRange("Global Dimension 2 Code", HISRevenueLine."Shortcut Dimension 2 Code");
+                            InvoicePostingBuffer.SetRange("Deferral Code", HISRevenueLine."Shortcut Dimension 3 Code");
                             if InvoicePostingBuffer.FindFirst() then begin
                                 InvoicePostingBuffer.Amount := InvoicePostingBuffer.Amount + (-HISRevenueLine."MOU Discount");
                                 InvoicePostingBuffer.Modify();
@@ -3717,6 +3723,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                                 InvoicePostingBuffer."G/L Account" := HISRevenueLine."MOU Discount G/L Account";
                                 InvoicePostingBuffer."Global Dimension 1 Code" := HISRevenueLine."Shortcut Dimension 1 Code";
                                 InvoicePostingBuffer."Global Dimension 2 Code" := HISRevenueLine."Shortcut Dimension 2 Code";
+                                InvoicePostingBuffer."Deferral Code" := HISRevenueLine."Shortcut Dimension 3 Code";
                                 InvoicePostingBuffer.Amount := -HISRevenueLine."MOU Discount";
                                 InvoicePostingBuffer.Insert();
                             end;
@@ -3781,6 +3788,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         if InvoicePostingBuffer."Global Dimension 2 Code" <> '' then
                             GenJournalLine.VALIDATE("Shortcut Dimension 2 Code", GetMappedDimension(InvoicePostingBuffer."Global Dimension 2 Code"));
 
+
                         GenJournalLine.VALIDATE("External Document No.", HISRevenueHeader."External Document No.");
 
                         GenJournalLine."E3 HIS Document Type" := HISRevenueHeader."HIS Document Type";
@@ -3793,6 +3801,10 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         GenJournalLine."E3 Sponsor Name" := HISRevenueHeader."Sponsor Name";
                         GenJournalLine."E3 Payer Code" := HISRevenueHeader."Payer Code";
                         GenJournalLine."E3 Payer Name" := HISRevenueHeader."Payer Name";
+                        DimenValue3 := '';
+                        DimenValue3 := GetMappedDimension3(invoicepostingbuffer."Deferral Code");
+                        GenJournalLine.ValidateShortcutDimCode(3, DimenValue3);
+
                         if IntegrationSetup."Rev./Rev.Cancel Direct Post" then
                             PostGenJnlLine.RunWithCheck(GenJournalLine)
                         else
@@ -3845,6 +3857,10 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     GenJournalLine."E3 Sponsor Name" := HISRevenueHeader."Sponsor Name";
                     GenJournalLine."E3 Payer Code" := HISRevenueHeader."Payer Code";
                     GenJournalLine."E3 Payer Name" := HISRevenueHeader."Payer Name";
+                    DimenValue3 := '';
+                    DimenValue3 := GetMappedDimension3(HISRevenueHeader."Shortcut Dimension 3 Code");
+                    GenJournalLine.ValidateShortcutDimCode(3, DimenValue3);
+
                     if IntegrationSetup."Rev./Rev.Cancel Direct Post" then
                         PostGenJnlLine.RunWithCheck(GenJournalLine)
                     else
@@ -3897,7 +3913,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                             GenJournalLine.VALIDATE(Amount, HISBillCollection.Amount);
                             settleAmt += HISBillCollection.Amount;
                         end else begin
-                            GenJournalLine.VALIDATE(Amount, -HISBillCollection.Amount);
+                            GenJournalLine.VALIDATE(Amount, HISBillCollection.Amount);
                             settleAmt += -HISBillCollection.Amount;
                         end;
                         //GenJournalLine.VALIDATE("Bal. Account Type", GenJournalLine."Bal. Account Type"::Customer);
@@ -3922,6 +3938,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         GenJournalLine."E3 Sponsor Name" := HISRevenueHeader."Sponsor Name";
                         GenJournalLine."E3 Payer Code" := HISRevenueHeader."Payer Code";
                         GenJournalLine."E3 Payer Name" := HISRevenueHeader."Payer Name";
+
+
                         if IntegrationSetup."Rev./Rev.Cancel Direct Post" then
                             PostGenJnlLine.RunWithCheck(GenJournalLine)
                         else
@@ -3932,8 +3950,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
 
             end;
 
-            if (HISRevenueHeader."Document Type" = HISRevenueHeader."Document Type"::"Credit Memo") then
-                settleAmt := -settleAmt;
+
             // change for patient payble amount
             PatientPayble := PatientPayble - settleAmt;
             if PatientPayble <> 0 then begin
@@ -4420,6 +4437,24 @@ codeunit 50000 "E3 HIS Integration Mgmt."
         DimensionMapping.Reset();
         DimensionMapping.SetRange(Type, DimensionMapping.Type::Dimension);
         DimensionMapping.SetRange("Dimension Code", LGeneralLedgerSetup."Shortcut Dimension 5 Code");
+        DimensionMapping.SetRange("HIS Code", HISCCode);
+        if DimensionMapping.FindFirst() then
+            exit(DimensionMapping."Department Code");
+    end;
+
+    local procedure GetMappedDimension3(HISCCode: Code[20]): Code[20]
+    var
+        LGeneralLedgerSetup: Record "General Ledger Setup";
+        DimensionMapping: Record "E3 HIS GL Accounts Mapping";
+    begin
+        if HISCCode = '' then
+            exit('');
+
+        LGeneralLedgerSetup.Get();
+
+        DimensionMapping.Reset();
+        DimensionMapping.SetRange(Type, DimensionMapping.Type::Dimension);
+        DimensionMapping.SetRange("Dimension Code", LGeneralLedgerSetup."Shortcut Dimension 3 Code");
         DimensionMapping.SetRange("HIS Code", HISCCode);
         if DimensionMapping.FindFirst() then
             exit(DimensionMapping."Department Code");
