@@ -7,7 +7,8 @@ page 50175 "E3 Posted Gate Ent Inward List"
     CardPageId = "E3 Posted Gate Ent Inward Hdr";
     InsertAllowed = false;
     SourceTable = "E3 Posted Gate Entry Header";
-    SourceTableView = sorting("Posted Entry No.") where("Entry Type" = filter(Inward));
+    SourceTableView = sorting("Posted Entry No.")
+    order(descending) where("Entry Type" = filter(Inward));
     UsageCategory = Lists;
 
     layout
@@ -30,6 +31,7 @@ page 50175 "E3 Posted Gate Ent Inward List"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Posted Entry No. field';
+                    visible = false;
                 }
                 field("Document No."; Rec."Document No.")
                 {
@@ -114,6 +116,17 @@ page 50175 "E3 Posted Gate Ent Inward List"
                 field(Remarks; Rec.Remarks)
                 {
                     ToolTip = 'Specifies the value of the Remarks field';
+                    ApplicationArea = All;
+                }
+                field(postedNo; Rec.PostedNo)
+                {
+                    ToolTip = 'Specifies the value of the Posted No. field';
+                    ApplicationArea = All;
+                    CAption = 'Posted Inward Gate Entry No.';
+                }
+                field("Outward Document No."; Rec."Outward Document No.")
+                {
+                    ToolTip = 'Specifies the value of the Outward Document No. field';
                     ApplicationArea = All;
                 }
             }

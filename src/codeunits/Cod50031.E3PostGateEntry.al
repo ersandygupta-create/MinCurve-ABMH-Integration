@@ -31,11 +31,19 @@ codeunit 50031 "E3 Post Gate Entry"
                 COMMIT();
             END;
 
+            postedoutwardheader.Reset();
+            postedoutwardheader.SETRANGE("Entry Type", postedoutwardheader."Entry Type"::Outward);
+            postedoutwardheader.SETRANGE("Document No.", GateEntryHeader."Reference Document No.");
+            postedoutwardheader.setfilter("Outward Document No.", '<>%1', '');
+            if postedoutwardheader.FIND('-') then;
+            //ERROR('Outward document not found.');
+
             GateEntryLine.LOCKTABLE();
             PurchPayble.Get();
             PostedGateEntryHeader.INIT();
             PostedGateEntryHeader.TRANSFERFIELDS(GateEntryHeader);
             PostedGateEntryHeader.PostedNo := NoSeries.GetNextNo(PurchPayble."Gate Entry Receipt Series", WorkDate(), true);
+            postedGateEntryHeader."Outward Document No." := postedoutwardheader."Outward Document No.";
 
             IF GUIALLOWED THEN
                 Window.UPDATE(1, STRSUBSTNO(Text16503, "Document No.", PostedGateEntryHeader."Document No."));
@@ -114,6 +122,8 @@ codeunit 50031 "E3 Post Gate Entry"
         PurchPayble: Record "Purchases & Payables Setup";
         GateEntryLineUpd: Record "E3 Gate Entry Line";
         PostedGateEntryHeader: Record "E3 Posted Gate Entry Header";
+        PostedOutwardHeader: Record "E3 Posted Gate Entry Header";
+
         PostedGateEntryLine: Record "E3 Posted Gate Entry Line";
         NoSeries: Codeunit "No. Series";
         Text16500: Label 'There is nothing to post.';

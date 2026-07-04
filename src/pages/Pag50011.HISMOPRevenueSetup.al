@@ -44,6 +44,11 @@ page 50011 "E3 HIS MOP Revenue Setup"
                     ToolTip = 'Specifies the value of the GL Account Name field';
                     ApplicationArea = All;
                 }
+                field("Collection Control Account"; Rec."Collection Control Account")
+                {
+                    ToolTip = 'Specifies the value of the Collection Control Account field';
+                    ApplicationArea = All;
+                }
 
 
 

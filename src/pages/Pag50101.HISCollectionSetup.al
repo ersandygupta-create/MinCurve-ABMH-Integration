@@ -66,6 +66,11 @@ page 50101 "E3 HIS Collection Setup"
                     ToolTip = 'Specifies the value of the GL Account Name field';
                     ApplicationArea = All;
                 }
+                field("Collection Control Account"; Rec."Collection Control Account")
+                {
+                    ToolTip = 'Specifies the value of the Collection Control Account field';
+                    ApplicationArea = All;
+                }
                 // field("Discount G/L Account"; Rec."Discount G/L Account")
                 // {
                 //     ApplicationArea = All;

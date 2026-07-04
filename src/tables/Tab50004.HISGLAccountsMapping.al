@@ -213,6 +213,11 @@ table 50004 "E3 HIS GL Accounts Mapping"
             FieldClass = FlowField;
             CalcFormula = lookup("G/L Account".Name where("No." = field("SGST G/L Account")));
         }
+        field(44; "Collection Control Account"; boolean)
+        {
+            Caption = 'Collection Control Account';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {

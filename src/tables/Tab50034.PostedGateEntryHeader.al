@@ -120,7 +120,7 @@ table 50034 "E3 Posted Gate Entry Header"
         }
         field(19; PostedNo; Code[20])
         {
-            Caption = 'No.';
+            Caption = 'Posted Inward Gate Entry No.';
             DataClassification = CustomerContent;
         }
         field(20; "Posted Entry No."; Integer)

@@ -3664,7 +3664,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     REPEAT
                         AmountToCustomer += HISRevenueLine."Payor Payable";
                         // PatientPayble += HISRevenueLine."Patient Payable";
-                        PatientPayble += HISRevenueLine.Amount + Hisrevenueline."MOU Discount" + HISRevenueLine.Discount;
+                        PatientPayble += HISRevenueLine.Amount + Hisrevenueline."MOU Discount" + HISRevenueLine.Discount - HISRevenueLine."Payor Payable";
 
                         InvoicePostingBuffer.SetRange("G/L Account", HISRevenueLine."Account No.");
                         InvoicePostingBuffer.SetRange("Global Dimension 1 Code", HISRevenueLine."Shortcut Dimension 1 Code");
