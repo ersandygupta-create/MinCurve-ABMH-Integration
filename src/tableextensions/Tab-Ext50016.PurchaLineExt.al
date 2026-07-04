@@ -24,17 +24,17 @@ tableextension 50016 "E3 HIS Purcha Line" extends "Purchase Line"
                 end;
             end;
         }
-        field(50001; "Pack Size"; Text[20])
+        field(50101; "Pack Size"; Text[20])
         {
             DataClassification = CustomerContent;
             Caption = 'Pack Size';
         }
-        field(50003; "Indent No."; Code[20])
+        field(50103; "Indent No."; Code[20])
         {
             Caption = 'Indent No.';
             DataClassification = CustomerContent;
         }
-        field(50004; "Indent Line No."; Integer)
+        field(50104; "Indent Line No."; Integer)
         {
             Caption = 'Indent Line No.';
             DataClassification = CustomerContent;
