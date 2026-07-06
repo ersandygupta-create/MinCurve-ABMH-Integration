@@ -21,7 +21,7 @@ page 50181 "E3 Indent List"
                 {
                     ApplicationArea = All;
                 }
-                field("Request Date"; Rec."Request Date")
+                field("Indent Date"; Rec."Indent Date")
                 {
                     ApplicationArea = All;
                 }
