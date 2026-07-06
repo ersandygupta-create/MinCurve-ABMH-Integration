@@ -124,7 +124,7 @@ report 50049 "Gate Pass Register"
             column(GatePassTypeFilter; GatePassType)
             {
             }
-            column(GatePassType; GatePassType)
+            column(GatePassType; format("Gate Pass Type"))
             {
             }
             column(FromDepartmentFilter; GateEntryHeader.GetFilter("From Department Name"))
@@ -135,6 +135,22 @@ report 50049 "Gate Pass Register"
             }
             column(ToDepartmentFilter; GateEntryHeader.GetFilter("To Department Name"))
             {
+            }
+            column(Outward_Document_No_; "Outward Document No.")
+            {
+
+            }
+            column(PostedNo; PostedNo)
+            {
+
+            }
+            column(Reference_Document_Date; "Reference Document Date")
+            {
+
+            }
+            column(Procurement_Type; Format("Procurement Type"))
+            {
+
             }
 
 
@@ -147,7 +163,8 @@ report 50049 "Gate Pass Register"
 
             dataitem(GateEntryLine; "E3 Posted Gate Entry Line")
             {
-                DataItemLink = "Document No." = field("Document No.");
+                DataItemLink = "Document No." = field("Document No."),
+                "PostedNo" = field(PostedNo);
 
                 column(Item_No_; "Item No.")
                 {
