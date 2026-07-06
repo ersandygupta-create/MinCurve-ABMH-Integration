@@ -313,13 +313,19 @@ report 50032 "EDC Fixed Assets Register"
     local procedure GetDeptName(var FANumber: Code[20])
     var
         DefaultDimension: Record "Default Dimension";
+        DimensionValue: Record "Dimension Value";
     begin
         Clear(DeptName);
         DefaultDimension.Reset();
         DefaultDimension.SetRange("No.", FANumber);
         DefaultDimension.SetFilter("Dimension Code", '%1', 'DEPT');
-        IF DefaultDimension.Find('-') then
-            DeptName := DefaultDimension."Dimension Value Name";
+        IF DefaultDimension.Find('-') then begin
+            DimensionValue.Reset();
+            DimensionValue.SetRange(Code, DefaultDimension."Dimension Value Code");
+            if DimensionValue.find('-') then
+                DeptName := DimensionValue.Name;
+        end;
+
     end;
 
     local procedure ClearAmounts()

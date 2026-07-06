@@ -964,6 +964,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
         GenJournalLine: Record "Gen. Journal Line";
         HISGLAccountMapping: Record "E3 HIS GL Accounts Mapping";
         intLineNo: Integer;
+        CalculateTax: Codeunit "Calculate Tax";
         MOPLbl: Label 'Doctor Setup not found for Mode of payment %1.';
         DocumentTypeLbl: Label 'Setup not found for Document Type %1.';
     begin
@@ -985,7 +986,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
         HISDoctorPayoutEntries.RESET();
         HISDoctorPayoutEntries.SETFILTER(HISDoctorPayoutEntries."General Entries Created", '%1', FALSE);
         HISDoctorPayoutEntries.SETFILTER(HISDoctorPayoutEntries.Amount, '<>%1', 0);
-        //HISRevenueStaging.SETFILTER(HISRevenueStaging."Account No.", '<>%1', '');
+
         IF HISDoctorPayoutEntries.FINDSET() THEN
             REPEAT
                 GenJournalLine.RESET();
@@ -1004,23 +1005,29 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 GenJournalLine.VALIDATE("Document Type", HISDoctorPayoutEntries."Document Type");
                 GenJournalLine.VALIDATE("Document No.", HISDoctorPayoutEntries."Document No.");
                 GenJournalLine.VALIDATE("Posting Date", HISDoctorPayoutEntries."Document Date");
-                if HISDoctorPayoutEntries."TDS Section" <> '' then
-                    GenJournalLine.Validate("TDS Section Code", HISDoctorPayoutEntries."TDS Section");
 
                 HISGLAccountMapping.Reset();
                 HISGLAccountMapping.SetRange(Type, HISGLAccountMapping.Type::Doctor);
-                //HISGLAccountMapping.SetRange("MOP Code", HISDoctorPayoutEntries."Mode of Payment");//ak
                 HISGLAccountMapping.SetRange("MOP Code", HISDoctorPayoutEntries."HIS Document Type");
                 if HISGLAccountMapping.FindFirst() then begin
-
                     GenJournalLine.VALIDATE("Bal. Account Type", HISGLAccountMapping."Account Type");
                     GenJournalLine.VALIDATE("Bal. Account No.", HISGLAccountMapping."Account No.");
                 end ELSE
-                    Error(MOPLbl, HISDoctorPayoutEntries."HIS Document Type");//ak
+                    Error(MOPLbl, HISDoctorPayoutEntries."HIS Document Type");
 
-                GenJournalLine.VALIDATE(Amount, -HISDoctorPayoutEntries.Amount);
+                // --- STEP 1: Define the Vendor Details First ---
                 GenJournalLine.VALIDATE("Account Type", GenJournalLine."Account Type"::Vendor);
-                GenJournalLine.validate("Account No.", HISDoctorPayoutEntries."Bal. Account No");
+                GenJournalLine.VALIDATE("Account No.", HISDoctorPayoutEntries."Bal. Account No");
+
+
+                // --- STEP 3: Now Validate the Amount (Tax engine will compute properly now) ---
+                GenJournalLine.VALIDATE(Amount, -HISDoctorPayoutEntries.Amount);
+                // --- STEP 2: Assign the TDS Section ---
+                if HISDoctorPayoutEntries."TDS Section" <> '' then
+                    GenJournalLine.VALIDATE("TDS Section Code", HISDoctorPayoutEntries."TDS Section");
+
+
+                // --- Remaining Fields ---
                 if HISDoctorPayoutEntries."Shortcut Dimension 1 Code" <> '' then begin
                     GenJournalLine.VALIDATE("Location Code", HISDoctorPayoutEntries."Shortcut Dimension 1 Code");
                     GenJournalLine.VALIDATE("Shortcut Dimension 1 Code", HISDoctorPayoutEntries."Shortcut Dimension 1 Code");
@@ -1037,46 +1044,15 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 GenJournalLine."E3 Receipt No." := HISDoctorPayoutEntries."IP No.";
                 GenJournalLine."E3 Patient Name" := HISDoctorPayoutEntries."Patient Name";
                 GenJournalLine."E3 Transaction Type" := HISDoctorPayoutEntries.TRANSACTION_TYPE;
-                GenJournalLine.INSERT();
 
-                // GenJournalLine.INIT();
-                // GenJournalLine.VALIDATE(GenJournalLine."Journal Template Name", IntegrationSetupLine."General Journal Template Code");
-                // GenJournalLine.VALIDATE(GenJournalLine."Journal Batch Name", IntegrationSetupLine."General Journal Batch Code");
-                // intLineNo += 10000;
-                // GenJournalLine."Line No." := intLineNo;
-                // GenJournalLine.VALIDATE("Document Type", HISDoctorPayoutEntries."Document Type");
-                // GenJournalLine.VALIDATE("Document No.", HISDoctorPayoutEntries."Document No.");
-                // GenJournalLine.VALIDATE("Posting Date", HISDoctorPayoutEntries."Document Date");
-
-                // GenJournalLine.VALIDATE(Amount, -HISDoctorPayoutEntries.Amount);
-                // GenJournalLine.validate("Account Type", HISDoctorPayoutEntries."Account Type");
-                // GenJournalLine.validate("Account No.", HISDoctorPayoutEntries."Bal. Account No");
-                // if HISDoctorPayoutEntries."Shortcut Dimension 1 Code" <> '' then begin
-                //     GenJournalLine.VALIDATE("Location Code", HISDoctorPayoutEntries."Shortcut Dimension 1 Code");
-                //     GenJournalLine.VALIDATE("Shortcut Dimension 1 Code", HISDoctorPayoutEntries."Shortcut Dimension 1 Code");
-                // end;
-
-                // if HISDoctorPayoutEntries."Shortcut Dimension 1 Code" <> '' then
-                //     GenJournalLine.VALIDATE("Shortcut Dimension 2 Code", GetMappedDimension(HISDoctorPayoutEntries."Shortcut Dimension 2 Code"));
-
-                // GenJournalLine.VALIDATE("External Document No.", HISDoctorPayoutEntries."External Document No.");
-                // GenJournalLine."E3 Narration" := COPYSTR(HISDoctorPayoutEntries."Line Narration", 1, 50);
-                // GenJournalLine."E3 HIS Document Type" := COPYSTR(HISDoctorPayoutEntries."HIS Document Type", 1, 60);
-                // GenJournalLine."E3 UHID" := HISDoctorPayoutEntries.UHID;
-                // GenJournalLine."E3 Encounter No." := HISDoctorPayoutEntries."Encounter No.";
-                // GenJournalLine."E3 Receipt No." := HISDoctorPayoutEntries."IP No.";
-                // GenJournalLine."E3 Patient Name" := HISDoctorPayoutEntries."Patient Name";
-                // GenJournalLine."E3 Transaction Type" := HISDoctorPayoutEntries.TRANSACTION_TYPE;
-                // GenJournalLine.INSERT();
-
-                // HISDoctorPayoutEntries."Created By" := USERID;
-                // HISDoctorPayoutEntries."Created Date Time" := CURRENTDATETIME;
+                // Use INSERT(true) to make sure table-level triggers fire if required by your setup
+                GenJournalLine.INSERT(true);
+                commit();
+                calculateTax.CallTaxEngineOnGenJnlLine(GenJournalLine, GenJournalLine);
                 HISDoctorPayoutEntries."General Entries Created" := TRUE;
                 HISDoctorPayoutEntries.MODIFY();
             UNTIL HISDoctorPayoutEntries.NEXT() = 0;
-
     end;
-
     //ak
     procedure ConsHISDocumentDateValidation(HISConsumptionEntry1: Record "E3 HIS Consumption Entries"): Boolean
     var
@@ -3573,6 +3549,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
         AmountToCustomer: Decimal;
         PatientPayble: Decimal;
         LineNo: Integer;
+        DimenValue3: Code[20];
     begin
         AmountToCustomer := 0;
         PatientPayble := 0;
@@ -3686,11 +3663,13 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 IF HISRevenueLine.FINDFIRST() THEN
                     REPEAT
                         AmountToCustomer += HISRevenueLine."Payor Payable";
-                        PatientPayble += HISRevenueLine."Patient Payable";
+                        // PatientPayble += HISRevenueLine."Patient Payable";
+                        PatientPayble += HISRevenueLine.Amount + Hisrevenueline."MOU Discount" + HISRevenueLine.Discount - HISRevenueLine."Payor Payable";
 
                         InvoicePostingBuffer.SetRange("G/L Account", HISRevenueLine."Account No.");
                         InvoicePostingBuffer.SetRange("Global Dimension 1 Code", HISRevenueLine."Shortcut Dimension 1 Code");
                         InvoicePostingBuffer.SetRange("Global Dimension 2 Code", HISRevenueLine."Shortcut Dimension 2 Code");
+                        invoicepostingbuffer.setrange("Deferral Code", hisrevenueline."Shortcut Dimension 3 Code");
                         if InvoicePostingBuffer.FindFirst() then begin
                             InvoicePostingBuffer.Amount := InvoicePostingBuffer.Amount + (-(HISRevenueLine.Amount));
                             InvoicePostingBuffer.Modify();
@@ -3701,6 +3680,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                             InvoicePostingBuffer."G/L Account" := HISRevenueLine."Account No.";
                             InvoicePostingBuffer."Global Dimension 1 Code" := HISRevenueLine."Shortcut Dimension 1 Code";
                             InvoicePostingBuffer."Global Dimension 2 Code" := HISRevenueLine."Shortcut Dimension 2 Code";
+                            invoicepostingbuffer."Deferral Code" := hisrevenueline."Shortcut Dimension 3 Code";
                             InvoicePostingBuffer.Amount := -(HISRevenueLine.Amount);
                             InvoicePostingBuffer.Insert();
                         end;
@@ -3710,6 +3690,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                             InvoicePostingBuffer.SetRange("G/L Account", HISRevenueLine."Discount G/L Account");
                             InvoicePostingBuffer.SetRange("Global Dimension 1 Code", HISRevenueLine."Shortcut Dimension 1 Code");
                             InvoicePostingBuffer.SetRange("Global Dimension 2 Code", HISRevenueLine."Shortcut Dimension 2 Code");
+                            InvoicePostingBuffer.SetRange("Deferral Code", HISRevenueLine."Shortcut Dimension 3 Code");
                             if InvoicePostingBuffer.FindFirst() then begin
                                 InvoicePostingBuffer.Amount := InvoicePostingBuffer.Amount + (-HISRevenueLine.Discount);
                                 InvoicePostingBuffer.Modify();
@@ -3720,6 +3701,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                                 InvoicePostingBuffer."G/L Account" := HISRevenueLine."Discount G/L Account";
                                 InvoicePostingBuffer."Global Dimension 1 Code" := HISRevenueLine."Shortcut Dimension 1 Code";
                                 InvoicePostingBuffer."Global Dimension 2 Code" := HISRevenueLine."Shortcut Dimension 2 Code";
+                                invoicepostingbuffer."Deferral Code" := hisrevenueline."Shortcut Dimension 3 Code";
                                 InvoicePostingBuffer.Amount := -HISRevenueLine.Discount;
                                 InvoicePostingBuffer.Insert();
                             end;
@@ -3730,6 +3712,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                             InvoicePostingBuffer.SetRange("G/L Account", HISRevenueLine."MOU Discount G/L Account");
                             InvoicePostingBuffer.SetRange("Global Dimension 1 Code", HISRevenueLine."Shortcut Dimension 1 Code");
                             InvoicePostingBuffer.SetRange("Global Dimension 2 Code", HISRevenueLine."Shortcut Dimension 2 Code");
+                            InvoicePostingBuffer.SetRange("Deferral Code", HISRevenueLine."Shortcut Dimension 3 Code");
                             if InvoicePostingBuffer.FindFirst() then begin
                                 InvoicePostingBuffer.Amount := InvoicePostingBuffer.Amount + (-HISRevenueLine."MOU Discount");
                                 InvoicePostingBuffer.Modify();
@@ -3740,6 +3723,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                                 InvoicePostingBuffer."G/L Account" := HISRevenueLine."MOU Discount G/L Account";
                                 InvoicePostingBuffer."Global Dimension 1 Code" := HISRevenueLine."Shortcut Dimension 1 Code";
                                 InvoicePostingBuffer."Global Dimension 2 Code" := HISRevenueLine."Shortcut Dimension 2 Code";
+                                InvoicePostingBuffer."Deferral Code" := HISRevenueLine."Shortcut Dimension 3 Code";
                                 InvoicePostingBuffer.Amount := -HISRevenueLine."MOU Discount";
                                 InvoicePostingBuffer.Insert();
                             end;
@@ -3804,6 +3788,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         if InvoicePostingBuffer."Global Dimension 2 Code" <> '' then
                             GenJournalLine.VALIDATE("Shortcut Dimension 2 Code", GetMappedDimension(InvoicePostingBuffer."Global Dimension 2 Code"));
 
+
                         GenJournalLine.VALIDATE("External Document No.", HISRevenueHeader."External Document No.");
 
                         GenJournalLine."E3 HIS Document Type" := HISRevenueHeader."HIS Document Type";
@@ -3816,6 +3801,10 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         GenJournalLine."E3 Sponsor Name" := HISRevenueHeader."Sponsor Name";
                         GenJournalLine."E3 Payer Code" := HISRevenueHeader."Payer Code";
                         GenJournalLine."E3 Payer Name" := HISRevenueHeader."Payer Name";
+                        DimenValue3 := '';
+                        DimenValue3 := GetMappedDimension3(invoicepostingbuffer."Deferral Code");
+                        GenJournalLine.ValidateShortcutDimCode(3, DimenValue3);
+
                         if IntegrationSetup."Rev./Rev.Cancel Direct Post" then
                             PostGenJnlLine.RunWithCheck(GenJournalLine)
                         else
@@ -3868,6 +3857,10 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     GenJournalLine."E3 Sponsor Name" := HISRevenueHeader."Sponsor Name";
                     GenJournalLine."E3 Payer Code" := HISRevenueHeader."Payer Code";
                     GenJournalLine."E3 Payer Name" := HISRevenueHeader."Payer Name";
+                    DimenValue3 := '';
+                    DimenValue3 := GetMappedDimension3(HISRevenueHeader."Shortcut Dimension 3 Code");
+                    GenJournalLine.ValidateShortcutDimCode(3, DimenValue3);
+
                     if IntegrationSetup."Rev./Rev.Cancel Direct Post" then
                         PostGenJnlLine.RunWithCheck(GenJournalLine)
                     else
@@ -3920,7 +3913,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                             GenJournalLine.VALIDATE(Amount, HISBillCollection.Amount);
                             settleAmt += HISBillCollection.Amount;
                         end else begin
-                            GenJournalLine.VALIDATE(Amount, -HISBillCollection.Amount);
+                            GenJournalLine.VALIDATE(Amount, HISBillCollection.Amount);
                             settleAmt += -HISBillCollection.Amount;
                         end;
                         //GenJournalLine.VALIDATE("Bal. Account Type", GenJournalLine."Bal. Account Type"::Customer);
@@ -3945,6 +3938,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         GenJournalLine."E3 Sponsor Name" := HISRevenueHeader."Sponsor Name";
                         GenJournalLine."E3 Payer Code" := HISRevenueHeader."Payer Code";
                         GenJournalLine."E3 Payer Name" := HISRevenueHeader."Payer Name";
+
+
                         if IntegrationSetup."Rev./Rev.Cancel Direct Post" then
                             PostGenJnlLine.RunWithCheck(GenJournalLine)
                         else
@@ -3954,6 +3949,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
 
 
             end;
+
+
             // change for patient payble amount
             PatientPayble := PatientPayble - settleAmt;
             if PatientPayble <> 0 then begin
@@ -4440,6 +4437,24 @@ codeunit 50000 "E3 HIS Integration Mgmt."
         DimensionMapping.Reset();
         DimensionMapping.SetRange(Type, DimensionMapping.Type::Dimension);
         DimensionMapping.SetRange("Dimension Code", LGeneralLedgerSetup."Shortcut Dimension 5 Code");
+        DimensionMapping.SetRange("HIS Code", HISCCode);
+        if DimensionMapping.FindFirst() then
+            exit(DimensionMapping."Department Code");
+    end;
+
+    local procedure GetMappedDimension3(HISCCode: Code[20]): Code[20]
+    var
+        LGeneralLedgerSetup: Record "General Ledger Setup";
+        DimensionMapping: Record "E3 HIS GL Accounts Mapping";
+    begin
+        if HISCCode = '' then
+            exit('');
+
+        LGeneralLedgerSetup.Get();
+
+        DimensionMapping.Reset();
+        DimensionMapping.SetRange(Type, DimensionMapping.Type::Dimension);
+        DimensionMapping.SetRange("Dimension Code", LGeneralLedgerSetup."Shortcut Dimension 3 Code");
         DimensionMapping.SetRange("HIS Code", HISCCode);
         if DimensionMapping.FindFirst() then
             exit(DimensionMapping."Department Code");
