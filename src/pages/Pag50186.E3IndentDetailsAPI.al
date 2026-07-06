@@ -27,9 +27,9 @@ page 50186 "E3 Indent Header API"
                 {
                     Caption = 'Requested By';
                 }
-                field(requestDate; Rec."Request Date")
+                field(indentDate; Rec."Indent Date")
                 {
-                    Caption = 'Request Date';
+                    Caption = 'Indent Date';
                 }
                 field(status; Rec.Status)
                 {
@@ -79,13 +79,13 @@ page 50186 "E3 Indent Header API"
                 {
                     Caption = 'Entry No.';
                 }
-                field(indenter; Rec.Indenter)
+                field(indenterCode; Rec."Requesting Staff Code")
                 {
                     Caption = 'Indenter';
                 }
-                field(indenterName; Rec."Indenter Name")
+                field(indenterName; Rec."Requesting Staff Name")
                 {
-                    Caption = 'Indenter Name';
+                    Caption = 'Requesting Staff Name';
                 }
                 field(remarks; Rec.Remarks)
                 {

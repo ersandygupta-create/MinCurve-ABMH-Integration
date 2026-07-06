@@ -135,10 +135,14 @@ table 50037 "E3 Indent Line"
             Caption = 'Requested Received Date';
             DataClassification = CustomerContent;
         }
-        field(24; "Entry No."; Code[50])
+        field(24; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
-            DataClassification = CustomerContent;
+            AutoIncrement = true;
+            BlankZero = true;
+            MinValue = 1;
+            Editable = false;
+            DataClassification = ToBeClassified;
         }
         field(25; "Item Make Code"; Code[30])
         {

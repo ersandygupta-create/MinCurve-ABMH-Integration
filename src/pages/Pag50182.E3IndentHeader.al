@@ -30,7 +30,7 @@ page 50182 "E3 Indent Card"
                     ApplicationArea = All;
                 }
 
-                field("Request Date"; Rec."Request Date")
+                field("Indent Date"; Rec."Indent Date")
                 {
                     ApplicationArea = All;
                 }
@@ -61,7 +61,7 @@ page 50182 "E3 Indent Card"
                 {
                     ApplicationArea = All;
                 }
-                field(Indentor; Rec.Indenter)
+                field(IndentorCode; Rec."Requesting Staff Code")
                 {
                     ApplicationArea = All;
                 }

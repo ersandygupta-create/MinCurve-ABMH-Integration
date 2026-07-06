@@ -43,9 +43,9 @@ table 50036 "E3 Indent Header"
                 end;
             end;
         }
-        field(3; "Request Date"; Date)
+        field(3; "Indent Date"; Date)
         {
-            Caption = 'Request Date';
+            Caption = 'Indent Date';
             DataClassification = CustomerContent;
         }
         field(4; Status; Option)
@@ -173,23 +173,14 @@ table 50036 "E3 Indent Header"
             Caption = 'Approved By';
             DataClassification = CustomerContent;
         }
-        field(14; "Entry No."; Code[50])
+        field(14; "Entry No."; Integer)
         {
-            Caption = 'Entry No';
-            DataClassification = CustomerContent;
-            trigger OnValidate()
-            var
-                IndentLine: Record "E3 Indent Line";
-            begin
-                IndentLine.Reset();
-                IndentLine.SetRange("Document No.", "Document No.");
-
-                if IndentLine.FindSet() then
-                    repeat
-                        IndentLine."Entry No." := "Entry No.";
-                        IndentLine.Modify(true);
-                    until IndentLine.Next() = 0;
-            end;
+            Caption = 'Entry No.';
+            AutoIncrement = true;
+            BlankZero = true;
+            MinValue = 1;
+            Editable = false;
+            DataClassification = ToBeClassified;
         }
         field(15; "Business Unit Name"; Text[100])
         {
@@ -197,27 +188,27 @@ table 50036 "E3 Indent Header"
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(16; Indenter; Text[60])
+        field(16; "Requesting Staff Code"; Text[60])
         {
-            Caption = 'Indenter';
+            Caption = 'Requesting Staff Code';
             DataClassification = CustomerContent;
-            TableRelation = "E3 Indenter Master"."Indenter Name";
+            TableRelation = "E3 Indenter Master"."Indenter Code";
             trigger OnValidate()
             var
                 IndenterMaster: Record "E3 Indenter Master";
             begin
-                Clear("Indenter Name");
+                Clear("Requesting Staff Name");
                 Clear("To Location Code");
                 Clear("To Location Name");
                 Clear("To Department Code");
                 Clear("To Department Name");
 
                 IndenterMaster.Reset();
-                IndenterMaster.SetRange("Indenter Name", Indenter);
+                IndenterMaster.SetRange("Indenter Name", "Requesting Staff Code");
                 IndenterMaster.SetRange("Indenter Type", IndenterMaster."Indenter Type"::Indenter);
 
                 if IndenterMaster.FindFirst() then begin
-                    "Indenter Name" := IndenterMaster."Indenter Name";
+                    "Requesting Staff Name" := IndenterMaster."Indenter Name";
 
                     "To Location Code" := IndenterMaster."Default Location Code";
                     "To Location Name" := IndenterMaster."Default Location Name";
@@ -292,9 +283,9 @@ table 50036 "E3 Indent Header"
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(24; "Indenter Name"; Text[100])
+        field(24; "Requesting Staff Name"; Text[100])
         {
-            Caption = 'Indenter Name';
+            Caption = 'Requesting Staff Name';
             Editable = false;
             DataClassification = CustomerContent;
         }
@@ -329,8 +320,8 @@ table 50036 "E3 Indent Header"
             "Document No." :=
                 NoSeries.GetNextNo(PurchSetup."Indent Nos.", WorkDate());
 
-            if "Request Date" = 0D then
-                "Request Date" := Today;
+            if "Indent Date" = 0D then
+                "Indent Date" := Today;
         end;
     end;
 
