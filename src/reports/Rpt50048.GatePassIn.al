@@ -13,7 +13,9 @@ report 50048 "E3 Gate In Print"
         {
             RequestFilterFields = PostedNo;
 
-
+            column(CompPicture; compInfo.Picture)
+            {
+            }
             column(GateNo; "Document No.")
             {
             }
@@ -178,6 +180,12 @@ report 50048 "E3 Gate In Print"
             // }
         }
     }
+    trigger OnPreReport()
+    begin
+        CompInfo.GET;
+        CompInfo.CALCFIELDS(Picture);
+    end;
+
     var
         GateNo: Code[20];
         GatePassType: Text[50];
@@ -197,6 +205,7 @@ report 50048 "E3 Gate In Print"
         LocationName: Text[100];
         UserC: Record User;
         GateLine: Record "E3 Posted Gate Entry Line";
+        CompInfo: Record "Company Information";
 
 
 }

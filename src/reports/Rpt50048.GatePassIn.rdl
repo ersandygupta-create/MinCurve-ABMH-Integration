@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-06-23T12:27:44.2854085Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-02T10:36:20.1615573Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -1085,7 +1085,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.60417in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1349,7 +1349,7 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>1.30083in</Top>
             <Left>0.16194in</Left>
-            <Height>2.13888in</Height>
+            <Height>2.49305in</Height>
             <Width>7.84723in</Width>
             <Style>
               <Border>
@@ -1469,8 +1469,24 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Image Name="Image1">
+            <Source>Database</Source>
+            <Value>=First(Fields!CompPicture.Value, "DataSet_Result")</Value>
+            <MIMEType>image/png</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>0.07861in</Top>
+            <Left>0.2175in</Left>
+            <Height>0.60417in</Height>
+            <Width>2.07639in</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
         </ReportItems>
-        <Height>6.88194in</Height>
+        <Height>4.125in</Height>
         <Style />
       </Body>
       <Width>8.28695in</Width>
@@ -1519,6 +1535,9 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="CompPicture">
+          <DataField>CompPicture</DataField>
+        </Field>
         <Field Name="GateNo">
           <DataField>GateNo</DataField>
         </Field>

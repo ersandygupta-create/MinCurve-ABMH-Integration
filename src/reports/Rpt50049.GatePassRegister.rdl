@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-06-25T12:43:01.7177392Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-02T10:39:39.2042481Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -6301,6 +6301,22 @@
               </Border>
             </Style>
           </Line>
+          <Image Name="Image1">
+            <Source>Database</Source>
+            <Value>=First(Fields!CompPicture.Value, "DataSet_Result")</Value>
+            <MIMEType>image/png</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>0.06472in</Top>
+            <Left>29.84944in</Left>
+            <Height>0.57639in</Height>
+            <Width>2.04861in</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
         </ReportItems>
         <Height>4.96528in</Height>
         <Style />
@@ -6358,6 +6374,9 @@ End Function
       <Fields>
         <Field Name="LocationCode">
           <DataField>LocationCode</DataField>
+        </Field>
+        <Field Name="CompPicture">
+          <DataField>CompPicture</DataField>
         </Field>
         <Field Name="LocationAdd">
           <DataField>LocationAdd</DataField>

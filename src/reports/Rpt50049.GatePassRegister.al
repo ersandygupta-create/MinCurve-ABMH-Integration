@@ -16,6 +16,9 @@ report 50049 "Gate Pass Register"
             column(LocationCode; "To Destination")
             {
             }
+            column(CompPicture; compInfo.Picture)
+            {
+            }
             column(LocationAdd; LocationAdd)
             {
             }
@@ -259,6 +262,12 @@ report 50049 "Gate Pass Register"
             // }
         }
     }
+    trigger OnPreReport()
+    begin
+        CompInfo.GET;
+        CompInfo.CALCFIELDS(Picture);
+    end;
+
     var
         GateNo: Code[20];
         EmployeeCode: Code[30];
@@ -283,5 +292,6 @@ report 50049 "Gate Pass Register"
         EntryType: Text[100];
         GatePassType: Text[250];
         DocumentNo: Text[100];
+        CompInfo: Record "Company Information";
 
 }
