@@ -38,6 +38,17 @@ page 50175 "E3 Posted Gate Ent Inward List"
                     ToolTip = 'Specifies the value of the Document No. field';
                     ApplicationArea = All;
                 }
+                field(postedNo; Rec.PostedNo)
+                {
+                    ToolTip = 'Specifies the value of the Posted No. field';
+                    ApplicationArea = All;
+                    CAption = 'Posted Inward Gate Entry No.';
+                }
+                field("Outward Document No."; Rec."Outward Document No.")
+                {
+                    ToolTip = 'Specifies the value of the Outward Document No. field';
+                    ApplicationArea = All;
+                }
                 field("Purpose Code"; Rec."Purpose Code")
                 {
                     ToolTip = 'Specifies the value of the Purpose Code field';
@@ -118,17 +129,7 @@ page 50175 "E3 Posted Gate Ent Inward List"
                     ToolTip = 'Specifies the value of the Remarks field';
                     ApplicationArea = All;
                 }
-                field(postedNo; Rec.PostedNo)
-                {
-                    ToolTip = 'Specifies the value of the Posted No. field';
-                    ApplicationArea = All;
-                    CAption = 'Posted Inward Gate Entry No.';
-                }
-                field("Outward Document No."; Rec."Outward Document No.")
-                {
-                    ToolTip = 'Specifies the value of the Outward Document No. field';
-                    ApplicationArea = All;
-                }
+
             }
         }
     }
