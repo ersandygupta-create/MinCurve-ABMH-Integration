@@ -17,96 +17,119 @@ page 50183 "E3 Indent Line Subform"
                 {
                     ApplicationArea = All;
                     Visible = false;
-                    ToolTip = 'Specifies the unique line number of the record.';
                 }
-
                 field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the type of line, such as Item or G/L Account.';
+                    Editable = IsLineEditable;
                 }
-
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the number of the selected item, resource, or account.';
+                    Editable = IsLineEditable;
                 }
-
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the description of the selected record.';
+                    Editable = IsLineEditable;
                 }
-
                 field("Unit of Measure"; Rec."Unit of Measure")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the unit of measure for the item.';
+                    Editable = IsLineEditable;
                 }
-
                 field("Critical Item"; Rec."Critical Item")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies whether the item is marked as a critical item.';
+                    Editable = IsLineEditable;
                 }
-
                 field("Requested Qty"; Rec."Requested Qty")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the quantity requested.';
+                    Editable = IsLineEditable;
                 }
-
                 field("Approved Qty"; Rec."Approved Qty")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the quantity approved for the request.';
                 }
-
                 field("Unit Cost"; Rec."Unit Cost")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the unit cost of the item.';
+                    Editable = IsLineEditable;
                 }
-
                 field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the total amount calculated for the line.';
-                }
-
-                field("Ordered Qty"; Rec."Ordered Qty")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the quantity that has been ordered.';
-                }
-                field("Item Make Code"; Rec."Item Make Code")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the code of the selected item make.';
+                    Editable = IsLineEditable;
                 }
                 field("Item Make Name"; Rec."Item Make Name")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the name of the selected item make.';
+                    Editable = false;
+                }
+                field("Item Make Code"; Rec."Item Make Code")
+                {
+                    ApplicationArea = All;
+                    Editable = IsLineEditable;
                 }
                 field("Requested Received Date"; Rec."Requested Received Date")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the requested date by which the item should be received.';
+                    Editable = IsLineEditable;
                 }
-
                 field(Remarks; Rec.Remarks)
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies additional remarks or comments for the line.';
+                    Editable = IsLineEditable;
                 }
-
                 field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the unique entry number assigned to the record.';
+                    Editable = IsLineEditable;
                 }
             }
         }
     }
+    var
+        IsLineEditable: Boolean;
+        IsApprovedQtyEditable: Boolean;
+        IndentHeader: Record "E3 Indent Header";
+
+    trigger OnOpenPage()
+    begin
+        SetEditable();
+    end;
+
+    trigger OnAfterGetRecord()
+    begin
+        SetEditable();
+    end;
+
+    local procedure SetEditable()
+    begin
+        IsLineEditable := true;
+        IsApprovedQtyEditable := false;
+
+        if IndentHeader.Get(Rec."Document No.") then begin
+            case IndentHeader.Status of
+                IndentHeader.Status::Open:
+                    begin
+                        IsLineEditable := true;
+                        IsApprovedQtyEditable := true;
+                    end;
+
+                IndentHeader.Status::"Pending Approval":
+                    begin
+                        IsLineEditable := false;
+                        IsApprovedQtyEditable := true;
+                    end;
+
+                IndentHeader.Status::Approved:
+                    begin
+                        IsLineEditable := false;
+                        IsApprovedQtyEditable := false;
+                    end;
+            end;
+        end;
+    end;
 }

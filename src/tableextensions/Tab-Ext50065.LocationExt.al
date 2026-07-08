@@ -8,5 +8,12 @@ tableextension 50065 "E3 Location" extends Location
             TableRelation = "Bank Account";
             DataClassification = CustomerContent;
         }
+        field(50001; "E3 Indent PO Series"; Code[20])
+        {
+            Caption = 'Indent PO Series';
+            DataClassification = CustomerContent;
+            TableRelation = "No. Series";
+        }
+
     }
 }
