@@ -14,6 +14,14 @@ pageextension 50073 "E3 Location Card Ext" extends "Location Card"
                 }
             }
         }
-
+        addafter("EDC Opex PO Series")
+        {
+            field("E3 Indent PO Series"; Rec."E3 Indent PO Series")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the E3 Indent PO Series field.';
+            }
+        }
     }
 }
+

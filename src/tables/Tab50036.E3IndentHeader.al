@@ -9,16 +9,27 @@ table 50036 "E3 Indent Header"
         {
             Caption = 'Document No.';
             DataClassification = ToBeClassified;
+            trigger OnValidate()
+            var
+                IndentHeader: Record "E3 Indent Header";
+            begin
+                if IndentHeader.Get("Document No.") then
+                    if IndentHeader."Shortcut Dimension 1 Code" <> '' then
+                        Validate("Shortcut Dimension 1 Code", IndentHeader."Shortcut Dimension 1 Code");
+                if IndentHeader."Entry No." <> '' then
+                    Validate("Entry No.", IndentHeader."Entry No.");
+            end;
         }
         field(2; "Requested By"; Text[60])
         {
             Caption = 'Requested By';
             DataClassification = CustomerContent;
-            TableRelation = "E3 Indenter Master"."Indenter Name";
+            TableRelation = "E3 Indenter Master"."Indenter Name" where("Indenter Type" = filter("Requested By"));
 
             trigger OnValidate()
             var
                 IndenterMaster: Record "E3 Indenter Master";
+                IndentLine: Record "E3 Indent Line";
             begin
                 Clear("Shortcut Dimension 2 Code");
                 Clear("Department Name");
@@ -43,14 +54,14 @@ table 50036 "E3 Indent Header"
                 end;
             end;
         }
-        field(3; "Indent Date"; Date)
+        field(3; "Request Date"; Date)
         {
-            Caption = 'Indent Date';
+            Caption = 'Request Date';
             DataClassification = CustomerContent;
         }
         field(4; Status; Option)
         {
-            OptionMembers = Open,Pending,Approved,Rejected;
+            OptionMembers = Open,"Pending Approval",Approved,Rejected;
             Caption = 'Status';
         }
         field(5; "Shortcut Dimension 1 Code"; Code[20])
@@ -59,11 +70,12 @@ table 50036 "E3 Indent Header"
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
             ValidateTableRelation = false;
             DataClassification = ToBeClassified;
-            Editable = false;
+            Editable = true;
             trigger OnValidate()
             var
                 DimensionValue: Record "Dimension Value";
                 GLSetup: Record "General Ledger Setup";
+                IndentLine: Record "E3 Indent Line";
             begin
                 "Business Unit Name" := '';
                 GLSetup.Get();
@@ -73,6 +85,7 @@ table 50036 "E3 Indent Header"
 
                 if DimensionValue.FindFirst() then
                     "Business Unit Name" := DimensionValue.Name;
+
             end;
         }
         field(6; "Shortcut Dimension 2 Code"; Code[20])
@@ -81,7 +94,7 @@ table 50036 "E3 Indent Header"
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
             ValidateTableRelation = false;
             DataClassification = ToBeClassified;
-            Editable = false;
+            Editable = true;
 
             trigger OnValidate()
             var
@@ -98,10 +111,10 @@ table 50036 "E3 Indent Header"
                     "Department Name" := DimensionValue.Name;
             end;
         }
-        field(7; "Location Code"; Code[20])
+        field(7; "Location Code"; Code[10])
         {
             Caption = 'Location Code';
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
             TableRelation = Location.Code;
             trigger OnValidate()
@@ -118,19 +131,19 @@ table 50036 "E3 Indent Header"
         field(8; "Location Name"; Text[100])
         {
             Caption = 'Location Name';
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
         }
         field(9; "Department Name"; Text[100])
         {
             Caption = 'Department Name';
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
         }
         field(10; "To Location Code"; Code[20])
         {
             Caption = 'To Location Code';
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
             TableRelation = Location.Code;
             trigger OnValidate()
@@ -147,7 +160,7 @@ table 50036 "E3 Indent Header"
         field(11; "To Location Name"; Text[100])
         {
             Caption = 'To Location Name';
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
         }
         field(12; "Expected Receive Date"; Date)
@@ -173,42 +186,51 @@ table 50036 "E3 Indent Header"
             Caption = 'Approved By';
             DataClassification = CustomerContent;
         }
-        field(14; "Entry No."; Integer)
+        field(14; "Entry No."; Code[50])
         {
-            Caption = 'Entry No.';
-            AutoIncrement = true;
-            BlankZero = true;
-            MinValue = 1;
-            Editable = false;
-            DataClassification = ToBeClassified;
+            Caption = 'Entry No';
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                IndentLine: Record "E3 Indent Line";
+            begin
+                IndentLine.Reset();
+                IndentLine.SetRange("Document No.", "Document No.");
+
+                if IndentLine.FindSet() then
+                    repeat
+                        IndentLine."Entry No." := "Entry No.";
+                        IndentLine.Modify(true);
+                    until IndentLine.Next() = 0;
+            end;
         }
         field(15; "Business Unit Name"; Text[100])
         {
             Caption = 'Business Unit Name';
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
         }
-        field(16; "Requesting Staff Code"; Text[60])
+        field(16; Indenter; Text[60])
         {
-            Caption = 'Requesting Staff Code';
+            Caption = 'Indenter';
             DataClassification = CustomerContent;
-            TableRelation = "E3 Indenter Master"."Indenter Code";
+            TableRelation = "E3 Indenter Master"."Indenter Name" where("Indenter Type" = filter(Indenter));
             trigger OnValidate()
             var
                 IndenterMaster: Record "E3 Indenter Master";
             begin
-                Clear("Requesting Staff Name");
+                Clear("Indenter Name");
                 Clear("To Location Code");
                 Clear("To Location Name");
                 Clear("To Department Code");
                 Clear("To Department Name");
 
                 IndenterMaster.Reset();
-                IndenterMaster.SetRange("Indenter Name", "Requesting Staff Code");
+                IndenterMaster.SetRange("Indenter Name", Indenter);
                 IndenterMaster.SetRange("Indenter Type", IndenterMaster."Indenter Type"::Indenter);
 
                 if IndenterMaster.FindFirst() then begin
-                    "Requesting Staff Name" := IndenterMaster."Indenter Name";
+                    "Indenter Name" := IndenterMaster."Indenter Name";
 
                     "To Location Code" := IndenterMaster."Default Location Code";
                     "To Location Name" := IndenterMaster."Default Location Name";
@@ -228,7 +250,7 @@ table 50036 "E3 Indent Header"
             Caption = 'To Department Code';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
             ValidateTableRelation = false;
-            Editable = false;
+            Editable = true;
             DataClassification = ToBeClassified;
 
             trigger OnValidate()
@@ -249,7 +271,7 @@ table 50036 "E3 Indent Header"
         field(19; "To Department Name"; Text[100])
         {
             Caption = 'To Department Name';
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
         }
         field(20; "Approval Date Time"; DateTime)
@@ -280,16 +302,56 @@ table 50036 "E3 Indent Header"
         field(23; "Voucher Type Name"; Text[80])
         {
             Caption = 'Voucher Type Name';
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
         }
-        field(24; "Requesting Staff Name"; Text[100])
+        field(24; "Indenter Name"; Text[100])
         {
-            Caption = 'Requesting Staff Name';
+            Caption = 'Indenter Name';
+            Editable = true;
+            DataClassification = CustomerContent;
+        }
+        field(25; Amount; Decimal)
+        {
+            CalcFormula = Sum("E3 Indent Line"."Amount" where("Document No." = field("Document No.")));
+            Editable = false;
+            FieldClass = FlowField;
+        }
+        field(26; "Currency Code"; Code[10])
+        {
+            Caption = 'Currency Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Currency".Code;
+        }
+        field(27; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            DecimalPlaces = 0 : 15;
+            Editable = false;
+            MinValue = 0;
+            DataClassification = CustomerContent;
+        }
+        field(28; "Budget Type"; Option)
+        {
+            DataClassification = CustomerContent;
+            OptionCaption = 'Budgeted,Non-Budgeted';
+            OptionMembers = Budgeted,"Non-Budgeted";
+        }
+        field(29; "Budgeted Amount"; Decimal)
+        {
             Editable = false;
             DataClassification = CustomerContent;
         }
-
+        field(30; "Procurement Type"; Enum "E3 Capex Type")
+        {
+            Caption = 'Procurement Type';
+            DataClassification = CustomerContent;
+        }
+        field(31; "Release Indent"; Boolean)
+        {
+            Caption = 'Release Indent';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
@@ -319,9 +381,6 @@ table 50036 "E3 Indent Header"
 
             "Document No." :=
                 NoSeries.GetNextNo(PurchSetup."Indent Nos.", WorkDate());
-
-            if "Indent Date" = 0D then
-                "Indent Date" := Today;
         end;
     end;
 
@@ -349,14 +408,35 @@ table 50036 "E3 Indent Header"
         exit(false);
     end;
 
+    procedure UpdateApprovalDetails()
+    var
+        ApprovalEntry: Record "Approval Entry";
+    begin
+        ApprovalEntry.Reset();
+        ApprovalEntry.SetRange("Table ID", Database::"E3 Indent Header");
+        ApprovalEntry.SetRange("Document No.", "Document No.");
+        ApprovalEntry.SetRange(Status, ApprovalEntry.Status::Approved);
+
+        if ApprovalEntry.FindLast() then begin
+            "Approved By" := ApprovalEntry."Approver ID";
+            "Approval Date Time" := ApprovalEntry."Last Date-Time Modified";
+            Modify(false);
+        end;
+    end;
+
     trigger OnModify()
     begin
 
     end;
 
     trigger OnDelete()
+    var
+        RecordRequisitionLine: Record "E3 Indent Line";
     begin
-
+        Testfield(Status, Status::Open);
+        RecordRequisitionLine.Reset();
+        RecordRequisitionLine.SetRange("Document No.", "Document No.");
+        RecordRequisitionLine.DeleteAll(true);
     end;
 
     trigger OnRename()

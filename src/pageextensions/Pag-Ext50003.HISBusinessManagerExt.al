@@ -920,6 +920,13 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                     RunPageMode = Create;
                     ToolTip = 'Executes the Create Indent Entries action.';
                 }
+                action(VendorQuotation)
+                {
+                    Caption = 'Vendor Quotation';
+                    ApplicationArea = All;
+                    RunObject = Page "E3 Quotation List";
+                    ToolTip = 'Executes the Vendor Quotation action.';
+                }
                 action("E3 Indenter Master")
                 {
                     AccessByPermission = TableData "E3 Indenter Master" = IMD;
@@ -930,15 +937,15 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                     RunPageMode = Create;
                     ToolTip = 'Executes the Create Indenter Entries action.';
                 }
-                action("Gate Entry Register")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Gate Entry Register';
-                    Image = Report;
-                    RunObject = report "Gate Pass Register";
-                    RunPageMode = Edit;
-                    ToolTip = 'Executes the Gate Pass Register action.';
-                }
+                // action("Gate Entry Register")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     Caption = 'Gate Entry Register';
+                //     Image = Report;
+                //     RunObject = report "Gate Pass Register";
+                //     RunPageMode = Edit;
+                //     ToolTip = 'Executes the Gate Pass Register action.';
+                // }
                 action("E3 Item Make Master")
                 {
                     AccessByPermission = TableData "E3 Item Make Master" = IMD;
