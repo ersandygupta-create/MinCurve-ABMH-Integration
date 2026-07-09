@@ -3,7 +3,7 @@ page 50190 "E3 Quotation List"
     CardPageID = "E3 Quotation Card";
     Editable = false;
     PageType = List;
-    SourceTableView = WHERE(Status = FILTER(Approved), "Release Indent" = FILTER(false));
+    SourceTableView = sorting("Document No.") WHERE(Status = FILTER(Approved), "Release Indent" = FILTER(false));
     UsageCategory = Lists;
     ApplicationArea = All;
     Caption = 'Quotation Lists';

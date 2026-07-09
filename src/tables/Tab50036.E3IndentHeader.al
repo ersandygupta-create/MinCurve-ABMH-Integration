@@ -9,16 +9,7 @@ table 50036 "E3 Indent Header"
         {
             Caption = 'Document No.';
             DataClassification = ToBeClassified;
-            trigger OnValidate()
-            var
-                IndentHeader: Record "E3 Indent Header";
-            begin
-                if IndentHeader.Get("Document No.") then
-                    if IndentHeader."Shortcut Dimension 1 Code" <> '' then
-                        Validate("Shortcut Dimension 1 Code", IndentHeader."Shortcut Dimension 1 Code");
-                if IndentHeader."Entry No." <> '' then
-                    Validate("Entry No.", IndentHeader."Entry No.");
-            end;
+
         }
         field(2; "Requested By"; Text[60])
         {
@@ -64,7 +55,7 @@ table 50036 "E3 Indent Header"
             OptionMembers = Open,"Pending Approval",Approved,Rejected;
             Caption = 'Status';
         }
-        field(5; "Shortcut Dimension 1 Code"; Code[20])
+        field(5; "Shortcut Dimension 1 Code"; Code[10])
         {
             Caption = 'Shortcut Dimension 1 Code';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
@@ -88,7 +79,7 @@ table 50036 "E3 Indent Header"
 
             end;
         }
-        field(6; "Shortcut Dimension 2 Code"; Code[20])
+        field(6; "Shortcut Dimension 2 Code"; Code[10])
         {
             Caption = 'Department Code';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));

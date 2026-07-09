@@ -61,11 +61,13 @@ page 50182 "E3 Indent Card"
                 {
                     ApplicationArea = All;
                     Editable = IsPageEditable;
+                    Visible = false;
                 }
                 field("Voucher Type Name"; Rec."Voucher Type Name")
                 {
                     ApplicationArea = All;
                     Editable = IsPageEditable;
+                    Visible = false;
                 }
                 field(Remarks; Rec.Remarks)
                 {
