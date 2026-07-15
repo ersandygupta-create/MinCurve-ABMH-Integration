@@ -13,11 +13,13 @@ report 50050 "Collection Control Register"
             begin
                 SrNo := 0;
                 if (GL <> '') then
-                    GLEntry.SetRange("G/L Account No.", GL);
+                    GLEntry.SetRange("G/L Account No.", GL)
+                else
+                    Error('GL Account Can not be blank.');
                 if (StartDate <> 0D) or (EndDate <> 0D) then
                     GLEntry.SetRange("Posting Date", StartDate, EndDate);
 
-                GLEntry.SetFilter("Source Code", '%1', 'BANKRCPTV');
+                GLEntry.SetFilter("Source Code", '%1', 'BANKREC');
             end;
 
             trigger OnAfterGetRecord()
@@ -27,16 +29,14 @@ report 50050 "Collection Control Register"
                 TotAmount := 0;
                 BalAmount := 0;
 
-                // Sum up adjustments using matching custom field "E3 UTR No."
                 if GLEntry."E3 UTR No." <> '' then begin
                     GLEntryRec.Reset();
-                    GLEntryRec.SetFilter("Source Code", '<>%1', 'BANKRCPTV');
+                    GLEntryRec.SetFilter("Source Code", '<>%1', 'BANKREC');
                     GLEntryRec.SetRange("E3 UTR No.", GLEntry."E3 UTR No.");
                     if GLEntryRec.CalcSums(Amount) then
                         TotAmount := Abs(GLEntryRec.Amount);
                 end;
 
-                // Adjust calculations based on normal credit/debit signage 
                 BalAmount := Abs(GLEntry.Amount) - TotAmount;
 
                 if (BalAmount <= 0) then begin
@@ -109,7 +109,6 @@ report 50050 "Collection Control Register"
 
     trigger OnPreReport()
     begin
-        // CRITICAL FIX: Fetch Company details BEFORE running MakeExcelInfo()
         CompanyInfo.Get();
         CompanyNameText := CompanyInfo.Name;
 
@@ -132,7 +131,7 @@ report 50050 "Collection Control Register"
         ExcelBuf: Record "Excel Buffer" temporary;
         StartDate: Date;
         GL: Code[20];
-        CompanyNameText: Text[100]; // Note: Changed name slightly to avoid clashing with global reserve keywords
+        CompanyNameText: Text[100];
         EndDate: Date;
         TotAmount: Decimal;
         BalAmount: Decimal;
@@ -147,34 +146,31 @@ report 50050 "Collection Control Register"
 
     local procedure MakeExcelDataHeader()
     var
-        i: Integer;
         DateFilterTxt: Text;
     begin
         ExcelBuf.NewRow();
 
-        // ROW 2: Header Company Title (Spans A to H)
+        // ROW 2: Header Company Title (Merged 8 columns across via the 2nd parameter)
         ExcelBuf.NewRow();
         ExcelBuf.AddColumn(CompanyNameText, false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
-        for i := 2 to 8 do
-            ExcelBuf.AddColumn('', false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+        // We write 7 empty columns to accommodate the merged space natively without crash
+        AddEmptyColumns(7);
 
-        // ROW 3: Report Classification Name (Spans A to H)
+        // ROW 3: Report Classification Name (Merged 8 columns across)
         ExcelBuf.NewRow();
         ExcelBuf.AddColumn('Collection Control Account Reports', false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
-        for i := 2 to 8 do
-            ExcelBuf.AddColumn('', false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+        AddEmptyColumns(7);
 
-        // ROW 4: Selected Date Constraint Info (Spans A to H)
+        // ROW 4: Selected Date Constraint Info (Merged 8 columns across)
         DateFilterTxt := 'From Date: ' + Format(StartDate, 0, '<Day,2>-<Month Text,3>-<Year4>') + ' To Date: ' + Format(EndDate, 0, '<Day,2>-<Month Text,3>-<Year4>');
         ExcelBuf.NewRow();
         ExcelBuf.AddColumn(DateFilterTxt, false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
-        for i := 2 to 8 do
-            ExcelBuf.AddColumn('', false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+        AddEmptyColumns(7);
 
         ExcelBuf.NewRow();
         ExcelBuf.NewRow();
 
-        // ROW 7: Layout Column Header Configs
+        // ROW 7: Structural Data Headers
         ExcelBuf.NewRow();
         ExcelBuf.AddColumn('SR. NO.', false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
         ExcelBuf.AddColumn('POSTING DATE', false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
@@ -202,17 +198,19 @@ report 50050 "Collection Control Register"
         ExcelBuf.AddColumn(Status, false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
     end;
 
+    local procedure AddEmptyColumns(Count: Integer)
+    var
+        i: Integer;
+    begin
+        for i := 1 to Count do
+            ExcelBuf.AddColumn('', false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+    end;
+
     procedure CreateExcelbook()
     var
         ExcelFileNameLbl: Label 'CollectionControlRegister_%1', Comment = '%1 = DateTime';
     begin
         ExcelBuf.CreateNewBook('Collection Control');
-
-        // Merges enabled: Spans columns A through H dynamically without crashing
-        // ExcelBuf.MergeCells(2, 1, 2, 8);
-        // ExcelBuf.MergeCells(3, 1, 3, 8);
-        // ExcelBuf.MergeCells(4, 1, 4, 8);
-
         ExcelBuf.WriteSheet('CollectionControl', CompanyNameText, UserId);
         ExcelBuf.CloseBook();
         ExcelBuf.SetFriendlyFilename(StrSubstNo(ExcelFileNameLbl, Format(CurrentDateTime, 0, '<Year4><Month,2><Day,2>_<Hours24><Minutes,2>')));
