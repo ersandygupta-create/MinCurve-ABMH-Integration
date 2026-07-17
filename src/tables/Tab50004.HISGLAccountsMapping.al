@@ -226,5 +226,10 @@ table 50004 "E3 HIS GL Accounts Mapping"
             Clustered = true;
         }
     }
-
+    fieldgroups
+    {
+        fieldgroup(DropDown; "Account No.", "Account Name", Type, "Service/Station Head")
+        {
+        }
+    }
 }
