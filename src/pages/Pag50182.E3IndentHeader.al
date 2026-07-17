@@ -94,6 +94,22 @@ page 50182 "E3 Indent Card"
                     ApplicationArea = All;
                     Editable = IsPageEditable;
                 }
+                field("Budget Type"; Rec."Budget Type")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the budget type for this record.';
+                }
+
+                field("Budgeted Amount"; Rec."Budgeted Amount")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the budgeted amount for this record.';
+                }
+                field(Amount; Rec.Amount)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the actual amount for this record.';
+                }
             }
 
             group("Dimensions")
@@ -146,7 +162,6 @@ page 50182 "E3 Indent Card"
                     ApplicationArea = All;
                     Editable = IsPageEditable;
                 }
-
                 field("To Location Name"; Rec."To Location Name")
                 {
                     ApplicationArea = All;

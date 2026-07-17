@@ -330,7 +330,7 @@ table 50036 "E3 Indent Header"
         }
         field(29; "Budgeted Amount"; Decimal)
         {
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
         }
         field(30; "Procurement Type"; Enum "E3 Capex Type")
