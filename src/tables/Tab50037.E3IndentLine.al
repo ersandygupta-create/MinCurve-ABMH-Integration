@@ -191,7 +191,7 @@ table 50037 "E3 Indent Line"
         field(18; "Item Make Code"; Code[30])
         {
             Caption = 'Item Make Code';
-            Editable = false;
+            //Editable = false;
             DataClassification = CustomerContent;
             TableRelation = "E3 Item Make Master".Code;
             trigger OnValidate()
@@ -218,7 +218,7 @@ table 50037 "E3 Indent Line"
         field(21; "Item Make Name"; Text[60])
         {
             Caption = 'Item Make Name';
-            Editable = false;
+            //Editable = false;
             DataClassification = CustomerContent;
         }
         field(22; "Critical Item"; Boolean)

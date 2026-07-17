@@ -65,12 +65,12 @@ page 50183 "E3 Indent Line Subform"
                 field("Item Make Name"; Rec."Item Make Name")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    //Editable = false;
                 }
                 field("Item Make Code"; Rec."Item Make Code")
                 {
                     ApplicationArea = All;
-                    Editable = IsLineEditable;
+                    //Editable = IsLineEditable;
                 }
                 field("Requested Received Date"; Rec."Requested Received Date")
                 {
