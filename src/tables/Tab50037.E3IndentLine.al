@@ -8,6 +8,11 @@ table 50037 "E3 Indent Line"
         {
             TableRelation = "E3 Indent Header";
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                UpdateHeaderValues();
+            end;
+
         }
         field(2; "Line No."; Integer)
         {
@@ -38,8 +43,8 @@ table 50037 "E3 Indent Line"
             ValidateTableRelation = false;
             trigger OnValidate()
             var
-                ItemMake: Record "E3 Item Make Master";
             begin
+                UpdateHeaderValues();
                 Clear(Description);
                 Clear("Unit of Measure");
                 if Item.Get("No.") then
@@ -193,16 +198,18 @@ table 50037 "E3 Indent Line"
             Caption = 'Item Make Code';
             //Editable = false;
             DataClassification = CustomerContent;
-            TableRelation = "E3 Item Make Master".Code;
+            TableRelation = "E3 Item Make Master";
             trigger OnValidate()
             var
                 ItemMake: Record "E3 Item Make Master";
             begin
-                if "Item Make Code" <> '' then begin
-                    ItemMake.Get("Item Make Code");
+                "Item Make Name" := '';
+
+                if "Item Make Code" = '' then
+                    exit;
+
+                if ItemMake.Get("Item Make Code") then
                     "Item Make Name" := ItemMake.Description;
-                end else
-                    Clear("Item Make Name");
             end;
         }
         field(19; "Ordered Qty"; Decimal)
@@ -309,6 +316,11 @@ table 50037 "E3 Indent Line"
             Caption = 'Split Line';
             DataClassification = CustomerContent;
         }
+        field(38; "Original Request Qty"; Decimal)
+        {
+            Caption = 'Original Request Qty';
+            DataClassification = CustomerContent;
+        }
         field(80285; "Currency Code"; Code[10])
         {
             DataClassification = CustomerContent;
@@ -350,9 +362,17 @@ table 50037 "E3 Indent Line"
     end;
 
     trigger OnInsert()
+    begin
+        UpdateHeaderValues();
+    end;
+
+    local procedure UpdateHeaderValues()
     var
         IndentHeader: Record "E3 Indent Header";
     begin
+        if ("Document No." = '') then
+            exit;
+
         if IndentHeader.Get("Document No.") then begin
             "Entry No." := IndentHeader."Entry No.";
             "Requested Received Date" := IndentHeader."Expected Receive Date";

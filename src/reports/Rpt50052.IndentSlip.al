@@ -18,7 +18,7 @@ report 50052 "E3 Indent Slip"
             }
             column(CompPicture; CompInfo.Picture) { }
             column(RequestDate; Format("Request Date")) { }
-            column(RequestedBy; "Requested By") { }
+            column(RequestedBy; "Request Date") { }
             column(ExpectedReceiveDate; Format("Expected Receive Date")) { }
             column(ApprovedBy; "Approved By") { }
             column(EntryNo; "Entry No.") { }

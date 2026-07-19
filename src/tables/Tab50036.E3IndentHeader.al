@@ -11,9 +11,9 @@ table 50036 "E3 Indent Header"
             DataClassification = ToBeClassified;
 
         }
-        field(2; "Requested By"; Text[60])
+        field(2; "Requested To"; Text[60])
         {
-            Caption = 'Requested By';
+            Caption = 'Requested To';
             DataClassification = CustomerContent;
             TableRelation = "E3 Indenter Master"."Indenter Name" where("Indenter Type" = filter("Requested By"));
 
@@ -30,7 +30,7 @@ table 50036 "E3 Indent Header"
                 Clear("Location Name");
 
                 IndenterMaster.Reset();
-                IndenterMaster.SetRange("Indenter Name", "Requested By");
+                IndenterMaster.SetRange("Indenter Name", "Requested To");
                 IndenterMaster.SetRange("Indenter Type", IndenterMaster."Indenter Type"::"Requested By");
 
                 if IndenterMaster.FindFirst() then begin
@@ -341,6 +341,11 @@ table 50036 "E3 Indent Header"
         field(31; "Release Indent"; Boolean)
         {
             Caption = 'Release Indent';
+            DataClassification = CustomerContent;
+        }
+        field(32; "Source Type"; Enum "E3 Source Type")
+        {
+            Caption = 'Source Type';
             DataClassification = CustomerContent;
         }
     }

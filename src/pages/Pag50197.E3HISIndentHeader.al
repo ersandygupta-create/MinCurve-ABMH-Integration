@@ -1,4 +1,4 @@
-page 50182 "E3 Indent Card"
+page 50197 "E3 HIS Indent Card"
 {
     PageType = Card;
     ApplicationArea = All;
@@ -168,7 +168,7 @@ page 50182 "E3 Indent Card"
                     Editable = false;
                 }
             }
-            part(IndentLines; "E3 Indent Line Subform")
+            part(IndentLines; "E3 HIS Indent Line Subform")
             {
                 ApplicationArea = All;
                 Caption = 'Indent Line Subform';
@@ -207,10 +207,10 @@ page 50182 "E3 Indent Card"
                                       'Requested Qty must be greater than 0 for Line No. %1.',
                                       IndentLine."Line No.");
 
-                            // if IndentLine."Approved Qty" <= 0 then
-                            //     Error(
-                            //       'Approved Qty must be greater than 0 for Line No. %1.',
-                            // IndentLine."Line No.");
+                                if IndentLine."Approved Qty" <= 0 then
+                                    Error(
+                                      'Approved Qty must be greater than 0 for Line No. %1.',
+                                      IndentLine."Line No.");
                             until IndentLine.Next() = 0;
 
                         IndentApproval.OnSendIndentDocForApproval(Rec);
@@ -283,28 +283,24 @@ page 50182 "E3 Indent Card"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         Rec."Request Date" := WorkDate();
-        Rec."Source Type" := "E3 Source Type"::D365
+        Rec."Source Type" := "E3 Source Type"::HIS
     end;
 
     trigger OnOpenPage()
     begin
         SetPageEditable();
-        Rec."Source Type" := "E3 Source Type"::D365
+        Rec."Source Type" := "E3 Source Type"::HIS
     end;
 
     trigger OnAfterGetRecord()
     begin
         SetPageEditable();
+        Rec."Source Type" := "E3 Source Type"::HIS
     end;
 
     local procedure SetPageEditable()
     begin
         IsPageEditable := Rec.Status <> Rec.Status::"Pending Approval";
-    end;
-
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    begin
-        Rec."Source Type" := "E3 Source Type"::D365
     end;
 
 }

@@ -23,7 +23,7 @@ page 50186 "E3 Indent Header API"
                 {
                     Caption = 'Document No.';
                 }
-                field(requestedBy; Rec."Requested By")
+                field(requestedBy; Rec."Requested To")
                 {
                     Caption = 'Requested By';
                 }

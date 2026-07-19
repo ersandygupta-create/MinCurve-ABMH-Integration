@@ -51,6 +51,11 @@ page 50192 "E3 Quotation"
                     Caption = 'Critical Item';
                     ToolTip = 'Specifies the Critical Item of the item.';
                 }
+                field("Original Request Qty"; Rec."Original Request Qty")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field(Quantity; Rec."Requested Qty")
                 {
                     ApplicationArea = All;
@@ -143,19 +148,27 @@ page 50192 "E3 Quotation"
                 field("Remarks"; Rec."Remarks")
                 {
                     ApplicationArea = All;
-                    Caption = 'Remarks';
+                    Caption = 'Indent Line Remarks';
+                    Editable = false;
+                    ToolTip = 'Specifies additional remarks for the Indent.';
+                }
+                field("Quotation Remarks"; Rec."Quotation Remarks")
+                {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies additional remarks for the quotation.';
+
+                }
+                field("Split Line"; Rec."Split Line")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Split Line';
+                    ToolTip = 'Specifies whether the Split Line Boolean.';
                 }
                 field("Vendor PO Creation"; Rec."Vendor PO Creation")
                 {
                     ApplicationArea = All;
                     Caption = 'Vendor PO Creation';
                     ToolTip = 'Specifies whether the vendor purchase order has been created.';
-                }
-                field("Split Line"; Rec."Split Line")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies whether the Split Line Boolean.';
                 }
                 field("Quotation Type"; Rec."Quotation Type")
                 {
@@ -207,14 +220,23 @@ page 50192 "E3 Quotation"
             }
         }
     }
-    local procedure CreateSplitLines(var SelectedLine: Record "E3 Indent Line"; SplitQty: Integer)
+    local procedure CreateSplitLines(var SelectedLine: Record "E3 Indent Line"; SplitQty: Decimal)
     var
         NewLine: Record "E3 Indent Line";
         LastLine: Record "E3 Indent Line";
         NextLineNo: Integer;
-        i: Integer;
     begin
-        // Get Last Line No.
+        // Validation
+        if SplitQty <= 0 then
+            Error('Split Qty must be greater than zero.');
+
+        if SplitQty > SelectedLine."Requested Qty" then
+            Error('Split Qty cannot be greater than Requested Qty.');
+
+        if SelectedLine."Approved Qty" > SelectedLine."Requested Qty" then
+            Error('Approved Qty cannot be greater than Requested Qty.');
+
+        // Find Last Line No.
         LastLine.Reset();
         LastLine.SetRange("Document No.", SelectedLine."Document No.");
 
@@ -223,28 +245,41 @@ page 50192 "E3 Quotation"
         else
             NextLineNo := 0;
 
-        // Create Split Lines
-        for i := 1 to SplitQty do begin
-            NextLineNo += 10000;
+        NextLineNo += 10000;
 
-            NewLine.Init();
-            NewLine.TransferFields(SelectedLine);
-
-            NewLine."Line No." := NextLineNo;
-
-            // Qty per split line
-            NewLine."Requested Qty" := 1;
-            NewLine."Approved Qty" := 1;
-            NewLine."Ordered Qty" := 1;
-
-            // Mark as split line
-            if SelectedLine."Split Line" then
-                NewLine."Split Line" := false
-            else
-                NewLine."Split Line" := true;
-
-            NewLine.Insert(true);
+        // Store Original Request Qty only once
+        if SelectedLine."Original Request Qty" = 0 then begin
+            SelectedLine."Original Request Qty" := SelectedLine."Requested Qty";
+            SelectedLine.Modify();
         end;
+
+        // Create Split Line
+        NewLine.Init();
+        NewLine.TransferFields(SelectedLine);
+
+        NewLine."Line No." := NextLineNo;
+
+        // Split Qty
+        NewLine."Requested Qty" := SplitQty;
+        NewLine."Approved Qty" := SplitQty;
+        NewLine."Ordered Qty" := 0;
+
+        NewLine."Original Request Qty" := SelectedLine."Original Request Qty";
+        NewLine."Split Line" := true;
+
+        NewLine.Insert(true);
+
+        // Update Existing Line
+        SelectedLine."Requested Qty" := SelectedLine."Requested Qty" - SplitQty;
+        SelectedLine."Approved Qty" := SelectedLine."Approved Qty" - SplitQty;
+
+        if SelectedLine."Approved Qty" < 0 then
+            SelectedLine."Approved Qty" := 0;
+
+        if SelectedLine."Approved Qty" > SelectedLine."Requested Qty" then
+            Error('Approved Qty should not be greater than Request Qty.');
+
+        SelectedLine.Modify(true);
     end;
 
     trigger OnAfterGetCurrRecord()

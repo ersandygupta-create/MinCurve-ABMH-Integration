@@ -24,7 +24,7 @@ page 50191 "E3 Quotation Card"
                     Editable = HeaderEditable;
                     ToolTip = 'Specifies the indent number of the Indent No.';
                 }
-                field("Requested By"; Rec."Requested By")
+                field("Requested By"; Rec."Requested To")
                 {
                     ApplicationArea = All;
                     Editable = HeaderEditable;
