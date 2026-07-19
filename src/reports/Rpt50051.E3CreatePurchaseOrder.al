@@ -90,7 +90,7 @@ report 50051 "E3 Create Purchase Order"
             1:
                 PurchaseHeader.Validate(PurchaseHeader."Currency Code", IndentLine."Currency Code");
         end;
-        PurchaseHeader.Validate("Responsibility Center", IndentLine."Shortcut Dimension 1 Code");
+        //PurchaseHeader."Responsibility Center" := IndentLine."Shortcut Dimension 1 Code";
         PurchaseHeader.Validate(PurchaseHeader."Shortcut Dimension 1 Code", IndentHeader."Shortcut Dimension 1 Code");
         PurchaseHeader.Validate(PurchaseHeader."Shortcut Dimension 2 Code", IndentHeader."Shortcut Dimension 2 Code");
         PurchaseHeader."E3 Capex Type" := IndentHeader."Procurement Type";

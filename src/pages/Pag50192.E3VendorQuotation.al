@@ -73,7 +73,7 @@ page 50192 "E3 Quotation"
                 field("Approved Qty"; Rec."Approved Qty")
                 {
                     ToolTip = 'Specifies the required Approved Qty.';
-                    Editable = false;
+                    Editable = true;
                 }
                 field("Ordered Qty"; Rec."Ordered Qty")
                 {
