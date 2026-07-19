@@ -109,7 +109,14 @@ page 50191 "E3 Quotation Card"
                     CreatePurchaseOrders.RunModal();
 
                     if IndentHeader.Get(Rec."Document No.") then begin
-                        IndentHeader."Release Indent" := true;
+                        IndentLine.Reset();
+                        IndentLine.SetRange("Document No.", IndentHeader."Document No.");
+                        IndentLine.SetFilter("Ordered Qty", '>0');
+
+                        if IndentLine.FindFirst() then
+                            IndentHeader."Release Indent" := false
+                        else
+                            IndentHeader."Release Indent" := true;
                         IndentHeader.Modify(true);
                     end;
 
