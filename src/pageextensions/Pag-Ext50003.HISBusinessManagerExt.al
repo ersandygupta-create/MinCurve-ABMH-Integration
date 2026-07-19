@@ -96,6 +96,15 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                             RunPageMode = Create;
                             ToolTip = 'Executes the Settlement Setup action.';
                         }
+                        action("E3 Post Application Setup")
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Post Application Settmenet Setup';
+                            Image = Setup;
+                            RunObject = page 50199;
+                            RunPageMode = Create;
+                            ToolTip = 'Post Application Settmenet Setup';
+                        }
                         action("E3 Payment Advice E-Mail Setups")
                         {
                             ApplicationArea = Basic, Suite;
