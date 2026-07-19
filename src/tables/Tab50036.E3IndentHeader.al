@@ -9,20 +9,11 @@ table 50036 "E3 Indent Header"
         {
             Caption = 'Document No.';
             DataClassification = ToBeClassified;
-            trigger OnValidate()
-            var
-                IndentHeader: Record "E3 Indent Header";
-            begin
-                if IndentHeader.Get("Document No.") then
-                    if IndentHeader."Shortcut Dimension 1 Code" <> '' then
-                        Validate("Shortcut Dimension 1 Code", IndentHeader."Shortcut Dimension 1 Code");
-                if IndentHeader."Entry No." <> '' then
-                    Validate("Entry No.", IndentHeader."Entry No.");
-            end;
+
         }
-        field(2; "Requested By"; Text[60])
+        field(2; "Requested To"; Text[60])
         {
-            Caption = 'Requested By';
+            Caption = 'Requested To';
             DataClassification = CustomerContent;
             TableRelation = "E3 Indenter Master"."Indenter Name" where("Indenter Type" = filter("Requested By"));
 
@@ -39,7 +30,7 @@ table 50036 "E3 Indent Header"
                 Clear("Location Name");
 
                 IndenterMaster.Reset();
-                IndenterMaster.SetRange("Indenter Name", "Requested By");
+                IndenterMaster.SetRange("Indenter Name", "Requested To");
                 IndenterMaster.SetRange("Indenter Type", IndenterMaster."Indenter Type"::"Requested By");
 
                 if IndenterMaster.FindFirst() then begin
@@ -64,7 +55,7 @@ table 50036 "E3 Indent Header"
             OptionMembers = Open,"Pending Approval",Approved,Rejected;
             Caption = 'Status';
         }
-        field(5; "Shortcut Dimension 1 Code"; Code[20])
+        field(5; "Shortcut Dimension 1 Code"; Code[10])
         {
             Caption = 'Shortcut Dimension 1 Code';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
@@ -88,7 +79,7 @@ table 50036 "E3 Indent Header"
 
             end;
         }
-        field(6; "Shortcut Dimension 2 Code"; Code[20])
+        field(6; "Shortcut Dimension 2 Code"; Code[10])
         {
             Caption = 'Department Code';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
@@ -339,7 +330,7 @@ table 50036 "E3 Indent Header"
         }
         field(29; "Budgeted Amount"; Decimal)
         {
-            Editable = false;
+            Editable = true;
             DataClassification = CustomerContent;
         }
         field(30; "Procurement Type"; Enum "E3 Capex Type")
@@ -350,6 +341,11 @@ table 50036 "E3 Indent Header"
         field(31; "Release Indent"; Boolean)
         {
             Caption = 'Release Indent';
+            DataClassification = CustomerContent;
+        }
+        field(32; "Source Type"; Enum "E3 Source Type")
+        {
+            Caption = 'Source Type';
             DataClassification = CustomerContent;
         }
     }

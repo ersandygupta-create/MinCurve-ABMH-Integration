@@ -8,6 +8,11 @@ table 50037 "E3 Indent Line"
         {
             TableRelation = "E3 Indent Header";
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                UpdateHeaderValues();
+            end;
+
         }
         field(2; "Line No."; Integer)
         {
@@ -38,17 +43,13 @@ table 50037 "E3 Indent Line"
             ValidateTableRelation = false;
             trigger OnValidate()
             var
-                ItemMake: Record "E3 Item Make Master";
             begin
+                UpdateHeaderValues();
                 Clear(Description);
                 Clear("Unit of Measure");
-                Clear("Item Make Code");
-                Clear("Item Make Name");
                 if Item.Get("No.") then
                     Description := Item.Description;
                 "Unit of Measure" := Item."Base Unit of Measure";
-                "Item Make Code" := ItemMake.Code;
-                "Item Make Name" := ItemMake.Description;
 
                 if Type = Type::" " then
                     Error('Please select Type before selecting No.');
@@ -131,290 +132,201 @@ table 50037 "E3 Indent Line"
             Caption = 'Amount';
             DataClassification = CustomerContent;
         }
-        field(10; "Approved Qty"; Decimal)
-        {
-            Caption = 'Approved Qty';
-            DataClassification = CustomerContent;
-        }
-        field(11; "Requested Received Date"; Date)
-        {
-            Caption = 'Requested Received Date';
-            DataClassification = CustomerContent;
-        }
-        field(12; "First Vendor No."; Code[20])
-        {
-            Caption = 'First Vendor No.';
-            TableRelation = Vendor;
-            DataClassification = CustomerContent;
-            trigger OnValidate()
-            var
-                VendorRec: Record Vendor;
-            begin
-                if "First Vendor No." = '' then begin
-                    "First Vendor Name" := '';
-                    exit;
-                end;
-
-                if VendorRec.Get("First Vendor No.") then
-                    "First Vendor Name" := VendorRec.Name
-                else
-                    "First Vendor Name" := '';
-            end;
-        }
-
-        field(13; "First Vendor Name"; Text[100])
-        {
-            Caption = 'First Vendor Name';
-            Editable = false;
-            DataClassification = CustomerContent;
-        }
-        field(14; "First Price"; Decimal)
-        {
-            Caption = 'First Price';
-            DataClassification = CustomerContent;
-            trigger OnValidate()
-            begin
-                "First Amount" := "Requested Qty" * "First Price";
-            end;
-        }
-        field(15; "First Amount"; Decimal)
-        {
-            Caption = 'First Amount';
-            Editable = false;
-            DataClassification = CustomerContent;
-        }
-        field(16; "Second Vendor No."; Code[20])
-        {
-            Caption = 'Second Vendor No.';
-            TableRelation = Vendor;
-            DataClassification = CustomerContent;
-            trigger OnValidate()
-            var
-                VendorRec: Record Vendor;
-            begin
-                // Vendor No. removed
-                if "Second Vendor No." = '' then begin
-                    "Second Vendor Name" := '';
-                    exit;
-                end;
-
-                // Vendor selected
-                if VendorRec.Get("Second Vendor No.") then
-                    "Second Vendor Name" := VendorRec.Name
-                else
-                    "Second Vendor Name" := '';
-            end;
-        }
-        field(17; "Second Vendor Name"; Text[100])
-        {
-            Caption = 'Second Vendor Name';
-            Editable = false;
-            DataClassification = CustomerContent;
-        }
-        field(18; "Second Price"; Decimal)
-        {
-            Caption = 'Second Price';
-            DataClassification = CustomerContent;
-            trigger OnValidate()
-            begin
-                "Second Amount" := "Requested Qty" * "Second Price";
-            end;
-        }
-        field(19; "Second Amount"; Decimal)
-        {
-            Caption = 'Second Amount';
-            Editable = false;
-            DataClassification = CustomerContent;
-        }
-        field(20; "Third Vendor No."; Code[20])
-        {
-            Caption = 'Third Vendor No.';
-            TableRelation = Vendor;
-            DataClassification = CustomerContent;
-            trigger OnValidate()
-            var
-                VendorRec: Record Vendor;
-            begin
-                // Vendor No. removed
-                if "Third Vendor No." = '' then begin
-                    "Third Vendor Name" := '';
-                    exit;
-                end;
-
-                // Vendor selected
-                if VendorRec.Get("Third Vendor No.") then
-                    "Third Vendor Name" := VendorRec.Name
-                else
-                    "Third Vendor Name" := '';
-            end;
-        }
-        field(21; "Third Vendor Name"; Text[100])
-        {
-            Caption = 'Third Vendor Name';
-            Editable = false;
-            DataClassification = CustomerContent;
-        }
-        field(22; "Third Price"; Decimal)
-        {
-            Caption = 'Third Price';
-            DataClassification = CustomerContent;
-            trigger OnValidate()
-            begin
-                "Third Amount" := "Requested Qty" * "Third Price";
-            end;
-        }
-        field(23; "Third Amount"; Decimal)
-        {
-            Caption = 'Third Amount';
-            Editable = false;
-            DataClassification = CustomerContent;
-        }
-        field(24; "Entry No."; Code[50])
-        {
-            Caption = 'Entry No.';
-            DataClassification = CustomerContent;
-        }
-        field(25; "Item Make Code"; Code[30])
-        {
-            Caption = 'Item Make Code';
-            Editable = false;
-            DataClassification = CustomerContent;
-            TableRelation = "E3 Item Make Master".Code;
-            trigger OnValidate()
-            var
-                ItemMake: Record "E3 Item Make Master";
-            begin
-                if Type = Type::Item then begin
-                    if Item.Get("No.") then begin
-                        Validate("Item Make Code", ItemMake.Code);
-                        "Item Make Name" := ItemMake.Description;
-                    end else begin
-                        Clear("Item Make Code");
-                        Clear("Item Make Name");
-                    end;
-                end;
-            end;
-        }
-        field(26; "First Ordered Qty"; Decimal)
-        {
-            Caption = 'First Ordered Qty';
-            DataClassification = CustomerContent;
-        }
-        field(27; "First Remarks"; Text[100])
-        {
-            Caption = 'First Remarks';
-            DataClassification = CustomerContent;
-        }
-        field(28; "Item Make Name"; Text[60])
-        {
-            Caption = 'Item Make Name';
-            Editable = false;
-            DataClassification = CustomerContent;
-        }
-        field(29; "Critical Item"; Boolean)
-        {
-            Caption = 'Critical Item';
-            DataClassification = CustomerContent;
-        }
-        field(30; "Quotation Type"; Option)
-        {
-            Caption = 'Quotation Type';
-            OptionCaption = ' ,L1,L2,L3';
-            OptionMembers = " ",L1,L2,L3;
-        }
-        field(31; "Second Ordered Qty"; Decimal)
-        {
-            Caption = 'Second Ordered Qty';
-            DataClassification = CustomerContent;
-        }
-        field(32; "Third Ordered Qty"; Decimal)
-        {
-            Caption = 'Third Ordered Qty';
-            DataClassification = CustomerContent;
-        }
-        field(33; "Second Remarks"; Text[100])
-        {
-            Caption = 'Second Remarks';
-            DataClassification = CustomerContent;
-        }
-        field(34; "Third Remarks"; Text[100])
-        {
-            Caption = 'Third Remarks';
-            DataClassification = CustomerContent;
-        }
-        field(35; "Remarks"; Text[100])
+        field(10; "Remarks"; Text[100])
         {
             Caption = 'Line Remarks';
             DataClassification = CustomerContent;
         }
-        field(40; "First Vendor PO Creation"; Boolean)
+        field(11; "Approved Qty"; Decimal)
         {
-            Caption = 'First Vendor PO Creation';
+            Caption = 'Approved Qty';
             DataClassification = CustomerContent;
         }
-        field(41; "Second Vendor PO Creation"; Boolean)
+        field(12; "Requested Received Date"; Date)
         {
-            Caption = 'Second Vendor PO Creation';
+            Caption = 'Requested Received Date';
             DataClassification = CustomerContent;
         }
-        field(42; "Third Vendor PO Creation"; Boolean)
+        field(13; "Vendor No."; Code[20])
         {
-            Caption = 'Third Vendor PO Creation';
+            Caption = 'Vendor No.';
+            TableRelation = Vendor;
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                VendorRec: Record Vendor;
+            begin
+                if "Vendor No." = '' then begin
+                    "Vendor Name" := '';
+                    exit;
+                end;
+
+                if VendorRec.Get("Vendor No.") then
+                    "Vendor Name" := VendorRec.Name
+                else
+                    "Vendor Name" := '';
+            end;
+        }
+        field(14; "Vendor Name"; Text[100])
+        {
+            Caption = 'Vendor Name';
+            Editable = false;
             DataClassification = CustomerContent;
         }
-        field(43; "Shortcut Dimension 1 Code"; Code[10])
+        field(15; "Quotation Price"; Decimal)
+        {
+            Caption = 'Price';
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                "Quotation Amount" := "Approved Qty" * "Quotation Price";
+            end;
+        }
+        field(16; "Quotation Amount"; Decimal)
+        {
+            Caption = 'Amount';
+            Editable = false;
+            DataClassification = CustomerContent;
+        }
+        field(17; "Entry No."; Code[50])
+        {
+            Caption = 'Entry No.';
+            DataClassification = CustomerContent;
+        }
+        field(18; "Item Make Code"; Code[30])
+        {
+            Caption = 'Item Make Code';
+            //Editable = false;
+            DataClassification = CustomerContent;
+            TableRelation = "E3 Item Make Master";
+            trigger OnValidate()
+            var
+                ItemMake: Record "E3 Item Make Master";
+            begin
+                "Item Make Name" := '';
+
+                if "Item Make Code" = '' then
+                    exit;
+
+                if ItemMake.Get("Item Make Code") then
+                    "Item Make Name" := ItemMake.Description;
+            end;
+        }
+        field(19; "Ordered Qty"; Decimal)
+        {
+            Caption = 'Ordered Qty';
+            DataClassification = CustomerContent;
+        }
+        field(20; "Quotation Remarks"; Text[100])
+        {
+            Caption = 'Quotation Remarks';
+            DataClassification = CustomerContent;
+        }
+        field(21; "Item Make Name"; Text[60])
+        {
+            Caption = 'Item Make Name';
+            //Editable = false;
+            DataClassification = CustomerContent;
+        }
+        field(22; "Critical Item"; Boolean)
+        {
+            Caption = 'Critical Item';
+            DataClassification = CustomerContent;
+        }
+        field(23; "Quotation Type"; Option)
+        {
+            Caption = 'Quotation Type';
+            OptionCaption = ' ,L1';
+            OptionMembers = " ",L1;
+        }
+        field(24; "Vendor PO Creation"; Boolean)
+        {
+            Caption = 'Vendor PO Creation';
+            DataClassification = CustomerContent;
+        }
+        field(25; "Shortcut Dimension 1 Code"; Code[10])
         {
             Caption = 'Shortcut Dimension 1 Code';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
             ValidateTableRelation = false;
         }
-        field(46; "First Purchase Order No."; Code[20])
+        field(26; "Purchase Order No."; Code[20])
         {
-            Caption = 'First Purchase Order No.';
+            Caption = 'Purchase Order No.';
             DataClassification = CustomerContent;
         }
-        field(47; "Second Purchase Order No."; Code[20])
-        {
-            Caption = 'Second Purchase Order No.';
-            DataClassification = CustomerContent;
-        }
-        field(48; "Third Purchase Order No."; Code[20])
-        {
-            Caption = 'Third Purchase Order No.';
-            DataClassification = CustomerContent;
-        }
-        field(49; "Purchase Type"; Option)
+        field(27; "Purchase Type"; Option)
         {
             OptionCaption = 'Contract,Order,Invoice';
             OptionMembers = Contract,"Order",Invoice;
             DataClassification = CustomerContent;
         }
-        field(50; "First discount %"; Decimal)
+        field(28; "discount %"; Decimal)
         {
-            Caption = 'First discount %';
+            Caption = 'discount %';
             DataClassification = CustomerContent;
         }
-        field(51; "Second discount %"; Decimal)
-        {
-            Caption = 'Second discount %';
-            DataClassification = CustomerContent;
-        }
-        field(52; "Third discount %"; Decimal)
-        {
-            Caption = 'Third discount %';
-            DataClassification = CustomerContent;
-        }
-        field(53; "Fixed Assets No."; Code[20])
+        field(29; "Fixed Assets No."; Code[20])
         {
             Caption = 'Fixed Assets No.';
             DataClassification = CustomerContent;
         }
-        field(80285; "First Currency Code"; Code[10])
+        field(30; "Location Code"; Code[10])
+        {
+            Caption = 'Location Code';
+            Editable = true;
+            DataClassification = CustomerContent;
+            TableRelation = Location.Code;
+        }
+        field(31; "Payment Terms"; Text[100])
+        {
+            Caption = 'Payment Terms';
+            DataClassification = CustomerContent;
+        }
+        field(32; "Delivery Time"; Text[75])
+        {
+            Caption = 'Devlivery Terms';
+            DataClassification = CustomerContent;
+        }
+        field(33; "AMC Amount"; Decimal)
+        {
+            Caption = 'AMC Amount';
+            DataClassification = CustomerContent;
+        }
+        field(34; "CMC Amount"; Decimal)
+        {
+            Caption = 'CMC Amount';
+            DataClassification = CustomerContent;
+        }
+        field(35; "Shortcut Dimension 2 Code"; Code[20])
+        {
+            Caption = 'Department Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+            ValidateTableRelation = false;
+            DataClassification = ToBeClassified;
+            Editable = true;
+        }
+        field(36; Released; Boolean)
+        {
+            Caption = 'Released';
+            DataClassification = CustomerContent;
+        }
+        field(37; "Split Line"; Boolean)
+        {
+            Caption = 'Split Line';
+            DataClassification = CustomerContent;
+        }
+        field(38; "Original Request Qty"; Decimal)
+        {
+            Caption = 'Original Request Qty';
+            DataClassification = CustomerContent;
+        }
+        field(80285; "Currency Code"; Code[10])
         {
             DataClassification = CustomerContent;
             TableRelation = Currency;
         }
-        field(80286; "First Currency Factor"; Decimal)
+        field(80286; "Currency Factor"; Decimal)
         {
             Caption = 'Currency Factor';
             DataClassification = CustomerContent;
@@ -422,34 +334,6 @@ table 50037 "E3 Indent Line"
             Editable = false;
             MinValue = 0;
         }
-        field(80287; "Second Currency Code"; Code[10])
-        {
-            DataClassification = CustomerContent;
-            TableRelation = Currency;
-        }
-        field(80288; "Second Currency Factor"; Decimal)
-        {
-            Caption = 'Currency Factor';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 0 : 15;
-            Editable = false;
-            MinValue = 0;
-        }
-        field(80289; "Third Currency Code"; Code[10])
-        {
-            DataClassification = CustomerContent;
-            TableRelation = Currency;
-        }
-        field(80290; "Third Currency Factor"; Decimal)
-        {
-            Caption = 'Currency Factor';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 0 : 15;
-            Editable = false;
-            MinValue = 0;
-        }
-
-
     }
 
     keys
@@ -475,7 +359,27 @@ table 50037 "E3 Indent Line"
         PrchaseLineProcessing: Record "Purchase Line";
     begin
 
+    end;
 
+    trigger OnInsert()
+    begin
+        UpdateHeaderValues();
+    end;
+
+    local procedure UpdateHeaderValues()
+    var
+        IndentHeader: Record "E3 Indent Header";
+    begin
+        if ("Document No." = '') then
+            exit;
+
+        if IndentHeader.Get("Document No.") then begin
+            "Entry No." := IndentHeader."Entry No.";
+            "Requested Received Date" := IndentHeader."Expected Receive Date";
+            "Location Code" := IndentHeader."Location Code";
+            "Shortcut Dimension 1 Code" := IndentHeader."Shortcut Dimension 1 Code";
+            "Shortcut Dimension 2 Code" := IndentHeader."Shortcut Dimension 2 Code";
+        end;
     end;
 
     var

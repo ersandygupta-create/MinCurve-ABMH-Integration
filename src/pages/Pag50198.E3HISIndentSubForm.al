@@ -1,4 +1,4 @@
-page 50183 "E3 Indent Line Subform"
+page 50198 "E3 HIS Indent Line Subform"
 {
     PageType = ListPart;
     SourceTable = "E3 Indent Line";
