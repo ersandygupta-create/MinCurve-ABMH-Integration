@@ -45,8 +45,34 @@ report 50051 "E3 Create Purchase Order"
             end;
 
             trigger OnPostDataItem()
+            var
+                IndentLineRec: Record "E3 Indent Line";
+                IndentHeaderRec: Record "E3 Indent Header";
             begin
                 DialogWindow.Close();
+
+                // Update Release Indent based on remaining quantity
+                IndentHeaderRec.Reset();
+                IndentHeaderRec.SetRange("Document No.", "E3 Indent Line"."Document No.");
+
+                if IndentHeaderRec.FindFirst() then begin
+                    IndentHeaderRec."Release Indent" := true;
+
+                    IndentLineRec.Reset();
+                    IndentLineRec.SetRange("Document No.", IndentHeaderRec."Document No.");
+
+                    if IndentLineRec.FindSet() then
+                        repeat
+                            if GetRemainingQty(IndentLineRec) > 0 then begin
+                                // Partial PO created
+                                IndentHeaderRec."Release Indent" := false;
+                                break;
+                            end;
+                        until IndentLineRec.Next() = 0;
+
+                    IndentHeaderRec.Modify(true);
+                end;
+
                 Message('Purchase Order created for the selected records.');
             end;
 
@@ -66,7 +92,10 @@ report 50051 "E3 Create Purchase Order"
     begin
         if (IndentLine."Vendor No." <> '') and (IndentLine."Vendor PO Creation" = true) then begin
             DialogWindow.Update(2, IndentLine."No.");
-            IndentLine.SetPurchased(PurchaseHeader."No.");
+
+            // Only mark as purchased when fully ordered
+            if GetRemainingQty(IndentLine) = 0 then
+                IndentLine.SetPurchased(PurchaseHeader."No.");
         end;
     end;
 
