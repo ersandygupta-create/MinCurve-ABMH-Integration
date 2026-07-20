@@ -108,23 +108,8 @@ page 50191 "E3 Quotation Card"
                     CreatePurchaseOrders.SetTableView(IndentLine);
                     CreatePurchaseOrders.RunModal();
 
-                    if IndentHeader.Get(Rec."Document No.") then begin
-                        IndentLine.Reset();
-                        IndentLine.SetRange("Document No.", IndentHeader."Document No.");
-                        IndentLine.SetFilter("Ordered Qty", '>0');
-
-                        if IndentLine.FindFirst() then
-                            IndentHeader."Release Indent" := false
-                        else
-                            IndentHeader."Release Indent" := true;
-                        IndentHeader.Modify(true);
-                    end;
-
-                    CurrPage.Update(true);
                     Message('Purchase Order created successfully.');
-
                 end;
-
             }
         }
     }
