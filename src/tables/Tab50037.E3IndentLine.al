@@ -283,7 +283,7 @@ table 50037 "E3 Indent Line"
             Caption = 'Payment Terms';
             DataClassification = CustomerContent;
         }
-        field(32; "Delivery Time"; Text[75])
+        field(32; "Delivery Terms"; Text[75])
         {
             Caption = 'Devlivery Terms';
             DataClassification = CustomerContent;
@@ -319,6 +319,11 @@ table 50037 "E3 Indent Line"
         field(38; "Original Request Qty"; Decimal)
         {
             Caption = 'Original Request Qty';
+            DataClassification = CustomerContent;
+        }
+        field(39; "Created PO Qty"; Decimal)
+        {
+            Caption = 'Created PO Qty';
             DataClassification = CustomerContent;
         }
         field(80285; "Currency Code"; Code[10])

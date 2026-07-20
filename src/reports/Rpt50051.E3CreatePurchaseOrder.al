@@ -36,7 +36,7 @@ report 50051 "E3 Create Purchase Order"
                     CreatePurchaseLines("E3 Indent Line", 1);
 
                     // Update Remaining Qty
-                    "E3 Indent Line"."Ordered Qty" := GetRemainingQty("E3 Indent Line");
+                    "E3 Indent Line"."Created PO Qty" += PurchaseLine.Quantity;
                     "E3 Indent Line"."Purchase Order No." := PurchaseLine."Document No.";
                     "E3 Indent Line".Modify();
                 end;

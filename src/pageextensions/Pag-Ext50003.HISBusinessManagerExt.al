@@ -919,32 +919,67 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
             group("E3 Indent Module")
             {
                 Caption = 'Indent Module';
-                action("E3 Indent Entries")
+                group(CreateIndent)
                 {
-                    AccessByPermission = TableData "E3 Indent Header" = IMD;
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Create Indent Entries';
-                    Image = Archive;
-                    RunObject = Page "E3 Indent List";
-                    RunPageMode = Create;
-                    ToolTip = 'Executes the Create Indent Entries action.';
+                    Caption = 'Create Indent';
+                    action("E3 Indent Entries")
+                    {
+                        AccessByPermission = TableData "E3 Indent Header" = IMD;
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'System Indent Entries';
+                        Image = Archive;
+                        RunObject = Page "E3 Indent List";
+                        RunPageMode = Create;
+                        ToolTip = 'Executes the Create Indent Entries action.';
+                    }
+                    action("E3 HIS Indent Entries")
+                    {
+                        AccessByPermission = TableData "E3 Indent Header" = IMD;
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'HIS Indent Entries';
+                        Image = Archive;
+                        RunObject = Page "E3 HIS Indent List";
+                        RunPageMode = Create;
+                        ToolTip = 'Executes the Create Indent Entries action.';
+                    }
                 }
-                action(VendorQuotation)
+                group(ApprovedIndent)
                 {
-                    Caption = 'Vendor Quotation';
-                    ApplicationArea = All;
-                    RunObject = Page "E3 Quotation List";
-                    ToolTip = 'Executes the Vendor Quotation action.';
+                    Caption = 'Approved Indent';
+                    Image = Approved;
+                    action(ApprovedIndents)
+                    {
+                        Caption = 'System Approved Indent List';
+                        ApplicationArea = All;
+                        RunObject = Page "E3 Approved Indent List";
+                        ToolTip = 'Specify a value System Approved Indent List field.';
+                    }
+                    action(HISApprovedIndents)
+                    {
+                        Caption = 'HIS Approved Indent List';
+                        ApplicationArea = All;
+                        RunObject = Page "E3 Approved HIS Indent List";
+                        ToolTip = 'Executes the Vendor Quotation action.';
+                    }
                 }
-                action("E3 Indenter Master")
+                group(Quotation)
                 {
-                    AccessByPermission = TableData "E3 Indenter Master" = IMD;
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Indenter Master';
-                    Image = Archive;
-                    RunObject = Page "E3 Indenter Master List";
-                    RunPageMode = Create;
-                    ToolTip = 'Executes the Create Indenter Entries action.';
+                    Caption = 'Quotation';
+                    Image = Quote;
+                    action(VendorQuotation)
+                    {
+                        Caption = 'Vendor Quotation';
+                        ApplicationArea = All;
+                        RunObject = Page "E3 Quotation List";
+                        ToolTip = 'Executes the Vendor Quotation action.';
+                    }
+                    action(ReleasedQoutation)
+                    {
+                        Caption = 'Released Quotation';
+                        ApplicationArea = All;
+                        RunObject = Page "E3 Released Quotation List";
+                        ToolTip = 'Executes the Released Quotation List action.';
+                    }
                 }
                 action("E3 Item Make Master")
                 {
@@ -955,16 +990,6 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                     RunObject = Page "E3 Item Make Master";
                     RunPageMode = Create;
                     ToolTip = 'Executes the Create Make Entries action.';
-                }
-                action("E3 HIS Indent Entries")
-                {
-                    AccessByPermission = TableData "E3 Indent Header" = IMD;
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Create HIS Indent Entries';
-                    Image = Archive;
-                    RunObject = Page "E3 HIS Indent List";
-                    RunPageMode = Create;
-                    ToolTip = 'Executes the Create HIS Indent Entries action.';
                 }
             }
         }
