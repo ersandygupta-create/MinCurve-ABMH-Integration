@@ -1,10 +1,12 @@
 report 50061 DeleteDcle
 {
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = All;
+    // ApplicationArea = All;
     ProcessingOnly = true;
     Caption = 'Delete DCLE';
-    Permissions = tabledata "Detailed Cust. Ledg. Entry" = RIDM;
+    Permissions = TableData "Cust. Ledger Entry" = RIMD,
+                  TableData "Detailed Cust. Ledg. Entry" = RIMD;
+
 
     dataset
     {
@@ -19,7 +21,7 @@ report 50061 DeleteDcle
 
             trigger OnAfterGetRecord()
             begin
-                "Detailed Cust. Ledg. Entry".DeleteAll();
+                // "Detailed Cust. Ledg. Entry".DeleteAll();
             end;
 
         }
@@ -36,7 +38,7 @@ report 50061 DeleteDcle
             begin
                 "Cust. Ledger Entry".Open := true;
                 "Cust. Ledger Entry"."External Document No." := '27RC001';
-                "Cust. Ledger Entry".Modify();
+                //  "Cust. Ledger Entry".Modify();
             end;
         }
         dataitem(CLE; "Cust. Ledger Entry")
@@ -44,13 +46,14 @@ report 50061 DeleteDcle
             trigger OnPreDataItem()
             begin
                 SetRange("Customer No.", '9');
+                // SetFilter(Amount, '< 0');
+                SetFilter("External Document No.", '<>%1', "Document No.");
 
             end;
 
             trigger OnAfterGetRecord()
             begin
-                Cle.Open := true;
-                CLE.Modify();
+                //   Cle.Delete();
             end;
         }
     }

@@ -289,6 +289,186 @@ report 50060 "Apply To Oldest Customer"
 
                             UNTIL (recCLEWithCreditAmount.NEXT = 0);
                         END;
+
+                        // TDS and other settlement
+                        recCLEWithCreditAmount.RESET;
+                        recCLEWithCreditAmount.SETCURRENTKEY("Customer No.", "Due Date", "Currency Code");
+                        recCLEWithCreditAmount.SETRANGE("Customer No.", Customer1."No.");
+                        recCLEWithCreditAmount.SETRANGE(Reversed, FALSE);
+                        IF EndDate <> 0D THEN
+                            recCLEWithCreditAmount.SETFILTER("Due Date", '<=%1', EndDate);
+                        recCLEWithCreditAmount.CALCFIELDS(Amount, "Remaining Amount");
+                        recCLEWithCreditAmount.SETFILTER(Amount, '<0');
+                        recCLEWithCreditAmount.SETFILTER("Remaining Amount", '< 0');
+                        IF recCLEWithCreditAmount.FIND('-') THEN BEGIN
+                            intTotalRecords := recCLEWithCreditAmount.COUNT;
+                            REPEAT
+                                GetCurrencyFactor(recCLEWithCreditAmount."Due Date", recCLEWithCreditAmount."Currency Code");
+                                intCurrentRecord += 1;
+                                intStatus := ROUND((intCurrentRecord / intTotalRecords) * 10000, 1);
+                                Window.UPDATE;
+                                CompanyInformation.GET();
+
+
+                                recDCLEInitialEntry.RESET;
+                                recDCLEInitialEntry.SETCURRENTKEY("Cust. Ledger Entry No.", "Posting Date");
+                                recDCLEInitialEntry.SETRANGE(recDCLEInitialEntry."Cust. Ledger Entry No.", recCLEWithCreditAmount."Entry No.");
+                                recDCLEInitialEntry.SETFILTER("Source Code", '<>%1', 'REVERSAL');
+                                recDCLEInitialEntry.CALCFIELDS(Reversed);
+                                recDCLEInitialEntry.SETFILTER(Reversed, '%1', FALSE);
+                                recDCLEInitialEntry.CalcFields("External Document No.");
+                                recDCLEInitialEntry.SETRANGE(recDCLEInitialEntry."External Document No.", recCLEWithCreditAmount."External Document No."); //13032024
+                                recDCLEInitialEntry.FIND('-');
+                                intDVLETransactionNo := recDCLEInitialEntry."Transaction No.";
+                                recCLEWithCreditAmount.CALCFIELDS(Amount, "Remaining Amount", "Remaining Amt. (LCY)");
+                                IF (ABS(recDCLEInitialEntry.Amount) <> ABS(recCLEWithCreditAmount."Remaining Amount")) THEN BEGIN   //MK //AND NOT FirstEntry
+                                    decCreditAmountToApply := ABS(recCLEWithCreditAmount."Remaining Amount");
+                                    decPmtAmountLCY := ABS(recCLEWithCreditAmount."Remaining Amt. (LCY)");
+                                END ELSE BEGIN
+                                    decCreditAmountToApply := ABS(recDCLEInitialEntry.Amount);
+                                    decPmtAmountLCY := ABS(recDCLEInitialEntry."Amount (LCY)");
+                                END;
+
+                                FirstEntry := TRUE;
+                                blnApplicationDone := FALSE;
+
+                                decApplicationAmount := 0;
+                                decApplicationAmountLCY := 0;
+
+                                WHILE decCreditAmountToApply > 0 DO BEGIN
+                                    CompanyInformation.GET();
+
+                                    recCLEWithDebitAmount.RESET;
+                                    recCLEWithDebitAmount.SETCURRENTKEY("Customer No.", "Due Date", "Currency Code");
+                                    recCLEWithDebitAmount.SETRANGE("Customer No.", recCLEWithCreditAmount."Customer No.");
+                                    recCLEWithDebitAmount.SETRANGE("External Document No.", recCLEWithCreditAmount."External Document No."); //13032024
+
+                                    recCLEWithDebitAmount.SETRANGE(Reversed, FALSE);
+                                    recCLEWithDebitAmount.CALCFIELDS(Amount, "Remaining Amount", "Remaining Amt. (LCY)");
+                                    IF EndDate <> 0D THEN
+                                        recCLEWithDebitAmount.SETFILTER("Due Date", '<=%1', EndDate);
+                                    recCLEWithDebitAmount.SETFILTER(Amount, '> 0');
+                                    recCLEWithDebitAmount.SETFILTER("Remaining Amount", '> 0');
+                                    IF recCLEWithDebitAmount.FIND('-') THEN BEGIN
+                                        blnApplicationDone := TRUE;
+                                        REPEAT
+                                            IF recCLEWithCreditAmount."Due Date" > recCLEWithDebitAmount."Due Date" THEN
+                                                dtMaxPostingDate := recCLEWithCreditAmount."Due Date"
+                                            ELSE
+                                                dtMaxPostingDate := recCLEWithDebitAmount."Due Date";
+
+                                            recCLEWithDebitAmount.CALCFIELDS(Amount, "Remaining Amount", "Remaining Amt. (LCY)");
+                                            decDebitAmountToBeAdjusted := ABS(recCLEWithDebitAmount."Remaining Amount");
+                                            decInvAmountLCY := ABS(recCLEWithDebitAmount."Remaining Amt. (LCY)");
+                                            dtPostingDate := recCLEWithDebitAmount."Due Date";
+
+                                            IF decCreditAmountToApply <= decDebitAmountToBeAdjusted THEN BEGIN
+                                                decTempAmount := decCreditAmountToApply;
+                                                decTempAmountLCY := decPmtAmountLCY;
+                                            END
+                                            ELSE BEGIN
+                                                decTempAmount := decDebitAmountToBeAdjusted;
+                                                decTempAmountLCY := decInvAmountLCY;
+                                            END;
+
+                                            decApplicationAmount += decTempAmount;
+                                            decApplicationAmountLCY += decTempAmountLCY;
+
+                                            recDCLE."Entry No." := intDCLEEntryNo;
+                                            recDCLE."Cust. Ledger Entry No." := recCLEWithDebitAmount."Entry No.";
+                                            recDCLE."Entry Type" := recDCLE."Entry Type"::Application;
+                                            recDCLE."Posting Date" := dtMaxPostingDate;
+                                            recDCLE."Document Type" := recCLEWithDebitAmount."Document Type";
+                                            recDCLE."Document No." := recCLEWithDebitAmount."Document No.";
+                                            recDCLE.Amount := -decTempAmount;
+                                            recDCLE."Amount (LCY)" := -decTempAmountLCY;
+                                            recDCLE."Customer No." := recCLEWithCreditAmount."Customer No.";
+                                            recDCLE."User ID" := recCLEWithCreditAmount."User ID";
+                                            recDCLE."Source Code" := recCLEWithCreditAmount."Source Code";
+                                            recDCLE."Transaction No." := intDVLETransactionNo;
+                                            recDCLE."Journal Batch Name" := recCLEWithCreditAmount."Journal Batch Name";
+                                            recDCLE."Credit Amount" := decTempAmount;
+                                            recDCLE."Debit Amount" := 0;
+                                            recDCLE."Credit Amount (LCY)" := -decTempAmountLCY;
+                                            recDCLE."Debit Amount (LCY)" := 0;
+                                            recDCLE."Initial Entry Due Date" := recCLEWithDebitAmount."Due Date";
+                                            recDCLE."Initial Entry Global Dim. 1" := recCLEWithDebitAmount."Global Dimension 1 Code";
+                                            recDCLE."Initial Entry Global Dim. 2" := recCLEWithDebitAmount."Global Dimension 2 Code";
+                                            recDCLE."Initial Document Type" := recCLEWithDebitAmount."Document Type";
+                                            recDCLE."Applied Cust. Ledger Entry No." := recCLEWithCreditAmount."Entry No.";
+                                            recDCLE."Ledger Entry Amount" := false;
+                                            recDCLE.INSERT;
+
+                                            intDCLEEntryNo += 1;
+
+                                            decCreditAmountToApply -= decTempAmount;
+                                            decPmtAmountLCY -= decTempAmountLCY;
+
+                                            recCLEWithDebitAmount.CALCFIELDS("Remaining Amount");
+                                            IF recCLEWithDebitAmount."Remaining Amount" <> 0 THEN
+                                                recCLEWithDebitAmount.Open := TRUE
+                                            ELSE BEGIN
+                                                recCLEWithDebitAmount.Open := FALSE;
+                                                recCLEWithDebitAmount."Closed by Entry No." := recCLEWithCreditAmount."Entry No.";
+                                                recCLEWithDebitAmount."Closed at Date" := dtMaxPostingDate;
+                                                recCLEWithDebitAmount."Closed by Amount" := decDebitAmountToBeAdjusted;
+                                                recCLEWithDebitAmount."Closed by Amount (LCY)" := decInvAmountLCY;
+                                                recCLEWithDebitAmount."Closed by Currency Code" := recCLEWithCreditAmount."Currency Code";
+                                                recCLEWithDebitAmount."Closed by Currency Amount" := decDebitAmountToBeAdjusted / decCurrencyFactor;
+                                            END;
+                                            recCLEWithDebitAmount.MODIFY;
+
+                                            recDCLE.INIT;
+                                            recDCLE."Entry No." := intDCLEEntryNo;
+                                            recDCLE."Cust. Ledger Entry No." := recCLEWithCreditAmount."Entry No.";
+                                            recDCLE."Entry Type" := recDCLE."Entry Type"::Application;
+                                            recDCLE."Posting Date" := dtMaxPostingDate;
+                                            recDCLE."Document Type" := recCLEWithCreditAmount."Document Type";
+                                            recDCLE."Document No." := recCLEWithCreditAmount."Document No.";
+                                            recDCLE.Amount := decTempAmount;
+                                            recDCLE."Amount (LCY)" := decTempAmountLCY;
+                                            recDCLE."Customer No." := recCLEWithCreditAmount."Customer No.";
+                                            recDCLE."User ID" := recCLEWithCreditAmount."User ID";
+                                            recDCLE."Source Code" := recCLEWithCreditAmount."Source Code";
+                                            recDCLE."Transaction No." := intDVLETransactionNo;
+                                            recDCLE."Journal Batch Name" := recCLEWithCreditAmount."Journal Batch Name";
+                                            recDCLE."Credit Amount" := 0;
+                                            recDCLE."Debit Amount" := decTempAmount;
+                                            recDCLE."Credit Amount (LCY)" := 0;
+                                            recDCLE."Debit Amount (LCY)" := decTempAmountLCY;
+                                            recDCLE."Initial Entry Due Date" := recCLEWithCreditAmount."Due Date";
+                                            recDCLE."Initial Entry Global Dim. 1" := recCLEWithCreditAmount."Global Dimension 1 Code";
+                                            recDCLE."Initial Entry Global Dim. 2" := recCLEWithCreditAmount."Global Dimension 2 Code";
+                                            recDCLE."Initial Document Type" := recCLEWithCreditAmount."Document Type";
+                                            recDCLE."Applied Cust. Ledger Entry No." := recCLEWithDebitAmount."Entry No.";
+                                            recDCLE."Ledger Entry Amount" := false;
+                                            recDCLE.INSERT;
+                                            intDCLEEntryNo += 1;
+
+                                            GetCurrencyFactor(recCLEWithDebitAmount."Due Date", recCLEWithDebitAmount."Currency Code");
+                                            recCLEWithCreditAmount.CALCFIELDS("Remaining Amount");
+                                            IF recCLEWithCreditAmount."Remaining Amount" <> 0 THEN
+                                                recCLEWithCreditAmount.Open := TRUE
+                                            ELSE BEGIN
+                                                recCLEWithCreditAmount.Open := FALSE;
+                                                recCLEWithCreditAmount."Closed by Entry No." := recCLEWithDebitAmount."Entry No.";
+                                                recCLEWithCreditAmount."Closed at Date" := recCLEWithDebitAmount."Posting Date";
+                                                recCLEWithCreditAmount."Closed by Amount" := decTempAmount;
+                                                recCLEWithCreditAmount."Closed by Amount (LCY)" := decTempAmountLCY;
+                                                recCLEWithCreditAmount."Closed by Currency Code" := recCLEWithDebitAmount."Currency Code";
+                                                recCLEWithCreditAmount."Closed by Currency Amount" := decTempAmount / decCurrencyFactor;
+                                            END;
+                                            recCLEWithCreditAmount.MODIFY;
+
+                                        UNTIL ((recCLEWithDebitAmount.NEXT = 0) OR (decCreditAmountToApply <= 0));
+                                    END
+                                    ELSE
+                                        decCreditAmountToApply := 0;
+                                END;
+
+                            UNTIL (recCLEWithCreditAmount.NEXT = 0);
+                        END;
+                        // TDS and Other settlement
                     END;
                 END;
             end;

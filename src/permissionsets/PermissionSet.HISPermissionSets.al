@@ -11,6 +11,7 @@ permissionset 50000 "E3 HIS Permission"
         tabledata "E3 HIS Delete Document" = RIMD,
         tabledata "E3 HIS E-Mail Setup" = RIMD,
         tabledata "E3AdvanceSetllementSetup" = RIMD,
+        tabledata "E3SettlementType" = RIMD,
         tabledata "E3 HIS GL Accounts Mapping" = RIMD,
         tabledata "E3 HIS Integartion Setup" = RIMD,
         tabledata "E3 HIS Integration Setup Line" = RIMD,

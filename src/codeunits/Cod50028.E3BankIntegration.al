@@ -13,8 +13,8 @@ codeunit 50028 "E3 Bank Integration"
                 GenJnlBatch.Init();
                 GenJnlBatch."Journal Template Name" := CurrentJnlTemplateName;
                 GenJnlBatch.SetupNewBatch();
-                GenJnlBatch.Name := Text004;
-                GenJnlBatch.Description := Text005;
+                GenJnlBatch.Name := Text004Lbl;
+                GenJnlBatch.Description := Text005Lbl;
                 GenJnlBatch.Insert(true);
                 Commit();
             end;
@@ -42,13 +42,13 @@ codeunit 50028 "E3 Bank Integration"
                     if not RecurringJnl then begin
                         GenJnlTemplate.Name := GetAvailableGeneralJournalTemplateName(Format(GenJnlTemplate.Type, MaxStrLen(GenJnlTemplate.Name)));
                         if TemplateType = GenJnlTemplate.Type::Assets then
-                            GenJnlTemplate.Description := Text000
+                            GenJnlTemplate.Description := Text000Lbl
                         else
-                            GenJnlTemplate.Description := StrSubstNo(Text001, GenJnlTemplate.Type);
+                            GenJnlTemplate.Description := StrSubstNo(Text001Lbl, GenJnlTemplate.Type);
                     end
                     else begin
-                        GenJnlTemplate.Name := Text002;
-                        GenJnlTemplate.Description := Text003;
+                        GenJnlTemplate.Name := Text002Lbl;
+                        GenJnlTemplate.Description := Text003Lbl;
                     end;
                     GenJnlTemplate.Validate(Type);
                     OnFindTemplateFromSelectionOnBeforeGenJnlTemplateInsert(GenJnlTemplate);
@@ -90,43 +90,26 @@ codeunit 50028 "E3 Bank Integration"
     var
         BankIntegrationTable: Record "E3 Bank Integration";
         BankAccountLedgerEntry: Record 271;
-        ExcelBuffer: Record 370 temporary;
-        //  SCIntegrationSetup: Record "50046";
-        FileName: Text[50];
-        FileManagement: Codeunit 419;
-        PaymentType: Text[10];
-        SaveFileName: Text;
-        BankAccount: Record 270;
-        VendorBankAccount: Record 288;
-        ContraBankAccount: Record 270;
-        Vend: Record 23;
-        BeneficiaryName: Text;
-        BeneficiaryAcc: Text[34];
-        BackupFileName: Text;
+        PPsetup: Record "Purchases & Payables Setup";
+        NoSeriesLine: Record "No. Series Line";
+        BankAccountTable: Record "Bank Account";
+        NoSeriesMgmt: Codeunit "No. Series";
+        TempBlob: Codeunit "Temp Blob";
+        FileName: Text;
+        BeneficiaryName: Text[100];
         TextBuilder: TextBuilder;
         OutStream: OutStream;
-        TempBlob: Codeunit "Temp Blob";
         i: Integer;
         c: Char;
-        CleanBeneficiaryName: Text;
-        BeneficiaryAccNo: Text;
+        CleanBeneficiaryName: Text[100];
+        BeneficiaryAccNo: Text[50];
         CurrentDate: Date;
         DayTxt: Text[2];
         MonthTxt: Text[2];
-        IsCompanySpecific: Boolean;
         CurrentValue: Code[20];
-        NextValue: BigInteger;
-        PPsetup: Record "Purchases & Payables Setup";
-        NoSeriesMgmt: Codeunit "No. Series";
-        NoSeriesLine: Record "No. Series Line";
-        BankAccountTable: Record "Bank Account";
         NextEntryNo: Integer;
 
     begin
-        // SCIntegrationSetup.GET;
-        // SCIntegrationSetup.TESTFIELD(Enabled);
-        // SCIntegrationSetup.TESTFIELD("Transaction Request Folder");
-        // SCIntegrationSetup.TESTFIELD("Transaction Request Backup");
 
         NextEntryNo := 0;
         BankIntegrationTable.SetCurrentKey(EntryNo);
@@ -232,11 +215,12 @@ codeunit 50028 "E3 Bank Integration"
 
                     if CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) = 'HDFC' then
                         PaymentTy := 'I'
-                    else if (CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) <> 'HDFC') then
-                        if (Abs(TempBankAccountLedgerEntry.Amount) <= 200000) then
-                            PaymentTy := 'N'
-                        else
-                            PaymentTy := 'R';
+                    else
+                        if (CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) <> 'HDFC') then
+                            if (Abs(TempBankAccountLedgerEntry.Amount) <= 200000) then
+                                PaymentTy := 'N'
+                            else
+                                PaymentTy := 'R';
 
                     TextBuilder.AppendLine(
                         PaymentTy + ',' +
@@ -316,26 +300,27 @@ codeunit 50028 "E3 Bank Integration"
             // Download file
             FileName := (FileName + '');
             DownloadFromStream(TempBlob.CreateInStream(), '', '', '', FileName);
-            IF FINDFIRST THEN
+            IF FINDFIRST() THEN
                 REPEAT
                     BankAccountLedgerEntry.GET("Entry No.");
                     BankAccountLedgerEntry."Bank Transaction Status" := BankAccountLedgerEntry."Bank Transaction Status"::"File Exported";
-                    BankAccountLedgerEntry.MODIFY;
-                UNTIL NEXT = 0;
+                    BankAccountLedgerEntry.MODIFY();
+                UNTIL NEXT() = 0;
         end;
     end;
 
     var
-
-        Text000: Label 'Fixed Asset G/L Journal';
-#pragma warning disable AA0470
-        Text001: Label '%1 journal';
-#pragma warning restore AA0470
-        Text002: Label 'RECURRING';
-        Text003: Label 'Recurring General Journal';
-        Text004: Label 'DEFAULT';
-        Text005: Label 'Default Journal';
         Vendor: Record Vendor;
+        VenBank: Record "Vendor Bank Account";
+        Text000Lbl: Label 'Fixed Asset G/L Journal';
+#pragma warning disable AA0470
+        Text001Lbl: Label '%1 journal';
+#pragma warning restore AA0470
+        Text002Lbl: Label 'RECURRING';
+        Text003Lbl: Label 'Recurring General Journal';
+        Text004Lbl: Label 'DEFAULT';
+        Text005Lbl: Label 'Default Journal';
+
         PaymentTy: Text[1];
         DraweeLocation: Text[20];
         PrintLocation: Text[20];
@@ -344,8 +329,6 @@ codeunit 50028 "E3 Bank Integration"
         BeneAddress3: Text[50];
         BeneAddress4: Text[50];
         BeneAddress5: Text[50];
-        InstructionRefNumber: Text[20];
-        CustomerRefNumber: Code[20];
         Paymentdetails1: Text[50];
         Paymentdetails2: Text[50];
         Paymentdetails3: Text[50];
@@ -354,11 +337,9 @@ codeunit 50028 "E3 Bank Integration"
         Paymentdetails6: Text[50];
         Paymentdetails7: Text[50];
         MICRNumber: Text[30];
-        IFCCode: Text[11];
         BeneBankName: Text[100];
         BeneBankBranchName: Text[50];
-        BeneficiaryAccountNumber: Text[30];
         Beneficiaryemailid: Text[100];
-        VenBank: Record "Vendor Bank Account";
+
 
 }
