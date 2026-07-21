@@ -99,7 +99,7 @@ codeunit 50001 "E3 HIS Event Subscriber"
                     if Customer.Find('-') then begin
                         BankAccountLedgerEntry."Recipient Bank Name" := Customer.Name;
                         BankAccountLedgerEntry."Recipient Bank Account" := Customer."Bank Account No.";
-                        BankAccountLedgerEntry."Recipient Bank IFSC Code" := Customer."Bank Clearing Code";
+                        BankAccountLedgerEntry."Recipient Bank IFSC Code" := Customer."E3 IFSC Code";
                         BankAccountLedgerEntry."Recipient Branch Name" := Customer.IBAN;
                     end;
                 end;
@@ -111,8 +111,8 @@ codeunit 50001 "E3 HIS Event Subscriber"
                     if Vendor.Find('-') then begin
                         BankAccountLedgerEntry."Recipient Bank Name" := Vendor.Name;
                         BankAccountLedgerEntry."Recipient Bank Account" := Vendor."Bank Account No.";
-                        BankAccountLedgerEntry."Recipient Bank IFSC Code" := Vendor."Bank Clearing Code";
-                        BankAccountLedgerEntry."Recipient Branch Name" := Vendor.IBAN;
+                        BankAccountLedgerEntry."Recipient Bank IFSC Code" := Vendor."E3 IFSC Code";
+                        BankAccountLedgerEntry."Recipient Branch Name" := Vendor."Branch Name";
                     end;
 
                 end;

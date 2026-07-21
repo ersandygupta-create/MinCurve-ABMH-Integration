@@ -9,6 +9,7 @@ pageextension 50002 "E3 HIS Vendor Bank Acc. Card" extends "Vendor Bank Account 
                 Caption = 'IFSC Code';
                 ToolTip = 'Enter IFDC Code of Bank Account.';
                 ApplicationArea = all;
+                Visible = false;
             }
         }
     }

@@ -7,5 +7,10 @@ tableextension 50010 "E3 HIS Vendor Bank Account" extends "Vendor Bank Account"
             Caption = 'IFSC Code';
             DataClassification = CustomerContent;
         }
+        field(50001; "Branch Name"; Text[50])
+        {
+            Caption = 'Branch Name';
+            DataClassification = CustomerContent;
+        }
     }
 }

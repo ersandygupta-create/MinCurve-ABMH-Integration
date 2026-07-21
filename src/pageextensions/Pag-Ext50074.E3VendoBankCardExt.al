@@ -2,13 +2,16 @@ pageextension 50074 "E3 Vendor Bank Card Ext" extends "Vendor Bank Account Card"
 {
     layout
     {
-        modify("Bank Clearing Code")
+        addafter("Transit No.")
         {
-            Caption = 'IFSC Code';
-        }
-        modify(IBAN)
-        {
-            Caption = 'Bank Branch Name';
+            field("Branch Name"; Rec."Branch Name")
+            {
+                ApplicationArea = All;
+            }
+            field("IFSC Code"; Rec."E3 IFSC Code")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 
@@ -18,4 +21,5 @@ pageextension 50074 "E3 Vendor Bank Card Ext" extends "Vendor Bank Account Card"
     }
 
     var
+        myInt: Integer;
 }
