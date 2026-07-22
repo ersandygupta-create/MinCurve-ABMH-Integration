@@ -1,6 +1,5 @@
 page 50173 "E3 Update Bank UTR No. API"
 {
-
     APIGroup = 'apiHIS';
     APIPublisher = 'mindCurve';
     APIVersion = 'v2.0';
@@ -15,113 +14,131 @@ page 50173 "E3 Update Bank UTR No. API"
     ModifyAllowed = true;
     DeleteAllowed = false;
 
-
     layout
     {
         area(content)
         {
             repeater(General)
             {
-                field(entryNo; Rec.EntryNo)
+                field(recordIdentifier; Rec."Record Identifier")
                 {
-                    Caption = 'EntryNo';
-                    Editable = false;
+                    Caption = 'Record Identifier';
                 }
-                field(documentNo; Rec."Document No.")
+                field(paymentIndicator; Rec."Payment Indicator")
                 {
-                    Caption = 'Document No.';
+                    Caption = 'Payment Indicator';
                 }
-                field(utrNo; Rec."UTR No.")
+                field(sapDocumentNumber; Rec."SAP Document Number")
                 {
-                    Caption = 'UTR No.';
+                    Caption = 'SAP Document Number';
                 }
-                field(fld1; Rec.FLD1)
+                field(vendorBeneficiaryCode; Rec."Vendor / Beneficiary Code")
                 {
-                    Caption = 'FLD1';
+                    Caption = 'Vendor / Beneficiary Code';
                 }
-                field(fld2; Rec.FLD2)
+                field(nameOfBeneficiary; Rec."Name of Beneficiary")
                 {
-                    Caption = 'FLD2';
+                    Caption = 'Name of Beneficiary';
                 }
-                field(fld3; Rec.FLD3)
+                field(instrumentAmount; Rec."Instrument Amount")
                 {
-                    Caption = 'FLD3';
+                    Caption = 'Instrument Amount';
                 }
-                field(fld4; Rec.FLD4)
+                field(paymentDate; Rec."Payment Date")
                 {
-                    Caption = 'FLD4';
+                    Caption = 'Payment Date';
                 }
-                field(fld5; Rec.FLD5)
+                field(chequeNumber; Rec."Cheque Number")
                 {
-                    Caption = 'FLD5';
+                    Caption = 'Cheque Number';
                 }
-                field(fld6; Rec.FLD6)
+                field(debitAccountNo; Rec."Debit Account No.")
                 {
-                    Caption = 'FLD6';
+                    Caption = 'Debit Account No.';
                 }
-                field(fld7; Rec.FLD7)
+                field(beneficiaryBankAccountNo; Rec."Beneficiary Bank A/c No")
                 {
-                    Caption = 'FLD7';
+                    Caption = 'Beneficiary Bank A/c No';
                 }
-                field(fld8; Rec.FLD8)
+                field(ifscCode; Rec."IFSC Code")
                 {
-                    Caption = 'FLD8';
+                    Caption = 'IFSC Code';
                 }
-                field(fld9; Rec.FLD9)
+                field(beneficiaryBankName; Rec."Beneficiary Bank Name")
                 {
-                    Caption = 'FLD9';
+                    Caption = 'Beneficiary Bank Name';
                 }
-                field(fld10; Rec.FLD10)
+                field(beneficiaryAdd1; Rec."Beneficiary Add1")
                 {
-                    Caption = 'FLD10';
+                    Caption = 'Beneficiary Add1';
                 }
-                field(fld11; Rec.FLD11)
+                field(beneficiaryAdd2; Rec."Beneficiary Add 2")
                 {
-                    Caption = 'FLD11';
+                    Caption = 'Beneficiary Add 2';
                 }
-                field(fld12; Rec.FLD12)
+                field(beneficiaryAdd3; Rec."Beneficiary Add 3")
                 {
-                    Caption = 'FLD12';
+                    Caption = 'Beneficiary Add 3';
                 }
-                field(fld13; Rec.FLD13)
+                field(beneficiaryAdd4; Rec."Beneficiary Add 4")
                 {
-                    Caption = 'FLD13';
+                    Caption = 'Beneficiary Add 4';
                 }
-                field(fld14; Rec.FLD14)
+                field(beneficiaryZip; Rec."Beneficiary Zip")
                 {
-                    Caption = 'FLD14';
+                    Caption = 'Beneficiary Zip';
                 }
-                field(fld15; Rec.FLD15)
+                field(debitNarration; Rec."Debit Narration")
                 {
-                    Caption = 'FLD15';
+                    Caption = 'Debit Narration';
                 }
-                field(fld16; Rec.FLD16)
+                field(printLocation; Rec."Print Location")
                 {
-                    Caption = 'FLD16';
+                    Caption = 'Print Location';
                 }
-                field(fld17; Rec.FLD17)
+                field(payableLocation; Rec."Payable Location")
                 {
-                    Caption = 'FLD17';
+                    Caption = 'Payable Location';
                 }
-                field(fld18; Rec.FLD18)
+                field(fiscalYear; Rec."Fiscal Year")
                 {
-                    Caption = 'FLD18';
+                    Caption = 'Fiscal Year';
                 }
-                field(fld19; Rec.FLD19)
+                field(companyCode; Rec."Company Code")
                 {
-                    Caption = 'FLD19';
+                    Caption = 'Company Code';
                 }
-                field(fld20; Rec.FLD20)
+                field(emailID; Rec."Email ID")
                 {
-                    Caption = 'FLD20';
+                    Caption = 'Email ID';
+                }
+                field(mobileNumber; Rec."Mobile Number")
+                {
+                    Caption = 'Mobile Number';
+                }
+                field(aadharNumber; Rec."AADHAR Number")
+                {
+                    Caption = 'AADHAR Number';
+                }
+                field(beneLEINumber; Rec."Bene LEI Number")
+                {
+                    Caption = 'Bene LEI Number';
+                }
+                field(beneLEIExpiryDate; Rec."Bene LEI Expiry Date")
+                {
+                    Caption = 'Bene LEI Expiry Date';
+                }
+                field(duplicateValidationField; Rec."Duplicate Validation Field")
+                {
+                    Caption = 'Duplicate Validation Field';
                 }
             }
         }
     }
+
     trigger OnModifyRecord(): Boolean
     begin
-        if Rec."UTR No." <> xRec."UTR No." then begin
-            Message('UTR Number has been updated for document %1', Rec.EntryNo);
-        end;
+        Message('Record %1 has been updated.', Rec.EntryNo);
+        exit(true);
     end;
 }

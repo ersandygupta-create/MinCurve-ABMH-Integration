@@ -157,10 +157,10 @@ codeunit 50028 "E3 Bank Integration"
                     Vendor.SetRange("No.", "Bal. Account No.");
                     if Vendor.find('-') then;
                     BeneficiaryName := CopyStr(Vendor.Name, 1, 40);
-                    Beneficiaryemailid := Vendor."E-Mail";
-                    BeneAddress1 := DelChr(Vendor.Address, '=', ',');
-                    BeneAddress2 := DelChr(Vendor."Address 2", '=', ',');
-                    BeneAddress3 := Vendor.City;
+                    "Email ID" := Vendor."E-Mail";
+                    BeneficiaryAdd1 := DelChr(Vendor.Address, '=', ',');
+                    BeneficiaryAdd2 := DelChr(Vendor."Address 2", '=', ',');
+                    BeneficiaryAdd3 := Vendor.City;
 
                     CleanBeneficiaryName := '';
                     for i := 1 to StrLen(BeneficiaryName) do begin
@@ -172,26 +172,34 @@ codeunit 50028 "E3 Bank Integration"
                     end;
 
                     // Clean Address 1 (Max 70 chars)
-                    BeneAddress1 := '';
-                    for i := 1 to StrLen(BeneAddress1) do begin
-                        c := BeneAddress1[i];
-                        if (c in ['A' .. 'Z']) or (c in ['a' .. 'z']) or (c in ['0' .. '9']) or (c = ' ') then
-                            BeneAddress1 += c
+                    BeneficiaryAdd1 := DelChr(Vendor.Address, '=', ',');
+                    CleanAddress1 := '';
+
+                    for i := 1 to StrLen(BeneficiaryAdd1) do begin
+                        c := BeneficiaryAdd1[i];
+                        if (c in ['A' .. 'Z']) or (c in ['a' .. 'z']) or
+                           (c in ['0' .. '9']) or (c = ' ') then
+                            CleanAddress1 += c
                         else
-                            BeneAddress1 += ' ';
+                            CleanAddress1 += ' ';
                     end;
-                    BeneAddress1 := CopyStr(BeneAddress1, 1, 50);
+
+                    BeneficiaryAdd1 := CopyStr(CleanAddress1, 1, 50);
 
                     // Clean Address 2 (Max 70 chars)
-                    BeneAddress2 := '';
-                    for i := 1 to StrLen(BeneAddress2) do begin
-                        c := BeneAddress2[i];
-                        if (c in ['A' .. 'Z']) or (c in ['a' .. 'z']) or (c in ['0' .. '9']) or (c = ' ') then
-                            BeneAddress2 += c
+                    BeneficiaryAdd2 := DelChr(Vendor."Address 2", '=', ',');
+                    CleanAddress2 := '';
+
+                    for i := 1 to StrLen(BeneficiaryAdd2) do begin
+                        c := BeneficiaryAdd2[i];
+                        if (c in ['A' .. 'Z']) or (c in ['a' .. 'z']) or
+                           (c in ['0' .. '9']) or (c = ' ') then
+                            CleanAddress2 += c
                         else
-                            BeneAddress2 += ' ';
+                            CleanAddress2 += ' ';
                     end;
-                    BeneAddress2 := CopyStr(BeneAddress2, 1, 20);
+
+                    BeneficiaryAdd2 := CopyStr(CleanAddress2, 1, 20);
 
 
                     // Optional: collapse multiple spaces into single space
@@ -209,86 +217,91 @@ codeunit 50028 "E3 Bank Integration"
                     VenBank.Reset();
                     VenBank.SetRange("Vendor No.", "Bal. Account No.");
                     if VenBank.Find('-') then
-                        BeneBankName := VenBank.Name;
-                    BeneBankBranchName := VenBank."Bank Branch No.";
+                        "Beneficiary Bank Name" := VenBank.Name;
+                    "Recipient Branch Name" := VenBank."Bank Branch No.";
 
 
-                    if CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) = 'HDFC' then
-                        PaymentTy := 'I'
+                    if CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) = 'ICICI' then
+                        "Record Identifier" := 'I'
                     else
-                        if (CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) <> 'HDFC') then
+                        if (CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) <> 'ICICI') then
                             if (Abs(TempBankAccountLedgerEntry.Amount) <= 200000) then
-                                PaymentTy := 'N'
+                                "Record Identifier" := 'N'
                             else
-                                PaymentTy := 'R';
+                                "Record Identifier" := 'R';
+
+                    if CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) = 'ICICI' then
+                        "Payment Indicator" := 'I'
+                    else
+                        if (CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) <> 'ICICI') then
+                            if (Abs(TempBankAccountLedgerEntry.Amount) <= 200000) then
+                                "Payment Indicator" := 'N'
+                            else
+                                "Payment Indicator" := 'R';
 
                     TextBuilder.AppendLine(
-                        PaymentTy + ',' +
-                        BeneficiaryAccNo + ',' +
-                        TempBankAccountLedgerEntry."Recipient Bank Account" + ',' +
-                        DelChr(DelChr(Format(TempBankAccountLedgerEntry.Amount, 0, 1), '=', ','), '=', '-') + ',' +
-                        BeneficiaryName + ',' +
-                        DraweeLocation + ',' +
-                        PrintLocation + ',' +
-                        BeneAddress1 + ',' +
-                        BeneAddress2 + ',' +
-                        BeneAddress3 + ',' +
-                        BeneAddress4 + ',' +
-                        BeneAddress5 + ',' +
-                        TempBankAccountLedgerEntry."Bal. Account No." + ',' +
-                        TempBankAccountLedgerEntry."Document No." + ',' +
-                        Paymentdetails1 + ',' +
-                        Paymentdetails2 + ',' +
-                        Paymentdetails3 + ',' +
-                        Paymentdetails4 + ',' +
-                        Paymentdetails5 + ',' +
-                        Paymentdetails6 + ',' +
-                        Paymentdetails7 + ',' +
-                        TempBankAccountLedgerEntry."Cheque No." + ',' +
-                        Format(TempBankAccountLedgerEntry."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + ',' +
-                        MICRNumber + ',' +
+                        "Record Identifier" + '|' +
+                        "Payment Indicator" + '|' +
+                        TempBankAccountLedgerEntry."Document No." + '|' +
+                        TempBankAccountLedgerEntry."Bal. Account No." + '|' +
+                        BeneficiaryName + '|' +
+                        DelChr(DelChr(Format(TempBankAccountLedgerEntry.Amount, 0, 1), '=', ','), '=', '-') + '|' +
+                        Format(TempBankAccountLedgerEntry."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + '|' +
+                        TempBankAccountLedgerEntry."Cheque No." + '|' +
+                        "Debit Account No." + '|' +
+                        TempBankAccountLedgerEntry."Recipient Bank Account" + '|' +
                         TempBankAccountLedgerEntry."Recipient Bank IFSC Code" + ',' +
-                        TempBankAccountLedgerEntry."Recipient Bank Name" + ',' +
-                        TempBankAccountLedgerEntry."Recipient Branch Name" + ',' +
-                        Beneficiaryemailid
-                        //TempBankAccountLedgerEntry."Global Dimension 1 Code"
+                        TempBankAccountLedgerEntry."Recipient Bank Name" + '|' +
+                        BeneficiaryAdd1 + '|' +
+                        BeneficiaryAdd2 + '|' +
+                        BeneficiaryAdd3 + '|' +
+                        "Beneficiary Add 4" + '|' +
+                        "Beneficiary Zip" + '|' +
+                        "Debit Narration" + '|' +
+                        "Print Location" + '|' +
+                        "Payable Location" + '|' +
+                        "Fiscal Year" + '|' +
+                        "Company Code" + '|' +
+                        "Email ID" + '|' +
+                        "Mobile Number" + '|' +
+                        "AADHAR Number" + '|' +
+                        "Bene LEI Number" + '|' +
+                        Format("Bene LEI Expiry Date", 0, '<Day,2>-<Month,2>-<Year4>') + '|' +
+                        "Duplicate Validation Field"
+
 
                         );
                     // code to insert data in table  //sandeep
                     BankIntegrationTable.Init();
                     NextEntryNo += 1;
                     BankIntegrationTable.EntryNo := NextEntryNo;
-                    BankIntegrationTable.PaymentTy := PaymentTy;
-                    BankIntegrationTable.BeneficiaryAccNo := BeneficiaryAccNo;
-                    BankIntegrationTable."Recipient Bank Account" := TempBankAccountLedgerEntry."Recipient Bank Account";
-                    BankIntegrationTable.Amount := TempBankAccountLedgerEntry.Amount;
-                    BankIntegrationTable.BeneficiaryName := BeneficiaryName;
-                    BankIntegrationTable.DraweeLocation := DraweeLocation;
-                    BankIntegrationTable.PrintLocation := PrintLocation;
-                    BankIntegrationTable.BeneAddress1 := BeneAddress1;
-                    BankIntegrationTable.BeneAddress2 := BeneAddress2;
-                    BankIntegrationTable.BeneAddress3 := BeneAddress3;
-                    BankIntegrationTable.BeneAddress4 := BeneAddress4;
-                    BankIntegrationTable.BeneAddress5 := BeneAddress5;
-                    BankIntegrationTable."Bal. Account No." := TempBankAccountLedgerEntry."Bal. Account No.";
-                    BankIntegrationTable."Document No." := TempBankAccountLedgerEntry."Document No.";
-                    BankIntegrationTable.Paymentdetails1 := Paymentdetails1;
-                    BankIntegrationTable.Paymentdetails2 := Paymentdetails2;
-                    BankIntegrationTable.Paymentdetails3 := Paymentdetails3;
-                    BankIntegrationTable.Paymentdetails4 := Paymentdetails4;
-                    BankIntegrationTable.Paymentdetails5 := Paymentdetails5;
-                    BankIntegrationTable.Paymentdetails6 := Paymentdetails6;
-                    BankIntegrationTable.Paymentdetails7 := Paymentdetails7;
-                    BankIntegrationTable."Cheque No." := TempBankAccountLedgerEntry."Cheque No.";
-                    BankIntegrationTable."Posting Date" := TempBankAccountLedgerEntry."Posting Date";
-                    BankIntegrationTable.MICRNumber := MICRNumber;
-                    BankIntegrationTable."Recipient Bank IFSC Code" := TempBankAccountLedgerEntry."Recipient Bank IFSC Code";
-                    BankIntegrationTable."Recipient Bank Name" := TempBankAccountLedgerEntry."Recipient Bank Name";
-                    BankIntegrationTable."Recipient Branch Name" := TempBankAccountLedgerEntry."Recipient Branch Name";
-                    BankIntegrationTable.Beneficiaryemailid := Beneficiaryemailid;
-                    BankIntegrationTable."Unit Code" := TempBankAccountLedgerEntry."Global Dimension 1 Code";
-                    BankIntegrationTable."File Name" := FileName;
-                    BankIntegrationTable."Bank Account Ledger Entry No." := TempBankAccountLedgerEntry."Entry No.";
+                    BankIntegrationTable."Record Identifier" := "Record Identifier";
+                    BankIntegrationTable."Payment Indicator" := "Payment Indicator";
+                    BankIntegrationTable."SAP Document Number" := "SAP Document Number";
+                    BankIntegrationTable."Vendor / Beneficiary Code" := "Vendor / Beneficiary Code";
+                    BankIntegrationTable."Name of Beneficiary" := "Name of Beneficiary";
+                    BankIntegrationTable."Instrument Amount" := "Instrument Amount";
+                    BankIntegrationTable."Payment Date" := "Payment Date";
+                    BankIntegrationTable."Cheque Number" := "Cheque Number";
+                    BankIntegrationTable."Debit Account No." := "Debit Account No.";
+                    BankIntegrationTable."Beneficiary Bank A/c No" := "Beneficiary Bank A/c No";
+                    BankIntegrationTable."IFSC Code" := "IFSC Code";
+                    BankIntegrationTable."Beneficiary Bank Name" := "Beneficiary Bank Name";
+                    BankIntegrationTable."Beneficiary Add1" := BeneficiaryAdd1;
+                    BankIntegrationTable."Beneficiary Add 2" := BeneficiaryAdd2;
+                    BankIntegrationTable."Beneficiary Add 3" := BeneficiaryAdd3;
+                    BankIntegrationTable."Beneficiary Add 4" := "Beneficiary Add 4";
+                    BankIntegrationTable."Beneficiary Zip" := "Beneficiary Zip";
+                    BankIntegrationTable."Debit Narration" := "Debit Narration";
+                    BankIntegrationTable."Print Location" := "Print Location";
+                    BankIntegrationTable."Payable Location" := "Payable Location";
+                    BankIntegrationTable."Fiscal Year" := "Fiscal Year";
+                    BankIntegrationTable."Company Code" := "Company Code";
+                    BankIntegrationTable."Email ID" := "Email ID";
+                    BankIntegrationTable."Mobile Number" := "Mobile Number";
+                    BankIntegrationTable."AADHAR Number" := "AADHAR Number";
+                    BankIntegrationTable."Bene LEI Number" := "Bene LEI Number";
+                    BankIntegrationTable."Bene LEI Expiry Date" := "Bene LEI Expiry Date";
                     BankIntegrationTable.Insert();
                 // code to insert data in table // sandeep 
 
@@ -320,26 +333,35 @@ codeunit 50028 "E3 Bank Integration"
         Text003Lbl: Label 'Recurring General Journal';
         Text004Lbl: Label 'DEFAULT';
         Text005Lbl: Label 'Default Journal';
-
-        PaymentTy: Text[1];
-        DraweeLocation: Text[20];
-        PrintLocation: Text[20];
-        BeneAddress1: Text[100];
-        BeneAddress2: Text[50];
-        BeneAddress3: Text[50];
-        BeneAddress4: Text[50];
-        BeneAddress5: Text[50];
-        Paymentdetails1: Text[50];
-        Paymentdetails2: Text[50];
-        Paymentdetails3: Text[50];
-        Paymentdetails4: Text[50];
-        Paymentdetails5: Text[50];
-        Paymentdetails6: Text[50];
-        Paymentdetails7: Text[50];
-        MICRNumber: Text[30];
-        BeneBankName: Text[100];
-        BeneBankBranchName: Text[50];
-        Beneficiaryemailid: Text[100];
-
+        CleanAddress1: Text[100];
+        CleanAddress2: Text[100];
+        "Record Identifier": Text[1];
+        "Payment Indicator": Text[1];
+        "SAP Document Number": Code[20];
+        "Vendor / Beneficiary Code": Code[20];
+        "Name of Beneficiary": Text[150];
+        "Instrument Amount": Decimal;
+        "Payment Date": Date;
+        "Cheque Number": Code[6];
+        "Debit Account No.": Code[12];
+        "Beneficiary Bank A/c No": Code[30];
+        "IFSC Code": Code[11];
+        "Beneficiary Bank Name": Text[150];
+        BeneficiaryAdd1: Text[100];
+        BeneficiaryAdd2: Text[100];
+        BeneficiaryAdd3: Text[100];
+        "Beneficiary Add 4": Text[100];
+        "Beneficiary Zip": Code[6];
+        "Debit Narration": Text[28];
+        "Print Location": Text[150];
+        "Payable Location": Text[150];
+        "Fiscal Year": Code[20];
+        "Company Code": Label 'ABMH';
+        "Email ID": Text[100];
+        "Mobile Number": Code[10];
+        "AADHAR Number": Code[12];
+        "Bene LEI Number": Code[30];
+        "Bene LEI Expiry Date": Date;
+        "Duplicate Validation Field": Text[100];
 
 }

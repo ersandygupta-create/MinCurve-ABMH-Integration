@@ -25,7 +25,7 @@ codeunit 50029 "Update Bank Ledger Field"
                 if BankLedgerEntry.Get(E3BankIntegration."Bank Account Ledger Entry No.") then begin
                     // Perform necessary updates to BankLedgerEntry here
                     BankLedgerEntry."EDC UTR No." := E3BankIntegration."UTR No.";
-                    if Evaluate(ValueDate, E3BankIntegration.FLD6) then
+                    if Evaluate(ValueDate, E3BankIntegration.FLD1) then
                         BankLedgerEntry."Value Date" := ValueDate;
                     // Mark as updated
                     BankLedgerEntry.Modify();

@@ -12,47 +12,38 @@ query 50025 "E3 Exported Bank File Get API"
     {
         dataitem(BankIntegration; "E3 Bank Integration")
         {
-            DataItemTableFilter = "UTR No." = const('');
-
-            column(documentNo; "Document No.") { }
-            column(paymentTy; PaymentTy) { }
-            column(beneficiaryAccNo; BeneficiaryAccNo) { }
-            column(recipientBankAccount; "Recipient Bank Account") { }
-            column(amount; Amount) { }
-            column(beneficiaryName; BeneficiaryName) { }
-            column(draweeLocation; DraweeLocation) { }
-            column(printLocation; PrintLocation) { }
-            column(beneAddress1; BeneAddress1) { }
-            column(beneAddress2; BeneAddress2) { }
-            column(beneAddress3; BeneAddress3) { }
-            column(beneAddress4; BeneAddress4) { }
-            column(beneAddress5; BeneAddress5) { }
-            column(balAccountNo; "Bal. Account No.") { }
-            column(entryNo; EntryNo) { }
-            column(paymentdetails1; Paymentdetails1) { }
-            column(paymentdetails2; Paymentdetails2) { }
-            column(paymentdetails3; Paymentdetails3) { }
-            column(paymentdetails4; Paymentdetails4) { }
-            column(paymentdetails5; Paymentdetails5) { }
-            column(paymentdetails6; Paymentdetails6) { }
-            column(paymentdetails7; Paymentdetails7) { }
-            column(chequeNo; "Cheque No.") { }
-            column(postingDate; "Posting Date") { }
-            column(micrNumber; MICRNumber) { }
-            column(recipientBankIFSCCode; "Recipient Bank IFSC Code") { }
-            column(recipientBankName; "Recipient Bank Name") { }
-            column(recipientBranchName; "Recipient Branch Name") { }
-            column(beneficiaryemailid; Beneficiaryemailid) { }
-            column(unitCode; "Unit Code") { }
-            column(fileName; "File Name") { }
+            column(recordIdentifier; "Record Identifier") { }
+            column(paymentIndicator; "Payment Indicator") { }
+            column(sapDocumentNumber; "SAP Document Number") { }
+            column(vendorBeneficiaryCode; "Vendor / Beneficiary Code") { }
+            column(nameOfBeneficiary; "Name of Beneficiary") { }
+            column(instrumentAmount; "Instrument Amount") { }
+            column(paymentDate; "Payment Date") { }
+            column(chequeNumber; "Cheque Number") { }
+            column(debitAccountNo; "Debit Account No.") { }
+            column(beneficiaryBankAccountNo; "Beneficiary Bank A/c No") { }
+            column(ifscCode; "IFSC Code") { }
+            column(beneficiaryBankName; "Beneficiary Bank Name") { }
+            column(beneficiaryAdd1; "Beneficiary Add1") { }
+            column(beneficiaryAdd2; "Beneficiary Add 2") { }
+            column(beneficiaryAdd3; "Beneficiary Add 3") { }
+            column(beneficiaryAdd4; "Beneficiary Add 4") { }
+            column(beneficiaryZip; "Beneficiary Zip") { }
+            column(debitNarration; "Debit Narration") { }
+            column(printLocation; "Print Location") { }
+            column(payableLocation; "Payable Location") { }
+            column(fiscalYear; "Fiscal Year") { }
+            column(companyCode; "Company Code") { }
+            column(emailID; "Email ID") { }
+            column(mobileNumber; "Mobile Number") { }
+            column(aadharNumber; "AADHAR Number") { }
+            column(beneLEINumber; "Bene LEI Number") { }
+            column(beneLEIExpiryDate; "Bene LEI Expiry Date") { }
+            column(duplicateValidationField; "Duplicate Validation Field") { }
         }
     }
 
-    var
-        myInt: Integer;
-
     trigger OnBeforeOpen()
     begin
-
     end;
 }
