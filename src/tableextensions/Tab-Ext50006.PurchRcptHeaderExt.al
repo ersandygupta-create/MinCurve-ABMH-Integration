@@ -27,6 +27,11 @@ tableextension 50006 "E3 HIS Purch. Rcpt. Header" extends "Purch. Rcpt. Header"
             DataClassification = CustomerContent;
             Caption = 'Store Name';
         }
+        field(50010; "Payment Terms"; Text[100])
+        {
+            Caption = 'Payment Terms';
+            DataClassification = CustomerContent;
+        }
 
     }
 }

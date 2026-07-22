@@ -114,7 +114,7 @@ report 50051 "E3 Create Purchase Order"
             1:
                 PurchaseHeader.Validate("Buy-from Vendor No.", IndentLine."Vendor No.");
         End;
-        PurchaseHeader."Location Code" := IndentLine."Shortcut Dimension 1 Code";
+        PurchaseHeader."Location Code" := IndentLine."Location Code";
         Case PurchHeaderType of
             1:
                 PurchaseHeader.Validate(PurchaseHeader."Currency Code", IndentLine."Currency Code");
@@ -179,6 +179,8 @@ report 50051 "E3 Create Purchase Order"
         PurchaseLine.Validate("Description 2", CopyStr(IndentLine.Remarks, 1, 50));
 
         PurchaseLine."Vendor Item No." := IndentLine."No.";
+        PurchaseHeader."Payment Terms" := IndentLine."Payment Terms";
+        PurchaseHeader."E3 Delivery Terms" := IndentLine."Delivery Terms";
         PurchaseLine.Insert(true);
     end;
 
