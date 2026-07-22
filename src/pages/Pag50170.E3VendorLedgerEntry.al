@@ -565,7 +565,7 @@ page 50170 "E3 Vendor Ledger Entries"
                                             Vendor."No.", Vendor."Preferred Bank Account Code"
                                         );
 
-                                    if VendorBank.IBAN = '' then
+                                    if VendorBank."Branch Name" = '' then
                                         Error(
                                             'Vendor %1 Preferred Bank Account (%2) does not have a Branch Name defined.',
                                             Vendor."No.", Vendor."Preferred Bank Account Code"
