@@ -51,7 +51,7 @@ page 50183 "E3 Indent Line Subform"
                 field("Approved Qty"; Rec."Approved Qty")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    Editable = true;
                 }
                 field("Unit Cost"; Rec."Unit Cost")
                 {
