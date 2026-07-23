@@ -977,7 +977,7 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                     {
                         Caption = 'Released Quotation';
                         ApplicationArea = All;
-                        RunObject = Page "E3 Released Quotation List";
+                        RunObject = Page "E3 Released Indent Details";
                         ToolTip = 'Executes the Released Quotation List action.';
                     }
                 }

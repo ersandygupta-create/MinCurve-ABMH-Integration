@@ -236,5 +236,7 @@ permissionset 50000 "E3 HIS Permission"
     table "E3 Item Make Master" = X,
     tabledata "E3 Item Make Master" = RIMD,
     page "E3 Item Make Master" = X,
-    table E3SettlementType = X;
+    table E3SettlementType = X,
+    table "E3 Released Indent Details" = X,
+    tabledata "E3 Released Indent Details" = RIMD;
 }

@@ -60,6 +60,7 @@ report 50015 "Purchase Order Print"
             column(LocationAdd; LocationAdd)
             {
             }
+
             column(LocationEmail; LocationEmail)
             {
             }
@@ -112,6 +113,10 @@ report 50015 "Purchase Order Print"
             column(SupplierName; SupplierName)
             {
             }
+            column(Supplier_No; "Buy-from Vendor No.")
+            {
+
+            }
             column(IGSTRsAmount_Var; IGSTRsAmount_Var)
             {
             }
@@ -155,6 +160,15 @@ report 50015 "Purchase Order Print"
             column(TotalGSTAmount; TotalInclTaxAmount)
             {
 
+            }
+            column(CGST_Amt; CGST_Amt)
+            {
+            }
+            column(SGST_Amt; SGST_Amt)
+            {
+            }
+            column(IGST_Amt; IGST_Amt)
+            {
             }
             column(Currency_Code; CdCurrencyCode)
             {
@@ -558,17 +572,18 @@ report 50015 "Purchase Order Print"
         CompAdd: Text[500];
         recState: Record State;
         CountryRegion: Record "Country/Region";
-        Email: Code[100];
+        Email: Text[100];
         PhoneNo: Code[50];
         GSTIN: Code[15];
         DrugLigNo: Code[200];
         Location: Record Location;
         LocationName: Text[100];
-        LocationEmail: Code[100];
+        LocationEmail: Text[100];
         LocationPhoneNo: Code[50];
-        LocationGSTIN: Code[15];
+        LocationGSTIN: Text[15];
         LocationWebsite: Text[200];
-        LocationAdd: Code[200];
+        LocationAdd: Text[200];
+
         SupplierName: Text[300];
         SupplierAdd: Text[500];
         SupplierEmail: Text[100];
@@ -656,7 +671,7 @@ report 50015 "Purchase Order Print"
         TransportationChg: Decimal;
         Parts: Text[100];
         ModelName: Text;
-        RecCompanyName: Code[100];
+        RecCompanyName: Text[100];
 
 
     local procedure GetGSTAmounts(PurchHeader: Record "Purchase Header")

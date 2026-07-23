@@ -1,165 +1,129 @@
-page 50202 "E3 Released Quotation List"
+page 50202 "E3 Released Indent Details"
 {
-    DeleteAllowed = false;
-    Editable = false;
-    InsertAllowed = false;
     PageType = List;
-    SourceTable = "E3 Indent Line";
-    SourceTableView = SORTING("Document No.", "Line No.") ORDER(Ascending) where("Released" = filter(true));
+    SourceTable = "E3 Released Indent Details";
     ApplicationArea = All;
-    Caption = 'Released Quotation List';
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    DeleteAllowed = false;
+    UsageCategory = Lists;
+    Caption = 'Released Indent Details';
 
     layout
     {
         area(Content)
         {
-            repeater(Control1)
+            repeater(General)
             {
-                ShowCaption = false;
-                field("Purchase Order No."; Rec."Purchase Order No.")
+                field("Entry No."; Rec."Entry No.")
                 {
-                    ToolTip = 'Specifies the quotation Purchase Order number.';
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the unique entry number of the indent line detail.';
                 }
                 field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Document No.';
-                    Visible = false;
-                    ToolTip = 'Specifies the quotation document number.';
+                    ToolTip = 'Specifies the indent document number.';
                 }
-                field("Line No."; Rec."Line No.")
+                field("Indent Line No."; Rec."Indent Line No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Line No.';
-                    Visible = false;
-                    ToolTip = 'Specifies the line number of the quotation.';
+                    ToolTip = 'Specifies the indent line number.';
+                }
+                field("Purchase Order No."; Rec."Purchase Order No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the purchase order created from the indent.';
+                }
+                field("Purchase Line No."; Rec."Purchase Line No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the purchase order line number.';
+                }
+                field(Type; Rec.Type)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the type of the document line.';
                 }
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'No.';
-                    ToolTip = 'Specifies the item number.';
+                    ToolTip = 'Specifies the item, G/L account, or fixed asset number.';
                 }
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Description';
-                    ToolTip = 'Specifies the description of the item.';
-                }
-                field(Quantity; Rec."Requested Qty")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Requested Quantity';
-                    ToolTip = 'Specifies the required quantity.';
-                }
-                field(Amount; Rec.Amount)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Amount';
-                    ToolTip = 'Specifies the required Amount.';
-                }
-                field("Approved Qty"; Rec."Approved Qty")
-                {
-                    ToolTip = 'Specifies the required Approved Qty.';
-                    Editable = false;
-                }
-                field("Ordered Qty"; Rec."Ordered Qty")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Ordered Qty';
-                    Editable = true;
-                    ToolTip = 'Specifies the ordered quantity.';
-                }
-                field("Currency Code"; Rec."Currency Code")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Currency Code';
-                    Editable = true;
-                    ToolTip = 'Specifies the currency code of the vendor.';
-                }
-                field("Price"; Rec."Quotation Price")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Quotation Price';
-                    Editable = true;
-                    ToolTip = 'Specifies the quoted unit price from the vendor.';
-                }
-                field("discount %"; Rec."discount %")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Discount %';
-                    ToolTip = 'Specifies the discount percentage offered by the vendor.';
-                }
-                field("Quotation Amount"; Rec."Quotation Amount")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Quotation Amount';
-                    ToolTip = 'Specifies the total amount quoted by the vendor.';
-                }
-                field("Payment Terms"; Rec."Payment Terms")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Payment Terms';
-                    ToolTip = 'Specifies the payment terms agreed for the quotation or purchase, such as advance payment, credit period, or payment schedule.';
-                }
-                field("Delivery Terms"; Rec."Delivery Terms")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Delivery Terms';
-                    ToolTip = 'Specifies the expected delivery time or delivery terms provided by the vendor.';
-                }
-                field("AMC Amount"; Rec."AMC Amount")
-                {
-                    ApplicationArea = All;
-                    Caption = 'AMC Amount';
-                    ToolTip = 'Specifies the Annual Maintenance Contract (AMC) amount quoted by the vendor.';
-                }
-                field("CMC Amount"; Rec."CMC Amount")
-                {
-                    ApplicationArea = All;
-                    Caption = 'CMC Amount';
-                    ToolTip = 'Specifies the Comprehensive Maintenance Contract (CMC) amount quoted by the vendor.';
+                    ToolTip = 'Specifies the description of the line.';
                 }
                 field("Vendor No."; Rec."Vendor No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Vendor No.';
-                    ShowMandatory = true;
-                    ToolTip = 'Specifies the number of the vendor.';
+                    ToolTip = 'Specifies the vendor number.';
                 }
                 field("Vendor Name"; Rec."Vendor Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Vendor Name';
-                    ToolTip = 'Specifies the name of the vendor.';
+                    ToolTip = 'Specifies the vendor name.';
                 }
-                field("Remarks"; Rec."Remarks")
+                field("Approved Qty"; Rec."Approved Qty")
                 {
                     ApplicationArea = All;
-                    Caption = 'Remarks';
-                    ToolTip = 'Specifies additional remarks for the quotation.';
+                    ToolTip = 'Specifies the approved quantity for the indent line.';
                 }
-                field("Vendor PO Creation"; Rec."Vendor PO Creation")
+                field("Created PO Qty"; Rec."Created PO Qty")
                 {
                     ApplicationArea = All;
-                    Caption = 'Vendor PO Creation';
-                    ToolTip = 'Specifies whether the vendor purchase order has been created.';
+                    ToolTip = 'Specifies the quantity created in the purchase order.';
                 }
-                field("Split Line"; Rec."Split Line")
+                field("Remaining Qty"; Rec."Remaining Qty")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies whether the Split Line Boolean.';
+                    ToolTip = 'Specifies the remaining quantity to be converted into a purchase order.';
                 }
-                field("Quotation Type"; Rec."Quotation Type")
+                field("Quotation Price"; Rec."Quotation Price")
                 {
                     ApplicationArea = All;
-                    Caption = 'Quotation Type';
-                    Visible = false;
-                    ToolTip = 'Specifies the quotation ranking (L1, L2, or L3).';
+                    ToolTip = 'Specifies the quotation price used for the purchase order.';
+                }
+                field("Location Code"; Rec."Location Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the location code for the purchase order.';
+                }
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the shortcut dimension 1 code.';
+                }
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the shortcut dimension 2 code.';
+                }
+                field("Payment Terms"; Rec."Payment Terms")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the payment terms for the purchase order.';
+                }
+                field("Delivery Terms"; Rec."Delivery Terms")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the delivery terms for the purchase order.';
+                }
+                field("Created Date"; Rec."Created Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the date when the purchase order detail was created.';
+                }
+                field("Created Time"; Rec."Created Time")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the time when the purchase order detail was created.';
+                }
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the user who created the purchase order detail.';
                 }
             }
         }

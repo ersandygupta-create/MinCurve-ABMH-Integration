@@ -83,6 +83,7 @@ report 50016 "E3 Vendor - Payment Advice"
                 column(LocationGSTIN; LocationGSTIN)
                 {
                 }
+
                 column(LocationWebsite; LocationWebsite)
                 {
 
@@ -132,6 +133,7 @@ report 50016 "E3 Vendor - Payment Advice"
                 column(CompanyPANNo; CompanyInfo."P.A.N. No.")
                 {
                 }
+
                 column(ReportTitle; ReportTitle)
                 {
                 }
@@ -676,11 +678,11 @@ report 50016 "E3 Vendor - Payment Advice"
         RecCompanyName: Code[100];
         Location: Record Location;
         LocationName: Text[100];
-        LocationEmail: Code[100];
+        LocationEmail: Text[100];
         LocationPhoneNo: Code[50];
         LocationGSTIN: Code[15];
         LocationWebsite: Text[200];
-        LocationAdd: Code[200];
+        LocationAdd: Text[200];
         VendorBank: Record "Vendor Bank Account";
         VenBankAccountNo: Text[30];
         VenIFSCCode: Text[20];

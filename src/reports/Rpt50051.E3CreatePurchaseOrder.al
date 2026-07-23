@@ -63,14 +63,16 @@ report 50051 "E3 Create Purchase Order"
 
                     if IndentLineRec.FindSet() then
                         repeat
-                            if GetRemainingQty(IndentLineRec) > 0 then begin
-                                // Partial PO created
+                            if GetRemainingQty(IndentLineRec) = 0 then
+                                IndentLineRec.Released := true
+                            else begin
+                                IndentLineRec.Released := false;
                                 IndentHeaderRec."Release Indent" := false;
-                                break;
                             end;
+
+                            IndentLineRec.Modify(true);
                         until IndentLineRec.Next() = 0;
 
-                    IndentHeaderRec.Modify(true);
                 end;
 
                 Message('Purchase Order created for the selected records.');
@@ -115,14 +117,15 @@ report 50051 "E3 Create Purchase Order"
                 PurchaseHeader.Validate("Buy-from Vendor No.", IndentLine."Vendor No.");
         End;
         PurchaseHeader."Location Code" := IndentLine."Location Code";
+        PurchaseHeader."Payment Terms" := IndentLine."Payment Terms";
+        PurchaseHeader."E3 Delivery Terms" := IndentLine."Delivery Terms";
         Case PurchHeaderType of
             1:
                 PurchaseHeader.Validate(PurchaseHeader."Currency Code", IndentLine."Currency Code");
         end;
-        //PurchaseHeader."Responsibility Center" := IndentLine."Shortcut Dimension 1 Code";
+        PurchaseHeader."Responsibility Center" := IndentLine."Shortcut Dimension 1 Code";
         PurchaseHeader.Validate(PurchaseHeader."Shortcut Dimension 1 Code", IndentHeader."Shortcut Dimension 1 Code");
         PurchaseHeader.Validate(PurchaseHeader."Shortcut Dimension 2 Code", IndentHeader."Shortcut Dimension 2 Code");
-        PurchaseHeader."E3 Capex Type" := IndentHeader."Procurement Type";
         RequistionHeader.Get(IndentLine."Document No.");
         RecordLinkManagement.CopyLinks(RequistionHeader, PurchaseHeader);
         PurchaseHeader.Modify();
@@ -162,7 +165,7 @@ report 50051 "E3 Create Purchase Order"
         end;
         PurchaseLine.Validate(Quantity, IndentLine."Ordered Qty");
         PurchaseLine.Validate("Unit of Measure Code", IndentLine."Unit of Measure");
-        PurchaseLine.Validate("Location Code", IndentLine."Location Code");
+        PurchaseLine.Validate("Location Code", PurchaseHeader."Location Code");
         Case PurchLineType of
             1:
                 PurchaseLine.Validate("Direct Unit Cost", IndentLine."Quotation Price");
@@ -179,10 +182,39 @@ report 50051 "E3 Create Purchase Order"
         PurchaseLine.Validate("Description 2", CopyStr(IndentLine.Remarks, 1, 50));
 
         PurchaseLine."Vendor Item No." := IndentLine."No.";
-        PurchaseHeader."Payment Terms" := IndentLine."Payment Terms";
-        PurchaseHeader."E3 Delivery Terms" := IndentLine."Delivery Terms";
         PurchaseLine.Insert(true);
+        InsertIndentLineDetails(IndentLine);
     end;
+
+    local procedure InsertIndentLineDetails(IndentLine: Record "E3 Indent Line")
+    var
+        IndentLineDetails: Record "E3 Released Indent Details";
+    begin
+        IndentLineDetails.Init();
+
+        IndentLineDetails."Document No." := IndentLine."Document No.";
+        IndentLineDetails."Indent Line No." := IndentLine."Line No.";
+        IndentLineDetails."Purchase Order No." := PurchaseHeader."No.";
+        IndentLineDetails."Purchase Line No." := PurchaseLine."Line No.";
+        IndentLineDetails.Type := IndentLine.Type;
+        IndentLineDetails."No." := IndentLine."No.";
+        IndentLineDetails.Description := IndentLine.Description;
+        IndentLineDetails."Vendor No." := IndentLine."Vendor No.";
+        IndentLineDetails."Vendor Name" := IndentLine."Vendor Name";
+        IndentLineDetails."Approved Qty" := IndentLine."Approved Qty";
+        IndentLineDetails."Created PO Qty" := PurchaseLine.Quantity;
+        IndentLineDetails."Remaining Qty" := GetRemainingQty(IndentLine);
+        IndentLineDetails."Quotation Price" := IndentLine."Quotation Price";
+        IndentLineDetails."Location Code" := IndentLine."Location Code";
+        IndentLineDetails."Payment Terms" := IndentLine."Payment Terms";
+        IndentLineDetails."Delivery Terms" := IndentLine."Delivery Terms";
+        IndentLineDetails."Created Date" := Today;
+        IndentLineDetails."Created Time" := Time;
+        IndentLineDetails."Created By" := CopyStr(UserId(), 1, MaxStrLen(IndentLineDetails."Created By"));
+
+        IndentLineDetails.Insert(true);
+    end;
+
 
     local procedure GetRemainingQty(IndentLine: Record "E3 Indent Line"): Decimal
     var

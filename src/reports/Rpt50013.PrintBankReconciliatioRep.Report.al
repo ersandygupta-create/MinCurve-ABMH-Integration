@@ -9,9 +9,17 @@ report 50013 "Print Bank Reconciliatio Rep."
     dataset
     {
         dataitem("Bank Account"; "Bank Account")
+
+
         {
             RequestFilterFields = "No.";
             column(Bank_Account__Bank_Account___No__; "Bank Account"."Bank Account No.")
+            {
+            }
+            column(PreparedBy; UserId)
+            {
+            }
+            column(ApprovedBy; UserId)
             {
             }
             column(CompAdd1; Compinfo.Address)
@@ -29,13 +37,16 @@ report 50013 "Print Bank Reconciliatio Rep."
             column(CompMail; Compinfo."E-Mail")
             {
             }
+            column(GLAccountNo; BankAccPostingGroup."G/L Account No.")
+            {
+            }
             column(CompWebsite; Compinfo."Home Page")
             {
             }
             column(CompCINNo; Compinfo."CIN No.")
             {
             }
-            column(Compinfo_Name; RecCompanyName)//Compname)
+            column(Compinfo_Name; Compinfo.Name)
             {
             }
             column(CompPhone; Compinfo."Phone No.")
@@ -122,6 +133,7 @@ report 50013 "Print Bank Reconciliatio Rep."
             column(Add__Difference_AmountCaption; Add__Difference_AmountCaptionLbl)
             {
             }
+
             dataitem("Bank Account Ledger Entry"; "Bank Account Ledger Entry")
             {
                 DataItemLink = "Bank Account No." = FIELD("No.");
@@ -315,6 +327,7 @@ report 50013 "Print Bank Reconciliatio Rep."
                 Unitfilter := "Bank Account"."Global Dimension 1 Code";
 
 
+
                 if dtRecoDate = 0D then
                     Error('Please enter the Reconciliation Date.');
 
@@ -427,6 +440,7 @@ report 50013 "Print Bank Reconciliatio Rep."
         Add: Text;
         DocCode: Code[20];
         RecCompanyName: Code[100];
+        BankAccPostingGroup: Record "Bank Account Posting Group";
 
 
 

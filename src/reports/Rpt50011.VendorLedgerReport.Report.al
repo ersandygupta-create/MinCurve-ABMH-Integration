@@ -15,10 +15,31 @@ report 50011 "Vendor Ledger Report"
             column(ReferenceCap; ReferenceCap)
             {
             }
+            column(LocationAdd; LocationAdd)
+            {
+            }
+
+            column(LocationAdd2; LocationAdd2)
+            {
+            }
+            column(City; City)
+            {
+            }
+            column(Post_Code; "Post Code")
+            {
+
+            }
             column(DateFilter; GETFILTER("Date Filter"))
             {
             }
             column(DateFilterCaption; DateFilterCaption)
+            {
+            }
+            column(FromDate; FromDate)
+            {
+            }
+
+            column(ToDate; ToDate)
             {
             }
             column(TodayDate; FORMAT(TODAY, 0, 4))
@@ -39,6 +60,7 @@ report 50011 "Vendor Ledger Report"
             column(Vend_Mobile_Phone_No_; "Mobile Phone No.")
             {
             }
+
             column(Vend_E_Mail; "E-Mail")
             {
             }
@@ -109,12 +131,17 @@ report 50011 "Vendor Ledger Report"
             {
             }
             column(Comp_Picture; CompanyInformation.Picture) { }
-            column(Comp_Address; CompanyInformation.Address + ',' + CompanyInformation."Address 2" + ',' + CompanyInformation.City + ',' + CompanyInformation."Post Code")
+
+            column(Comp_Address; CompanyInformation.Address + ',' + CompanyInformation."Address 2" + ', ' + CompanyInformation.City + ', ' + CompanyInformation."Post Code")
             {
             }
+
             column(Comp_Website; CompanyInformation."Home Page") { }
             column(Comp_PAN; CompanyInformation."P.A.N. No.") { }
             column(comp_GSTNo; CompanyInformation."GST Registration No.") { }
+            column(Comp_Email; CompanyInformation."E-Mail")
+            {
+            }
             column(ReportCap; ReportCap)
             {
             }
@@ -127,6 +154,12 @@ report 50011 "Vendor Ledger Report"
             column(CloseBal1; CloseBal1)
             {
             }
+            column(PrintedDateTime; CurrentDateTime())
+            {
+            }
+
+
+
             dataitem("Vendor Ledger Entry"; "Vendor Ledger Entry")
             {
                 CalcFields = "Amount (LCY)", "Debit Amount (LCY)", "Credit Amount (LCY)", "Remaining Amt. (LCY)";
@@ -210,6 +243,10 @@ report 50011 "Vendor Ledger Report"
                 {
                 }
                 column(GlobalDim; GlobalDim) { }
+
+
+
+
                 dataitem(Integer; Integer)
                 {
                     DataItemTableView = SORTING(Number);
@@ -263,6 +300,8 @@ report 50011 "Vendor Ledger Report"
                                     AccountName := T23.Name;
                             END;
                         END;
+
+
 
                         GLEntryRec.RESET;
                         GLEntryRec.SETRANGE("Entry No.", TempGL."Entry No.");
@@ -326,6 +365,7 @@ report 50011 "Vendor Ledger Report"
                     trigger OnPreDataItem()
                     begin
                         SETRANGE(Number, 1, TempGL.COUNT);
+
                     end;
                 }
 
@@ -452,6 +492,9 @@ report 50011 "Vendor Ledger Report"
                     SRNo := 0;
                     TotalCreditAmt := 0;
                     TotalDebitAmt := 0;
+
+                    FromDate := GetRangeMin("Posting Date");
+                    ToDate := GetRangeMax("Posting Date");
                 end;
 
 
@@ -522,6 +565,23 @@ report 50011 "Vendor Ledger Report"
                 //Pru Raj
                 CloseBal1 := ABS(CloseBal);
 
+                LocationAdd := '';
+                LocationAdd2 := '';
+                City := ', ';
+                "Post Code" := '';
+
+                if "Location Code" <> '' then begin
+                    recLocationAddress.Reset();
+                    recLocationAddress.SetRange(Code, "Location Code");
+
+                    if recLocationAddress.FindFirst() then begin
+                        LocationAdd := recLocationAddress.Address;
+                        LocationAdd2 := recLocationAddress."Address 2";
+                        City := recLocationAddress.City;
+                        "Post Code" := recLocationAddress."Post Code";
+                    end;
+                end;
+
             end;
 
             trigger OnPreDataItem()
@@ -584,6 +644,7 @@ report 50011 "Vendor Ledger Report"
         BankFilter := '53012000000..53012888888|31011000000..31011188888';
         CompanyInformation.Get();
         CompanyInformation.CalcFields(Picture);
+        PrintedDateTime := CurrentDateTime();
     end;
 
     var
@@ -666,6 +727,16 @@ report 50011 "Vendor Ledger Report"
         decTDSAmount: Decimal;
         decTDSBaseAmount: Decimal;
         TDSEntry: Record "TDS Entry";
+        VendorRec: Record Vendor;
+        recLocationAddress: Record Location;
+        LocationAdd: Text[200];
+        LocationAdd2: Text[200];
+        FromDate: Date;
+        ToDate: Date;
+        PrintedDateTime: DateTime;
+    // city: Text[30];
+    // PosteCode: Text[10];
+
 
 }
 

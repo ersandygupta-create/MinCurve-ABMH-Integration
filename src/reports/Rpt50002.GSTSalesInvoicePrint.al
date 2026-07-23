@@ -17,6 +17,10 @@ report 50002 "GST Sales Invoice Print"
             {
 
             }
+            column(PreparedBy; UserId)
+            {
+            }
+
             column(External_Document_No_; "External Document No.")
             {
 
@@ -526,6 +530,7 @@ report 50002 "GST Sales Invoice Print"
                         column(BankAccountNo; BankAccountNo) { }
                         column(BankIFSCCode; IFSCCode) { }
                         column(Branch; Branch) { }
+
                         trigger OnAfterGetRecord()
                         begin
 
@@ -729,7 +734,7 @@ report 50002 "GST Sales Invoice Print"
                 LocationRec.Reset();
                 if LocationRec.GET("Sales Header"."Location Code") then
                     LocationGSTNo := LocationRec."GST Registration No.";
-                LocAddress := LocationRec.Address + ',' + LocationRec."Address 2" + ',' + LocationRec.City + ',' + LocationRec."Post Code";
+                LocAddress := LocationRec.Address + ',' + LocationRec."Address 2" + ',' + LocationRec.City + ' ,' + LocationRec."Post Code";
                 Clear(ShipStateName);
                 Clear(BillStateName);
                 Clear(GSTCodeBill);

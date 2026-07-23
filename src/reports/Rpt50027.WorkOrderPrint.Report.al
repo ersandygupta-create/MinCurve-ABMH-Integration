@@ -60,6 +60,10 @@ report 50027 "Work Order Print"
             column(LocationAdd; LocationAdd)
             {
             }
+            column(LocationAdd2; LocationAdd2)
+            {
+
+            }
             column(LocationEmail; LocationEmail)
             {
             }
@@ -112,6 +116,9 @@ report 50027 "Work Order Print"
             column(SupplierName; SupplierName)
             {
             }
+            column(Supplier_No; "Buy-from Vendor No.")
+            {
+            }
             column(IGSTRsAmount_Var; IGSTRsAmount_Var)
             {
             }
@@ -156,11 +163,23 @@ report 50027 "Work Order Print"
             {
 
             }
+            column(CGST_Amt; CGST_Amt)
+            {
+
+            }
+            column(SGST_Amt; SGST_Amt)
+            {
+
+            }
+            column(IGST_Amt; IGST_Amt)
+            {
+
+            }
             column(Currency_Code; CdCurrencyCode)
             {
 
             }
-            column(CompInfoPicture; CompanyInformation.Picture)
+            column(CompInfoPicture; CompInfo.Picture)
             {
             }
             column(DraftPicture; CompInfo.DraftImage)
@@ -182,7 +201,7 @@ report 50027 "Work Order Print"
                         end;
                 if NOT (Status = status::Released) then begin
                     CompInfo.GET();
-                    CompInfo.CalcFields(DraftImage);
+                    CompInfo.CalcFields(Picture);
                 end;
 
 
@@ -208,6 +227,7 @@ report 50027 "Work Order Print"
                 end;
 
                 LocationAdd := '';
+                LocationAdd2 := '';
                 LocationEmail := '';
                 LocationPhoneNo := '';
                 LocationGSTIN := '';
@@ -219,7 +239,8 @@ report 50027 "Work Order Print"
                         recState.Get(Location."State Code");
                         CountryRegion.Get(Location."Country/Region Code");
                         LocationName := Location.Name;
-                        LocationAdd := Location.Address + ', ' + Location."Address 2" + ', ' + Location.City + ', ' + FORMAT(Location."Post Code") + ', ' + FORMAT(recState.Description) + ', ' + CountryRegion.Name;
+                        LocationAdd := Location.Address + ', ';
+                        LocationAdd2 := Location."Address 2" + ', ' + Location.City + ', ' + FORMAT(Location."Post Code") + ', ' + FORMAT(recState.Description) + ', ' + CountryRegion.Name;
                         LocationEmail := Location."E-Mail";
                         LocationPhoneNo := Location."Phone No.";
                         LocationGSTIN := Location."GST Registration No.";
@@ -583,21 +604,22 @@ report 50027 "Work Order Print"
         CompInfo: Record "Company Information";
         CompanyInformation: Record "Company Information";
         Customer: Record "Vendor";
-        RecCompanyName: Code[100];
+        RecCompanyName: Text[100];
         CompAdd: Text[500];
         recState: Record State;
         CountryRegion: Record "Country/Region";
-        Email: Code[100];
+        Email: Text[100];
         PhoneNo: Code[50];
         GSTIN: Code[15];
         DrugLigNo: Code[200];
         Location: Record Location;
         LocationName: Text[100];
-        LocationEmail: Code[100];
-        LocationPhoneNo: Code[50];
-        LocationGSTIN: Code[15];
+        LocationEmail: Text[100];
+        LocationPhoneNo: Text[50];
+        LocationGSTIN: Text[15];
         LocationWebsite: Text[200];
-        LocationAdd: Code[200];
+        LocationAdd: Text[200];
+        LocationAdd2: Text[200];
         SupplierName: Text[300];
         SupplierAdd: Text[500];
         SupplierEmail: Text[100];
@@ -687,6 +709,7 @@ report 50027 "Work Order Print"
         Parts: Text[100];
         ModelName: Text;
         LastAEdt: DateTime;
+
 
 
     local procedure GetGSTAmounts(PurchHeader: Record "Purchase Header")

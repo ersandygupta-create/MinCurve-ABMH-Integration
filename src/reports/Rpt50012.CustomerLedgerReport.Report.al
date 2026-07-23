@@ -36,6 +36,14 @@ report 50012 "Customer Ledger Report"
             column(CompanyInfoPostCode; RecCompanyInfo."Post Code")
             {
             }
+            column(CompanyInfoPhoneNo; RecCompanyInfo."Phone No.")
+            {
+
+            }
+            column(CompanyInfoMail; RecCompanyInfo."E-Mail")
+            {
+
+            }
             column(CompanyInfoPhoneNo2; RecCompanyInfo."Phone No. 2")
             {
             }
@@ -49,6 +57,13 @@ report 50012 "Customer Ledger Report"
             {
             }
             column(TodayFormatted; Format(Today))
+            {
+            }
+            column(FromDate; FromDate)
+            {
+            }
+
+            column(ToDate; ToDate)
             {
             }
             column(PageNo; CurrReport.PageNo())
@@ -74,6 +89,10 @@ report 50012 "Customer Ledger Report"
             }
             column(Email; Customer."E-Mail")
             {
+            }
+            column(P_A_N__No_; "P.A.N. No.")
+            {
+
             }
             column(CustGST; Customer."GST Registration No.")
             {
@@ -309,6 +328,7 @@ report 50012 "Customer Ledger Report"
 
                     trigger OnAfterGetRecord()
                     begin
+
                         CurrReport.ShowOutput(ShowItems);
                         if ("Cust. Ledger Entry"."Document Type" <> "Cust. Ledger Entry"."Document Type"::Invoice) or (not ShowItems) then
                             CurrReport.Break;
@@ -697,8 +717,11 @@ report 50012 "Customer Ledger Report"
                 PageGroupNo := 1;
                 CurrReport.NewPagePerRecord := PrintOnlyOnePerPage;
                 CurrReport.CreateTotals("Cust. Ledger Entry"."Amount (LCY)", StartBalanceLCY, StartBalAdjLCY, Correction, ApplicationRounding);
+                FromDate := GetRangeMin("Date Filter");
+                ToDate := GetRangeMax("Date Filter");
             end;
         }
+
     }
 
     requestpage
@@ -763,7 +786,7 @@ report 50012 "Customer Ledger Report"
         RecCompanyInfo.Get();
         RecCompanyInfo.CalcFields(RecCompanyInfo.Picture);
 
-        CustFilter := Customer.GetFilters;
+        //CustFilter := Customer.GetFilters;
         CustDateFilter := Customer.GetFilter("Date Filter");
 
         dtStartDate := Customer.GetRangeMin("Date Filter");
@@ -868,6 +891,8 @@ report 50012 "Customer Ledger Report"
         cdAssessCode: Decimal;
         TDSEntry: Record "TDS Entry";
         RecCompanyName: Code[100];
+        FromDate: Date;
+        ToDate: Date;
 
     procedure InitializeRequest(SetPrintOnlyOnePerPage: Boolean; SetExcludeBalanceOnly: Boolean)
     begin
