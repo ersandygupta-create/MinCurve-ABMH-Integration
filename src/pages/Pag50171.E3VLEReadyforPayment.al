@@ -769,5 +769,11 @@ page 50171 "E3 VLE Ready for Payment"
         ChangeLogEntry.SetRange("Table No.", Database::"Vendor Ledger Entry");
         ChangeLogEntry.SetRange("Primary Key Field 1 Value", Format(Rec."Entry No.", 0, 9));
     end;
+
+    trigger OnAfterGetRecord()
+    begin
+        if Rec."Amount to Apply" = 0 then
+            Rec.Validate("Amount to Apply", Rec."Remaining Amount");
+    end;
 }
 

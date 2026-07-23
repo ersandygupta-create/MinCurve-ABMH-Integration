@@ -364,4 +364,66 @@ codeunit 50001 "E3 HIS Event Subscriber"
             end;
         end;
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document Attachment Mgmt", 'OnAfterGetRefTable', '', false, false)]
+    local procedure UploadAttachmentIndent(DocumentAttachment: Record "Document Attachment"; var RecRef: RecordRef)
+    var
+        IndentHeader: Record "E3 Indent Header";
+    begin
+        Case DocumentAttachment."Table ID" of
+            Database::"E3 Indent Header":
+                begin
+                    RecRef.Open(Database::"E3 Indent Header");
+                    if IndentHeader.Get(DocumentAttachment."No.") then RecRef.GetTable(IndentHeader);
+                end;
+        End;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document Attachment Mgmt", 'OnAfterTableHasNumberFieldPrimaryKey', '', false, false)]
+    local procedure SetPrimaryKeyForIndentAttachment(TableNo: Integer; var FieldNo: Integer; var Result: Boolean)
+    begin
+        if TableNo <> Database::"E3 Indent Header" then exit;
+        FieldNo := 1;
+        Result := true;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document Attachment Mgmt", 'OnCopyAttachmentsOnAfterSetFromParameters', '', false, false)]
+    local procedure EDCSetIndenttoCopy(FromRecRef: RecordRef; var FromDocumentAttachment: Record "Document Attachment")
+    var
+        FromFieldRef: FieldRef;
+        FromNo: Code[20];
+    begin
+        case FromRecRef.Number() of
+            Database::"E3 Indent Header":
+                begin
+                    FromFieldRef := FromRecRef.Field(1);
+                    FromNo := FromFieldRef.Value();
+                    FromDocumentAttachment.SetRange("No.", FromNo);
+                end;
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document Attachment Mgmt", 'OnCopyAttachmentsOnAfterSetDocumentFlowFilter', '', false, false)]
+    local procedure EDCRemoveFilterFromAttachment(FromRecRef: RecordRef; var FromDocumentAttachment: Record "Document Attachment")
+    begin
+        If FromRecRef.Number <> Database::"E3 Indent Header" then exit;
+        FromDocumentAttachment.SetRange("Document Flow Purchase");
+    end;
+    //copy attachments
+    Procedure DocAttachFlowFromIndentToPurchase(var Indent: Record "E3 Indent Header"; var PurchaseHeader: Record "Purchase Header")
+    var
+        DocumentAttachmentMgmt: Codeunit "Document Attachment Mgmt";
+        FromRecRef: RecordRef;
+        ToRecRef: RecordRef;
+    begin
+        if Indent."Document No." = '' then exit;
+        if Indent.IsTemporary() then exit;
+        if PurchaseHeader."No." = '' then exit;
+        if PurchaseHeader.IsTemporary() then exit;
+        FromRecRef.GetTable(Indent);
+        ToRecRef.GetTable(PurchaseHeader);
+        DocumentAttachmentMgmt.CopyAttachments(FromRecRef, ToRecRef);
+    end;
+
+
 }

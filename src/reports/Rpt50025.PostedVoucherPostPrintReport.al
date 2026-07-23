@@ -14,13 +14,22 @@ report 50025 "Posted Voucher - Post Voucher"
                                 ORDER(Descending);
             RequestFilterFields = "Posting Date", "Document No.";
 
-            column(VoucherSourceDesc; SourceDesc + ' Voucher') { }
+            column(VoucherSourceDescription; 'Contra Voucher')
+            {
+            }
+            column(PreparedBy; UserId)
+            {
+            }
+            column(E3_Narration; "E3 Narration") { }
             column(DocumentNo_GLEntry; VoucherNoCaptionLbl + ' ' + "Document No.") { }
             column(LocationName; LocationName) { }
             column(LocAdd; LocAdd) { }
+            column(LocAdd2; LocAdd2) { }
+
             column(PostingDateFormatted; 'Posting Date: ' + FORMAT("Posting Date", 0, '<Day,2>-<Month Text,3>-<Year4>')) { }
             column(DocDateFormatted; Format(DocumentDate, 0, '<Day,2>-<Month Text,3>-<Year4>')) { }
-            column(CompanyInformationAddress; CompanyInformation.Address + ' ' + CompanyInformation."Address 2" + '  ' + CompanyInformation.City) { }
+            column(CompanyInformationAddress; CompanyInformation.Address + ',' + CompanyInformation."Address 2") { }
+            column(CompanyInformationcity; CompanyInformation.City + ' - ' + CompanyInformation."Post Code") { }
             column(CompanyInformation; CompanyInformation.Name) { }
             column(CompanyInfoVATNo; CompanyInformation."GST Registration No.") { }
             column(CreditAmount_GLEntry; "Credit Amount") { }
@@ -49,7 +58,6 @@ report 50025 "Posted Voucher - Post Voucher"
             column(ApprovedByCaption; ApprovedByCaptionLbl) { }
             column(ReceiptByCaption; ReceiptByCaption) { }
             column(USERID; userc."User Name") { }
-            column(NarrationCaption; NarrationCaptionLbl) { }
             column(ExtDocumentNoLbl; ExtDocumentNoLbl) { }
             column(DocumentDateLbl; DocumentDateLbl) { }
             column(UnitCodeLbl; UnitCodeLbl) { }
@@ -113,7 +121,8 @@ report 50025 "Posted Voucher - Post Voucher"
                 Location.SETRANGE(Code, "Global Dimension 1 Code");
                 if Location.FINDFIRST then begin
                     LocationName := Location.Name;
-                    LocAdd := Location.Address + '' + Location."Address 2" + ',' + Location.City;
+                    LocAdd := Location.Address + '';
+                    LocAdd2 := Location."Address 2" + ',' + Location.City;
 
                     if userc.Get(SystemCreatedBy) then;
 
@@ -339,6 +348,7 @@ report 50025 "Posted Voucher - Post Voucher"
         GSTN: Record 79;
         GSTIN: Code[30];
         LocAdd: Code[300];
+        LocAdd2: Code[100];
         LineNarrGL: Text;
         userc: Record User;
         sourceNo: Text;

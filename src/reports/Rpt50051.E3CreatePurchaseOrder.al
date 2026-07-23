@@ -38,6 +38,7 @@ report 50051 "E3 Create Purchase Order"
                     // Update Remaining Qty
                     "E3 Indent Line"."Created PO Qty" += PurchaseLine.Quantity;
                     "E3 Indent Line"."Purchase Order No." := PurchaseLine."Document No.";
+                    "E3 Indent Line"."PO Created" := true;
                     "E3 Indent Line".Modify();
                 end;
 
@@ -117,7 +118,7 @@ report 50051 "E3 Create Purchase Order"
                 PurchaseHeader.Validate("Buy-from Vendor No.", IndentLine."Vendor No.");
         End;
         PurchaseHeader."Location Code" := IndentLine."Location Code";
-        PurchaseHeader."Payment Terms" := IndentLine."Payment Terms";
+        PurchaseHeader."Payment Terms Code" := IndentLine."Payment Terms";
         PurchaseHeader."E3 Delivery Terms" := IndentLine."Delivery Terms";
         Case PurchHeaderType of
             1:

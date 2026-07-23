@@ -73,63 +73,69 @@ page 50192 "E3 Quotation"
                 field("Approved Qty"; Rec."Approved Qty")
                 {
                     ToolTip = 'Specifies the required Approved Qty.';
-                    Editable = true;
+                    Editable = CanEdit;
                 }
                 field("Ordered Qty"; Rec."Ordered Qty")
                 {
                     ApplicationArea = All;
                     Caption = 'Ordered Qty';
-                    Editable = true;
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the ordered quantity.';
                 }
                 field("Currency Code"; Rec."Currency Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Currency Code';
-                    Editable = true;
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the currency code of the vendor.';
                 }
                 field("Price"; Rec."Quotation Price")
                 {
                     ApplicationArea = All;
                     Caption = 'Quotation Price';
-                    Editable = true;
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the quoted unit price from the vendor.';
                 }
                 field("discount %"; Rec."discount %")
                 {
                     ApplicationArea = All;
                     Caption = 'Discount %';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the discount percentage offered by the vendor.';
                 }
                 field("Quotation Amount"; Rec."Quotation Amount")
                 {
                     ApplicationArea = All;
                     Caption = 'Quotation Amount';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the total amount quoted by the vendor.';
                 }
                 field("Payment Terms"; Rec."Payment Terms")
                 {
                     ApplicationArea = All;
                     Caption = 'Payment Terms';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the payment terms agreed for the quotation or purchase, such as advance payment, credit period, or payment schedule.';
                 }
                 field("Delivery Terms"; Rec."Delivery Terms")
                 {
                     ApplicationArea = All;
                     Caption = 'Delivery Terms';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the expected delivery time or delivery terms provided by the vendor.';
                 }
                 field("AMC Amount"; Rec."AMC Amount")
                 {
                     ApplicationArea = All;
                     Caption = 'AMC Amount';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the Annual Maintenance Contract (AMC) amount quoted by the vendor.';
                 }
                 field("CMC Amount"; Rec."CMC Amount")
                 {
                     ApplicationArea = All;
                     Caption = 'CMC Amount';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the Comprehensive Maintenance Contract (CMC) amount quoted by the vendor.';
                 }
                 field("Vendor No."; Rec."Vendor No.")
@@ -137,12 +143,14 @@ page 50192 "E3 Quotation"
                     ApplicationArea = All;
                     Caption = 'Vendor No.';
                     ShowMandatory = true;
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the number of the vendor.';
                 }
                 field("Vendor Name"; Rec."Vendor Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Vendor Name';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies the name of the vendor.';
                 }
                 field("Remarks"; Rec."Remarks")
@@ -155,6 +163,7 @@ page 50192 "E3 Quotation"
                 field("Quotation Remarks"; Rec."Quotation Remarks")
                 {
                     ApplicationArea = All;
+                    Editable = CanEdit;
                     ToolTip = 'Specifies additional remarks for the quotation.';
 
                 }
@@ -162,12 +171,14 @@ page 50192 "E3 Quotation"
                 {
                     ApplicationArea = All;
                     Caption = 'Split Line';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies whether the Split Line Boolean.';
                 }
                 field("Vendor PO Creation"; Rec."Vendor PO Creation")
                 {
                     ApplicationArea = All;
                     Caption = 'Vendor PO Creation';
+                    Editable = CanEdit;
                     ToolTip = 'Specifies whether the vendor purchase order has been created.';
                 }
                 field("Quotation Type"; Rec."Quotation Type")
@@ -225,6 +236,8 @@ page 50192 "E3 Quotation"
         NewLine: Record "E3 Indent Line";
         LastLine: Record "E3 Indent Line";
         NextLineNo: Integer;
+        UnitAmount: Decimal;
+        QuotAmount: Decimal;
     begin
         // Validation
         if SplitQty <= 0 then
@@ -235,6 +248,13 @@ page 50192 "E3 Quotation"
 
         if SelectedLine."Approved Qty" > SelectedLine."Requested Qty" then
             Error('Approved Qty cannot be greater than Requested Qty.');
+
+        if SelectedLine."Requested Qty" <> 0 then
+            UnitAmount := SelectedLine.Amount / SelectedLine."Requested Qty";
+
+        if SelectedLine."Requested Qty" <> 0 then
+            QuotAmount := SelectedLine."Quotation Amount" / SelectedLine."Requested Qty";
+
 
         // Find Last Line No.
         LastLine.Reset();
@@ -285,7 +305,9 @@ page 50192 "E3 Quotation"
     trigger OnAfterGetCurrRecord()
     var
         IndentHeader: Record "E3 Indent Header";
+
     begin
+        CanEdit := not Rec."PO Created";
         if (Rec."Shortcut Dimension 1 Code" = '') and
            IndentHeader.Get(Rec."Document No.")
         then
@@ -294,4 +316,7 @@ page 50192 "E3 Quotation"
                 Rec.Modify();
             end;
     end;
+
+    var
+        CanEdit: Boolean;
 }

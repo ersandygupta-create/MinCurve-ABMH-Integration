@@ -20,6 +20,10 @@ report 50037 "Purchase Invoice Print GST"
             column(InvDiscountAmountCaption; InvDiscountAmountCaptionLbl)
             {
             }
+            column(Buy_from_Address; "Buy-from Address")
+            {
+
+            }
             dataitem(CopyLoop; Integer)
             {
                 DataItemTableView = sorting(Number);
@@ -518,6 +522,10 @@ report 50037 "Purchase Invoice Print GST"
                         }
                         column(TDSAmt; Round(TDSAmt, 1))
                         {
+                        }
+                        column(TDS_Section_Code; "TDS Section Code")
+                        {
+
                         }
                         column(txtLedgerDescription; txtLedgerDescription)
                         {

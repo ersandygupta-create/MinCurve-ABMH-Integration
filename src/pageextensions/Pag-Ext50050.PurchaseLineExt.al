@@ -114,7 +114,7 @@ pageextension 50050 "E3 HIS Purch. Order Subform" extends "Purchase Order Subfor
     trigger OnAfterGetCurrRecord()
     begin
         // Default: allow editing if Indent No. is blank
-        if Rec."EDC Indent No." = '' then begin
+        if Rec."Indent No." = '' then begin
             IsLineEditable := true;
         end else begin
             IsLineEditable := false;

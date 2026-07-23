@@ -77,11 +77,6 @@ tableextension 50005 "E3 HIS Purchase Header" extends "Purchase Header"
             Caption = 'Integration PO';
             Editable = false;
         }
-        field(50010; "Payment Terms"; Text[100])
-        {
-            Caption = 'Payment Terms';
-            DataClassification = CustomerContent;
-        }
     }
     trigger OnInsert()
     begin

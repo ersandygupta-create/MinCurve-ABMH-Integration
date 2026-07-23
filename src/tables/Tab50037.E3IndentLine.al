@@ -278,10 +278,11 @@ table 50037 "E3 Indent Line"
             DataClassification = CustomerContent;
             TableRelation = Location.Code;
         }
-        field(31; "Payment Terms"; Text[100])
+        field(31; "Payment Terms"; Code[10])
         {
             Caption = 'Payment Terms';
             DataClassification = CustomerContent;
+            TableRelation = "Payment Terms";
         }
         field(32; "Delivery Terms"; Text[75])
         {
@@ -325,6 +326,17 @@ table 50037 "E3 Indent Line"
         {
             Caption = 'Created PO Qty';
             DataClassification = CustomerContent;
+        }
+        field(40; "Short Close"; Boolean)
+        {
+            Editable = false;
+            DataClassification = CustomerContent;
+        }
+        field(41; "PO Created"; Boolean)
+        {
+            Caption = 'PO Created';
+            DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80285; "Currency Code"; Code[10])
         {

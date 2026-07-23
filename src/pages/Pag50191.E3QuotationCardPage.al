@@ -75,6 +75,20 @@ page 50191 "E3 Quotation Card"
                 Visible = true;
             }
         }
+        area(factboxes)
+        {
+            part("Attached Documents List"; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Documents';
+                UpdatePropagation = Both;
+                SubPageLink = "Table ID" = const(Database::"E3 Indent Header"), "No." = field("Document No.");
+            }
+            systempart(Control1000000031; Notes)
+            {
+                Visible = true;
+            }
+        }
     }
 
     actions

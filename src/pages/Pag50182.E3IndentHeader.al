@@ -105,6 +105,11 @@ page 50182 "E3 Indent Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the budgeted amount for this record.';
                 }
+                field("Utilized Amount"; Rec."Utilized Amount")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the Utilized amount for this record.';
+                }
                 field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
@@ -175,6 +180,20 @@ page 50182 "E3 Indent Card"
                 SubPageLink = "Document No." = FIELD("Document No.");
             }
         }
+        area(factboxes)
+        {
+            part("Attached Documents List"; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Documents';
+                UpdatePropagation = Both;
+                SubPageLink = "Table ID" = const(Database::"E3 Indent Header"), "No." = field("Document No.");
+            }
+            systempart(Control1000000050; Notes)
+            {
+            }
+        }
+
     }
     actions
     {
@@ -192,6 +211,7 @@ page 50182 "E3 Indent Card"
                     Image = SendApprovalRequest;
                     Promoted = true;
                     PromotedCategory = Process;
+                    Visible = ShowApprovalActions;
 
                     trigger OnAction()
                     var
@@ -207,10 +227,10 @@ page 50182 "E3 Indent Card"
                                       'Requested Qty must be greater than 0 for Line No. %1.',
                                       IndentLine."Line No.");
 
-                            // if IndentLine."Approved Qty" <= 0 then
-                            //     Error(
-                            //       'Approved Qty must be greater than 0 for Line No. %1.',
-                            // IndentLine."Line No.");
+                                if IndentLine."Approved Qty" <= 0 then
+                                    Error(
+                                      'Approved Qty must be greater than 0 for Line No. %1.',
+                                      IndentLine."Line No.");
                             until IndentLine.Next() = 0;
 
                         IndentApproval.OnSendIndentDocForApproval(Rec);
@@ -226,6 +246,7 @@ page 50182 "E3 Indent Card"
                     Image = CancelApprovalRequest;
                     Promoted = true;
                     PromotedCategory = Process;
+                    Visible = ShowApprovalActions;
 
                     trigger OnAction()
                     var
@@ -236,49 +257,61 @@ page 50182 "E3 Indent Card"
                     end;
                 }
             }
-
-            action(VersionHistory)
+            action(ReopenIndent)
             {
-                Caption = 'Approval Entries';
-                ShortCutKey = 'Ctrl+F11';
-                Image = Versions;
-                ToolTip = 'Executes the Approval Entries action.';
-                RunObject = Page "Approval Entries";
-                RunPageLink = "Document No." = FIELD("Document No.");
-                RunPageView = sorting("Document No.") order(Ascending) where("Table ID" = filter(50051));
-            }
-            action(IndentSlip)
-            {
+                Caption = 'Reopen Indent';
                 ApplicationArea = All;
-                Caption = 'Indent Slip';
-                Image = Print;
+                Image = ReOpen;
                 Promoted = true;
-                PromotedCategory = Report;
-                ToolTip = 'Print the Indent Slip for the selected Indent Card.';
+                PromotedCategory = Process;
+                Visible = Rec.Status = Rec.Status::Approved;
+                ToolTip = 'Reopens the approved indent for modification.';
 
                 trigger OnAction()
-                var
-                    IndentSlip: Record "E3 Indent Header";
                 begin
-                    IndentSlip.Reset();
-                    IndentSlip.SetRange("Document No.", Rec."Document No.");
+                    if not Confirm('Do you want to reopen this approved indent?', false) then
+                        exit;
 
-                    if IndentSlip.FindFirst() then
-                        Report.RunModal(
-                            Report::"E3 Indent Slip",
-                            true,
-                            true,
-                            IndentSlip)
-                    else
-                        Error('No posted gate entry found for Document No. %1.', Rec."Document No.");
+                    Rec.Status := Rec.Status::Open; // Change to your initial status if different
+                    Rec."Approved By" := '';
+                    Rec."Approval Date Time" := 0DT;
+                    Rec.Modify(true);
+
+                    CurrPage.Update(true);
+
+                    Message('Indent %1 has been reopened successfully.', Rec."Document No.");
                 end;
             }
 
+            action(ApprovalEntries)
+            {
+                Caption = 'Approval Entries';
+                ApplicationArea = All;
+                Image = ApprovalEntries;
+                RunObject = Page "Approval Entries";
+                RunPageLink = "Document No." = FIELD("Document No.");
+                RunPageView = sorting("Document No.")
+                          order(Ascending)
+                          where("Table ID" = const(50051));
+            }
+            action(ShortCloseIndent)
+            {
+                Caption = 'Short Closed Indent';
+                Image = Close;
+                ToolTip = 'Executes the Short Closed Indent action.';
+
+                trigger OnAction()
+                begin
+                    Rec.ShortCloseIndent(Rec);
+                end;
+            }
 
         }
     }
     var
         IsPageEditable: Boolean;
+        IsEditable: Boolean;
+        ShowApprovalActions: Boolean;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
@@ -288,8 +321,10 @@ page 50182 "E3 Indent Card"
 
     trigger OnOpenPage()
     begin
+
+        Rec."Source Type" := Rec."Source Type"::D365;
+        IsEditable := Rec.Status <> Rec.Status::Approved;
         SetPageEditable();
-        Rec."Source Type" := "E3 Source Type"::D365
     end;
 
     trigger OnAfterGetRecord()
@@ -299,12 +334,15 @@ page 50182 "E3 Indent Card"
 
     local procedure SetPageEditable()
     begin
-        IsPageEditable := Rec.Status <> Rec.Status::"Pending Approval";
+        IsPageEditable :=
+        (Rec.Status <> Rec.Status::"Pending Approval") and
+        (Rec.Status <> Rec.Status::Approved) and
+        (not Rec."Short Close Indent");
+
+        IsEditable := IsPageEditable;
+
+        ShowApprovalActions := Rec.Status <> Rec.Status::Approved;
     end;
 
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    begin
-        Rec."Source Type" := "E3 Source Type"::D365
-    end;
 
 }

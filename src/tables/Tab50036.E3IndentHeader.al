@@ -52,7 +52,7 @@ table 50036 "E3 Indent Header"
         }
         field(4; Status; Option)
         {
-            OptionMembers = Open,"Pending Approval",Approved,Rejected;
+            OptionMembers = Open,"Pending Approval",Approved,Rejected,Closed;
             Caption = 'Status';
         }
         field(5; "Shortcut Dimension 1 Code"; Code[10])
@@ -304,9 +304,10 @@ table 50036 "E3 Indent Header"
         }
         field(25; Amount; Decimal)
         {
-            CalcFormula = Sum("E3 Indent Line"."Amount" where("Document No." = field("Document No.")));
-            Editable = false;
+            Caption = 'Amount';
             FieldClass = FlowField;
+            CalcFormula = Sum("E3 Indent Line".Amount WHERE("Document No." = FIELD("Document No.")));
+            Editable = false;
         }
         field(26; "Currency Code"; Code[10])
         {
@@ -348,6 +349,17 @@ table 50036 "E3 Indent Header"
             Caption = 'Source Type';
             DataClassification = CustomerContent;
         }
+        field(33; "Short Close Indent"; Boolean)
+        {
+            Caption = 'Short Close Indent';
+            DataClassification = CustomerContent;
+        }
+        field(34; "Utilized Amount"; Decimal)
+        {
+            Caption = 'Utilized Amount';
+            DataClassification = CustomerContent;
+        }
+
     }
 
     keys
@@ -362,9 +374,6 @@ table 50036 "E3 Indent Header"
     {
         // Add changes to field groups here
     }
-
-    var
-        myInt: Integer;
 
     trigger OnInsert()
     var
@@ -427,17 +436,75 @@ table 50036 "E3 Indent Header"
 
     trigger OnDelete()
     var
-        RecordRequisitionLine: Record "E3 Indent Line";
+        RecordIndentLine: Record "E3 Indent Line";
     begin
         Testfield(Status, Status::Open);
-        RecordRequisitionLine.Reset();
-        RecordRequisitionLine.SetRange("Document No.", "Document No.");
-        RecordRequisitionLine.DeleteAll(true);
+        RecordIndentLine.Reset();
+        RecordIndentLine.SetRange("Document No.", "Document No.");
+        RecordIndentLine.DeleteAll(true);
     end;
 
     trigger OnRename()
     begin
 
+    end;
+
+    local procedure DocumentAttachmentNotExist(IndentHeader: Record "E3 Indent Header"): Boolean
+    var
+        DocumentAttachment: Record "Document Attachment";
+    begin
+        DocumentAttachment.SetRange("Table ID", Database::"E3 Indent Header");
+        DocumentAttachment.SetRange("No.", IndentHeader."Document No.");
+        exit(DocumentAttachment.IsEmpty());
+    end;
+
+    procedure ShortCloseIndent(var IndentHeader: Record "E3 Indent Header")
+    var
+        IndentLine: Record "E3 Indent Line";
+        UserSetup: Record "User Setup";
+        ShortCloseLbl: Label 'Do you want to short close this indent?';
+        AlreadyClosedLbl: Label 'Indent is already short closed.';
+        SuccessLbl: Label 'Indent No. %1 has been short closed.';
+        UnauthorizedLbl: Label 'User %1 is not authorized to Short Close Indent.';
+    begin
+        // Check authorization
+        UserSetup.Get(UserId);
+        if not UserSetup."Short Close Indent" then
+            Error(UnauthorizedLbl, UserId);
+
+        // Check if already short closed
+        if IndentHeader."Short Close Indent" then
+            Error(AlreadyClosedLbl);
+
+        // Check lines exist
+        IndentLine.Reset();
+        IndentLine.SetRange("Document No.", IndentHeader."Document No.");
+        if not IndentLine.FindFirst() then
+            Error('No indent lines exist.');
+
+        // Confirmation
+        if not Confirm(ShortCloseLbl, false) then
+            exit;
+
+        // Update Header
+        IndentHeader."Short Close Indent" := true;
+        IndentHeader.Status := IndentHeader.Status::Closed;
+        IndentHeader.Modify(true);
+
+        // Update Lines
+        IndentLine.Reset();
+        IndentLine.SetRange("Document No.", IndentHeader."Document No.");
+
+        if IndentLine.FindSet() then
+            repeat
+                IndentLine."Short Close" := true;
+
+                // Optional: Close remaining quantity
+                IndentLine."Approved Qty" := 0;
+                IndentLine.Modify(true);
+            until IndentLine.Next() = 0;
+
+        Message(SuccessLbl, IndentHeader."Document No.");
     end;
 
 }

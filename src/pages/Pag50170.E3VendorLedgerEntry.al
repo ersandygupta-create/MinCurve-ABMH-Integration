@@ -559,7 +559,7 @@ page 50170 "E3 Vendor Ledger Entries"
                                             Vendor."No.", Vendor."Preferred Bank Account Code"
                                         );
 
-                                    if VendorBank."Bank Clearing Code" = '' then
+                                    if VendorBank."E3 IFSC Code" = '' then
                                         Error(
                                             'Vendor %1 Preferred Bank Account (%2) does not have a IFSC Code defined.',
                                             Vendor."No.", Vendor."Preferred Bank Account Code"
@@ -658,6 +658,8 @@ page 50170 "E3 Vendor Ledger Entries"
 
     trigger OnAfterGetRecord()
     begin
+        if Rec."Amount to Apply" = 0 then
+            Rec.Validate("Amount to Apply", Rec."Remaining Amount");
         rec.CalcFields("Remaining Amount");
         if (rec."Amount to Pay" = 0) then begin
             rec."Amount to Pay" := rec."Remaining Amount";

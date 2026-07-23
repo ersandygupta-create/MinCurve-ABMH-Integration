@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-21T07:02:58.8132777Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-23T09:28:20.1232615Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -38,10 +38,10 @@
                   <Width>1.66535cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.50836cm</Width>
+                  <Width>3.28447cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.77854cm</Width>
+                  <Width>4.33757cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.29718cm</Width>
@@ -65,7 +65,7 @@
                   <Width>1.87855cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.65901cm</Width>
+                  <Width>2.27095cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.74084cm</Width>
@@ -7149,10 +7149,10 @@
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
-            <Top>129.9pt</Top>
+            <Top>111.4pt</Top>
             <Left>0.14583in</Left>
             <Height>6.64987cm</Height>
-            <Width>28.48022cm</Width>
+            <Width>28.4273cm</Width>
             <Style />
           </Tablix>
           <Textbox Name="Textbox213">
@@ -7332,7 +7332,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Customer Pan No.  :</Value>
+                    <Value>Customer PAN No.  :</Value>
                     <Style>
                       <FontFamily>Segoe UI</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -7424,7 +7424,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>1.54722in</Top>
+            <Top>0.11805in</Top>
             <Left>0.14583in</Left>
             <Height>0.24306in</Height>
             <Width>1.72223in</Width>
@@ -7468,45 +7468,11 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>1.54722in</Top>
+            <Top>0.11805in</Top>
             <Left>1.90972in</Left>
             <Height>0.24306in</Height>
             <Width>1.72223in</Width>
             <ZIndex>3</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox6">
-            <rd:DefaultName>Textbox6</rd:DefaultName>
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Customer Ledger</Value>
-                    <Style>
-                      <FontFamily>Segoe UI</FontFamily>
-                      <FontSize>9pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <Top>0.06944in</Top>
-            <Left>0.14583in</Left>
-            <Height>0.26389in</Height>
-            <Width>2.18056in</Width>
-            <ZIndex>4</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -7661,7 +7627,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Tel. No. :</Value>
+                      <Value>Phone No. :</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>

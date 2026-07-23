@@ -21,6 +21,10 @@ report 50010 "Voucher Print-Post"
             column(DocumentNo_GLEntry; "Document No.")
             {
             }
+            column(E3_Narration; LineNarrGL)
+            {
+            }
+
             column(PostingDateFormatted; 'Date: ' + Format("Posting Date", 0, '<day,2>/<month,2>/<year4>'))
             {
             }
@@ -153,6 +157,7 @@ report 50010 "Voucher Print-Post"
             column(PatientName; "E3 Patient Name")
             {
             }
+
             dataitem("Dimension Set Entry"; "Dimension Set Entry")
             {
                 DataItemLink = "Dimension Set ID" = FIELD("Dimension Set ID");
