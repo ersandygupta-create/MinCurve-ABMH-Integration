@@ -22,6 +22,7 @@ pageextension 50076 "E3 Bank Card Ext" extends "Bank Account Card"
                 {
                     Caption = 'Client Code 1';
                     ApplicationArea = All;
+                    Visible = false;
                     ToolTip = 'Specify a Client Code 1 field.';
                 }
             }

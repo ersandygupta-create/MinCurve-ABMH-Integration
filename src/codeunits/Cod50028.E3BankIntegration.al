@@ -106,6 +106,7 @@ codeunit 50028 "E3 Bank Integration"
         CurrentDate: Date;
         DayTxt: Text[2];
         MonthTxt: Text[2];
+        YearTxt: Text[4];
         CurrentValue: Code[20];
         NextEntryNo: Integer;
 
@@ -125,6 +126,8 @@ codeunit 50028 "E3 Bank Integration"
         MonthTxt := Format(Date2DMY(CurrentDate, 2)); // month 1..12
         if StrLen(MonthTxt) = 1 then
             MonthTxt := '0' + MonthTxt;
+        YearTxt := Format(Date2DMY(CurrentDate, 3));
+
         PPSetup.Get();
         NoSeriesLine.Reset();
         NoSeriesLine.SetRange("Series Code", PPSetup."Bank File Series");
@@ -144,7 +147,7 @@ codeunit 50028 "E3 Bank Integration"
         BankAccountTable.SetRange("No.", TempBankAccountLedgerEntry."Bank Account No.");
         if BankAccountTable.find('-') then;
 
-        FileName := StrSubstNo('%1_%2_%3%4%5.%6', BankAccountTable."Server Code", BankAccountTable."Client Code", BankAccountTable."Client Code 1", DayTxt, MonthTxt, CurrentValue);
+        FileName := StrSubstNo('%1_%2_%3%4%5.%6', BankAccountTable."Server Code", BankAccountTable."Client Code", DayTxt, MonthTxt, YearTxt, CurrentValue);
 
         //  FileName := StrSubstNo('H2HCBX_RBINE_RBINE%1%2.%3', DayTxt, MonthTxt, CurrentValue);
 
@@ -240,33 +243,33 @@ codeunit 50028 "E3 Bank Integration"
                                 "Payment Indicator" := 'R';
 
                     TextBuilder.AppendLine(
-                        "Record Identifier" + '|' +
-                        "Payment Indicator" + '|' +
-                        TempBankAccountLedgerEntry."Document No." + '|' +
-                        TempBankAccountLedgerEntry."Bal. Account No." + '|' +
-                        BeneficiaryName + '|' +
-                        DelChr(DelChr(Format(TempBankAccountLedgerEntry.Amount, 0, 1), '=', ','), '=', '-') + '|' +
-                        Format(TempBankAccountLedgerEntry."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + '|' +
-                        TempBankAccountLedgerEntry."Cheque No." + '|' +
-                        "Debit Account No." + '|' +
-                        TempBankAccountLedgerEntry."Recipient Bank Account" + '|' +
+                        "Record Identifier" + ',' +
+                        "Payment Indicator" + ',' +
+                        TempBankAccountLedgerEntry."Document No." + ',' +
+                        TempBankAccountLedgerEntry."Bal. Account No." + ',' +
+                        BeneficiaryName + ',' +
+                        DelChr(DelChr(Format(TempBankAccountLedgerEntry.Amount, 0, 1), '=', ','), '=', '-') + ',' +
+                        Format(TempBankAccountLedgerEntry."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + ',' +
+                        TempBankAccountLedgerEntry."Cheque No." + ',' +
+                        "Debit Account No." + ',' +
+                        TempBankAccountLedgerEntry."Recipient Bank Account" + ',' +
                         TempBankAccountLedgerEntry."Recipient Bank IFSC Code" + ',' +
-                        TempBankAccountLedgerEntry."Recipient Bank Name" + '|' +
-                        BeneficiaryAdd1 + '|' +
-                        BeneficiaryAdd2 + '|' +
-                        BeneficiaryAdd3 + '|' +
-                        "Beneficiary Add 4" + '|' +
-                        "Beneficiary Zip" + '|' +
-                        "Debit Narration" + '|' +
-                        "Print Location" + '|' +
-                        "Payable Location" + '|' +
-                        "Fiscal Year" + '|' +
-                        "Company Code" + '|' +
-                        "Email ID" + '|' +
-                        "Mobile Number" + '|' +
-                        "AADHAR Number" + '|' +
-                        "Bene LEI Number" + '|' +
-                        Format("Bene LEI Expiry Date", 0, '<Day,2>-<Month,2>-<Year4>') + '|' +
+                        TempBankAccountLedgerEntry."Recipient Bank Name" + ',' +
+                        BeneficiaryAdd1 + ',' +
+                        BeneficiaryAdd2 + ',' +
+                        BeneficiaryAdd3 + ',' +
+                        "Beneficiary Add 4" + ',' +
+                        "Beneficiary Zip" + ',' +
+                        "Debit Narration" + ',' +
+                        "Print Location" + ',' +
+                        "Payable Location" + ',' +
+                        "Fiscal Year" + ',' +
+                        "Company Code" + ',' +
+                        "Email ID" + ',' +
+                        "Mobile Number" + ',' +
+                        "AADHAR Number" + ',' +
+                        "Bene LEI Number" + ',' +
+                        Format("Bene LEI Expiry Date", 0, '<Day,2>-<Month,2>-<Year4>') + ',' +
                         "Duplicate Validation Field"
 
 
@@ -311,7 +314,7 @@ codeunit 50028 "E3 Bank Integration"
             OutStream.WriteText(TextBuilder.ToText());
 
             // Download file
-            FileName := (FileName + '');
+            FileName := (FileName + '.txt');
             DownloadFromStream(TempBlob.CreateInStream(), '', '', '', FileName);
             IF FINDFIRST() THEN
                 REPEAT

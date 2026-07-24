@@ -470,7 +470,7 @@ page 50171 "E3 VLE Ready for Payment"
 
                     //ExportPaymentFile.Run();
                     VendorLedgerEntry.SetRange("Ready for Payment", true);
-                    CurrPage.SetSelectionFilter(VendorLedgerEntry);//ak
+                    //CurrPage.SetSelectionFilter(VendorLedgerEntry);//ak
                     if CreatePayment.RunModal() = ACTION::OK then begin
                         CreatePayment.MakeGenJnlLines(VendorLedgerEntry);
                         GetBatchRecords(GenJournalBatch, CreatePayment);
