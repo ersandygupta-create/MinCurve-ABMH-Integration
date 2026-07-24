@@ -477,7 +477,11 @@ page 50171 "E3 VLE Ready for Payment"
                         GenJnlManagement.TemplateSelectionFromBatch(GenJournalBatch);
                         if VendorLedgerEntry.FindSet() then
                             repeat
-                                VendorLedgerEntry."Ready for Payment" := true;
+                                VendorLedgerEntry.CalcFields("Remaining Amount");
+                                if VendorLedgerEntry."Remaining Amount" = 0 then
+                                    VendorLedgerEntry."Ready for Payment" := true
+                                else
+                                    VendorLedgerEntry."Ready for Payment" := false;
                                 VendorLedgerEntry."CR User Id" := UserId;
                                 VendorLedgerEntry."CR DateTime" := CurrentDateTime;
                                 VendorLedgerEntry.Modify(true);
@@ -770,10 +774,5 @@ page 50171 "E3 VLE Ready for Payment"
         ChangeLogEntry.SetRange("Primary Key Field 1 Value", Format(Rec."Entry No.", 0, 9));
     end;
 
-    trigger OnAfterGetRecord()
-    begin
-        if Rec."Amount to Apply" = 0 then
-            Rec.Validate("Amount to Apply", Rec."Remaining Amount");
-    end;
 }
 

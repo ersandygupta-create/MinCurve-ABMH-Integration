@@ -129,6 +129,16 @@ tableextension 50009 "E3 HIS Vendor Ledger Entry" extends "Vendor Ledger Entry"
             Caption = 'Amount to Pay';
             Editable = true;
             DataClassification = ToBeClassified;
+            trigger OnValidate()
+            begin
+                Rec.CalcFields("Remaining Amount");
+
+                if Abs("Amount to Pay") > Abs("Remaining Amount") then
+                    Error(
+                        'Amount to Pay (%1) cannot be greater than the Remaining Amount (%2).',
+                        "Amount to Pay",
+                        "Remaining Amount");
+            end;
         }
         field(50024; "Bank Integration Enabled"; Boolean)
         {

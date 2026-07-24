@@ -149,8 +149,8 @@ pageextension 50053 "E3 HIS Vend. Ledger Entries" extends "Vendor Ledger Entries
     }
     trigger OnAfterGetCurrRecord()
     begin
-        if Rec."Amount to Apply" = 0 then
-            Rec.Validate("Amount to Apply", Rec."Remaining Amount");
+        if Rec."Amount to Pay" = 0 then
+            Rec.Validate("Amount to Pay", Rec."Remaining Amount");
         CheckBln := USERID;
         UserSetup.RESET();
         UserSetup.SETRANGE("User ID", CheckBln);

@@ -584,9 +584,68 @@ page 50170 "E3 Vendor Ledger Entries"
                     end;
                 end;
             }
+            action(SelectAll)
+            {
+                Caption = 'Select All';
+                ApplicationArea = All;
+                Image = SelectEntries;
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'Select all records.';
+
+                trigger OnAction()
+                var
+                    VendLedgEntry: Record "Vendor Ledger Entry";
+                begin
+                    CurrPage.SetSelectionFilter(VendLedgEntry);
+
+                    if VendLedgEntry.IsEmpty then begin
+                        VendLedgEntry.Reset();
+                        VendLedgEntry.Copy(Rec);
+                    end;
+
+                    if VendLedgEntry.FindSet() then
+                        repeat
+                            VendLedgEntry.Select := true;
+                            VendLedgEntry.Modify();
+                        until VendLedgEntry.Next() = 0;
+
+                    CurrPage.Update(false);
+                end;
+            }
+            action(ClearSelection)
+            {
+                Caption = 'Clear Selection';
+                ApplicationArea = All;
+                Image = ClearFilter;
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'Clear the selected records.';
+
+                trigger OnAction()
+                var
+                    VendLedgEntry: Record "Vendor Ledger Entry";
+                begin
+                    CurrPage.SetSelectionFilter(VendLedgEntry);
+
+                    if VendLedgEntry.IsEmpty then begin
+                        VendLedgEntry.Reset();
+                        VendLedgEntry.Copy(Rec);
+                    end;
+
+                    if VendLedgEntry.FindSet() then
+                        repeat
+                            VendLedgEntry.Select := false;
+                            VendLedgEntry.Modify();
+                        until VendLedgEntry.Next() = 0;
+
+                    CurrPage.Update(false);
+                end;
+            }
 
         }
     }
+
 
     var
         CalcRunningVendBalance: Codeunit "Calc. Running Vend. Balance";
@@ -650,22 +709,28 @@ page 50170 "E3 Vendor Ledger Entries"
 
     trigger OnOpenPage()
     begin
+        UpdateAmountToPay();
         Rec.SetFilter("Due Date", '..%1', Today());
         Rec.SetRange("On Hold", '');
         rec.CalcFields("Remaining Amount");
-        rec."Amount to Pay" := rec."Remaining Amount";
     end;
 
-    trigger OnAfterGetRecord()
+    local procedure UpdateAmountToPay()
+    var
+        VLE: Record "Vendor Ledger Entry";
     begin
-        if Rec."Amount to Apply" = 0 then
-            Rec.Validate("Amount to Apply", Rec."Remaining Amount");
-        rec.CalcFields("Remaining Amount");
-        if (rec."Amount to Pay" = 0) then begin
-            rec."Amount to Pay" := rec."Remaining Amount";
-            rec.Modify(true);
-        end;
+        VLE.SetRange("Ready for Payment", false);
 
+        if VLE.FindSet() then
+            repeat
+                VLE.CalcFields("Remaining Amount");
+
+                if VLE."Amount to Pay" <> VLE."Remaining Amount" then begin
+                    VLE."Amount to Pay" := VLE."Remaining Amount";
+                    VLE.Modify(true);
+                end;
+            until VLE.Next() = 0;
     end;
+
 }
 
