@@ -20,7 +20,9 @@ report 50025 "Posted Voucher - Post Voucher"
             column(PreparedBy; UserId)
             {
             }
-            column(E3_Narration; "E3 Narration") { }
+            column(txtNarration; txtNarration + ' ' + txtNarration1 + ' ' + LineNarrGL + ' ' + "G/L Entry"."E3 Voucher Narration")
+            {
+            }
             column(DocumentNo_GLEntry; VoucherNoCaptionLbl + ' ' + "Document No.") { }
             column(LocationName; LocationName) { }
             column(LocAdd; LocAdd) { }
@@ -125,6 +127,46 @@ report 50025 "Posted Voucher - Post Voucher"
                     LocAdd2 := Location."Address 2" + ',' + Location.City;
 
                     if userc.Get(SystemCreatedBy) then;
+
+
+                    txtNarration := '';
+                    PostedNarration.Reset;
+                    PostedNarration.SetRange("Document No.", "Document No.");
+                    PostedNarration.SetRange("Entry No.", 0);
+                    if PostedNarration.Find('-') then
+                        repeat
+                            txtNarration += PostedNarration.Narration;
+                        until PostedNarration.Next = 0;
+
+                    txtNarration1 := '';
+
+                    PurchCommentLine.Reset;
+                    PurchCommentLine.SetRange(PurchCommentLine."Document Type", PurchCommentLine."Document Type"::"Posted Invoice");
+                    PurchCommentLine.SetRange(PurchCommentLine."No.", "G/L Entry"."Document No.");
+                    if PurchCommentLine.FindFirst then
+                        repeat
+                            txtNarration1 += PurchCommentLine.Comment;
+                        until PurchCommentLine.Next = 0;
+
+                    SalesCommentLine.Reset;
+                    SalesCommentLine.SetRange(SalesCommentLine."Document Type", SalesCommentLine."Document Type"::"Posted Invoice");
+                    SalesCommentLine.SetRange(SalesCommentLine."No.", "G/L Entry"."Document No.");
+                    if SalesCommentLine.FindFirst then
+                        repeat
+                            txtNarration1 += SalesCommentLine.Comment;
+                        until SalesCommentLine.Next = 0;
+
+
+                    LineNarrGL := '';
+                    GLEntry.Reset;
+                    GLEntry.SetRange("Journal Batch Name", "Journal Batch Name");
+                    GLEntry.SetRange("Document No.", "Document No.");
+                    if GLEntry.FindFirst then begin
+                        repeat
+                            LineNarrGL := GLEntry."E3 Narration";
+                        until GLEntry.Next = 0;
+                    end;
+
 
 
                     SourceDesc := '';
@@ -366,6 +408,11 @@ report 50025 "Posted Voucher - Post Voucher"
         SourCurrAmt: Decimal;
         Currency: Record "Currency Exchange Rate";
         CurrExRate: Decimal;
+        PostedNarration: Record "Posted Narration";
+        txtNarration: Text[1000];
+        PurchCommentLine: Record "Purch. Comment Line";
+        txtNarration1: Text;
+        SalesCommentLine: Record "Sales Comment Line";
 
 
     //[Scope('Internal')]

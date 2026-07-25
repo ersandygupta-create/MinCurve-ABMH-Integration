@@ -700,6 +700,19 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                             ToolTip = 'Create a new Gate Entry Outward for Vendor.';
                         }
                     }
+                    group(Report)
+                    {
+                        Caption = 'Report';
+                        action("Gate Pass Register")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            Caption = 'Gate Pass Register';
+                            Image = Report;
+                            RunObject = report "Gate Pass Register";
+                            RunPageMode = Edit;
+                            ToolTip = 'Executes the Gate Pass Register action.';
+                        }
+                    }
                 }
             }
         }

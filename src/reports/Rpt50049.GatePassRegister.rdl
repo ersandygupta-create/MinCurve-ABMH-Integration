@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-06T07:10:59.7596155Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-25T10:39:00.0633885Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -4642,7 +4642,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Person</Value>
+                                  <Value>User Name</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6740,6 +6740,7 @@
                     <Value>=First(Fields!LocationName.Value, "DataSet_Result")</Value>
                     <Style>
                       <FontFamily>Segoe UI</FontFamily>
+                      <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -6748,7 +6749,27 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!LocationAdd.Value, "DataSet_Result")</Value>
+                    <Value>=First(Fields!LocationAdd.Value, "DataSet_Result") &amp;
+IIF(
+    First(Fields!LocationAdd2.Value, "DataSet_Result") &lt;&gt; "",
+    vbCrLf &amp; First(Fields!LocationAdd2.Value, "DataSet_Result"),
+    ""
+) &amp;
+IIF(
+    First(Fields!LocCity.Value, "DataSet_Result") &lt;&gt; "",
+    vbCrLf &amp; First(Fields!LocCity.Value, "DataSet_Result"),
+    ""
+) &amp;
+IIF(
+    First(Fields!LocPostCode.Value, "DataSet_Result") &lt;&gt; "",
+    " - " &amp; First(Fields!LocPostCode.Value, "DataSet_Result"),
+    ""
+) &amp;
+IIF(
+    First(Fields!LocEmail.Value, "DataSet_Result") &lt;&gt; "",
+    vbCrLf &amp; "Email: " &amp; First(Fields!LocEmail.Value, "DataSet_Result"),
+    ""
+)</Value>
                     <Style>
                       <FontFamily>Segoe UI</FontFamily>
                     </Style>
@@ -6759,7 +6780,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!LocationAdd2.Value, "DataSet_Result")</Value>
+                    <Value />
                     <Style>
                       <FontFamily>Segoe UI</FontFamily>
                     </Style>
@@ -6913,6 +6934,15 @@ End Function
         </Field>
         <Field Name="LocationPhoneNo">
           <DataField>LocationPhoneNo</DataField>
+        </Field>
+        <Field Name="LocCity">
+          <DataField>LocCity</DataField>
+        </Field>
+        <Field Name="LocPostCode">
+          <DataField>LocPostCode</DataField>
+        </Field>
+        <Field Name="LocEmail">
+          <DataField>LocEmail</DataField>
         </Field>
         <Field Name="EntryTypeFilter">
           <DataField>EntryTypeFilter</DataField>

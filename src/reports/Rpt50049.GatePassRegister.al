@@ -28,6 +28,15 @@ report 50049 "Gate Pass Register"
             column(LocationPhoneNo; LocationPhoneNo)
             {
             }
+            column(LocCity; LocCity)
+            {
+            }
+            column(LocPostCode; LocPostCode)
+            {
+            }
+            column(LocEmail; LocEmail)
+            {
+            }
             column(EntryTypeFilter; EntryType)
             {
             }
@@ -213,7 +222,9 @@ report 50049 "Gate Pass Register"
                     LocationAdd2 := '';
                     LocationPhoneNo := '';
                     LocationName := '';
-
+                    LocCity := '';
+                    LocPostCode := '';
+                    LocEmail := '';
 
 
                     if GateEntryHeader."To Destination" <> '' then begin
@@ -227,6 +238,10 @@ report 50049 "Gate Pass Register"
                             LocationAdd2 := Location."Address 2";
                             LocationPhoneNo := Location."Phone No.";
                             LocationName := Location.Name;
+                            LocCity := Location.City;
+                            LocPostCode := Location."Post Code";
+                            LocEmail := Location."E-Mail";
+
 
                         end;
                     end;
@@ -310,5 +325,8 @@ report 50049 "Gate Pass Register"
         GatePassType: Text[250];
         DocumentNo: Text[100];
         CompInfo: Record "Company Information";
+        LocCity: Text[30];
+        LocPostCode: Code[20];
+        LocEmail: Text[80];
 
 }

@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-13T12:46:19.0016550Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-25T10:14:43.6261087Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -2290,7 +2290,6 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <rd:Selected>true</rd:Selected>
                         <Textbox Name="Textbox27">
                           <rd:DefaultName>Textbox27</rd:DefaultName>
                           <CanGrow>true</CanGrow>
@@ -3415,10 +3414,38 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=First(Fields!E3_Narration.Value, "DataSet_Result")</Value>
+                                                <Value>Narration</Value>
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                   <FontWeight>Bold</FontWeight>
+                                                </Style>
+                                              </TextRun>
+                                              <TextRun>
+                                                <Value xml:space="preserve"> </Value>
+                                                <Style>
+                                                  <FontSize>8pt</FontSize>
+                                                  <FontWeight>Normal</FontWeight>
+                                                </Style>
+                                              </TextRun>
+                                              <TextRun>
+                                                <Value>:</Value>
+                                                <Style>
+                                                  <FontSize>8pt</FontSize>
+                                                  <FontWeight>Bold</FontWeight>
+                                                </Style>
+                                              </TextRun>
+                                              <TextRun>
+                                                <Value xml:space="preserve"> </Value>
+                                                <Style>
+                                                  <FontSize>8pt</FontSize>
+                                                  <FontWeight>Normal</FontWeight>
+                                                </Style>
+                                              </TextRun>
+                                              <TextRun>
+                                                <Value>=Fields!txtNarration.Value</Value>
+                                                <Style>
+                                                  <FontSize>8pt</FontSize>
+                                                  <FontWeight>Normal</FontWeight>
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
@@ -4037,7 +4064,7 @@
                             <TablixMembers>
                               <TablixMember>
                                 <Visibility>
-                                  <Hidden>=IIf(Fields!Comment.Value = "", True, False)</Hidden>
+                                  <Hidden>=IIf(Fields!txtNarration.Value = "", True, False)</Hidden>
                                 </Visibility>
                                 <KeepWithGroup>After</KeepWithGroup>
                               </TablixMember>
@@ -4102,7 +4129,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Prepared By :</Value>
+                                  <Value>Prepared By : </Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4658,8 +4685,8 @@ End Function
         <Field Name="PreparedBy">
           <DataField>PreparedBy</DataField>
         </Field>
-        <Field Name="E3_Narration">
-          <DataField>E3_Narration</DataField>
+        <Field Name="txtNarration">
+          <DataField>txtNarration</DataField>
         </Field>
         <Field Name="DocumentNo_GLEntry">
           <DataField>DocumentNo_GLEntry</DataField>

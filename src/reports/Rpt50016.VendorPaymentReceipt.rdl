@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-17T05:59:23.7733950Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-25T09:54:27.6707153Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -3911,7 +3911,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>=First(Fields!VendAddr1.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!VendAddr2.Value, "DataSet_Result") &amp; " " &amp; First(Fields!VendAddr3.Value, "DataSet_Result") &amp; " " &amp; First(Fields!VendAddr4.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Segoe UI</FontFamily>
