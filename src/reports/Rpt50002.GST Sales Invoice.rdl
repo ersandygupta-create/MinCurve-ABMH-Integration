@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-14T04:28:11.1259987Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-23T07:03:07.2677711Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -1974,7 +1974,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2019,7 +2019,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2062,7 +2062,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2106,7 +2106,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2151,7 +2151,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2196,7 +2196,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2241,7 +2241,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2286,7 +2286,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2331,7 +2331,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -2376,7 +2376,7 @@
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -3068,7 +3068,7 @@
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -3182,7 +3182,7 @@
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -3285,7 +3285,7 @@
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -3388,7 +3388,7 @@
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -3434,7 +3434,7 @@
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>6pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
-                                                      <Format>#,0;(#,0);'0'</Format>
+                                                      <Format>#,##0.00</Format>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -4166,7 +4166,6 @@
                                                   <TablixCells>
                                                     <TablixCell>
                                                       <CellContents>
-                                                        <rd:Selected>true</rd:Selected>
                                                         <Textbox Name="Textbox292">
                                                           <rd:DefaultName>Textbox277</rd:DefaultName>
                                                           <KeepTogether>true</KeepTogether>
@@ -4410,7 +4409,7 @@
                                               </TablixColumns>
                                               <TablixRows>
                                                 <TablixRow>
-                                                  <Height>0.14814in</Height>
+                                                  <Height>0.17283in</Height>
                                                   <TablixCells>
                                                     <TablixCell>
                                                       <CellContents>
@@ -4482,7 +4481,7 @@
                                                                   <Style>
                                                                     <FontFamily>Tahoma</FontFamily>
                                                                     <FontSize>6pt</FontSize>
-                                                                    <Format>#,0;(#,0);'0'</Format>
+                                                                    <Format>#,##0.00</Format>
                                                                   </Style>
                                                                 </TextRun>
                                                               </TextRuns>
@@ -4529,7 +4528,7 @@
                                                   </TablixCells>
                                                 </TablixRow>
                                                 <TablixRow>
-                                                  <Height>0.1655in</Height>
+                                                  <Height>0.19019in</Height>
                                                   <TablixCells>
                                                     <TablixCell>
                                                       <CellContents>
@@ -4601,7 +4600,7 @@
                                                                   <Style>
                                                                     <FontFamily>Tahoma</FontFamily>
                                                                     <FontSize>6pt</FontSize>
-                                                                    <Format>#,0;(#,0);'0'</Format>
+                                                                    <Format>#,##0.00</Format>
                                                                   </Style>
                                                                 </TextRun>
                                                               </TextRuns>
@@ -4648,7 +4647,7 @@
                                                   </TablixCells>
                                                 </TablixRow>
                                                 <TablixRow>
-                                                  <Height>0.1655in</Height>
+                                                  <Height>0.19019in</Height>
                                                   <TablixCells>
                                                     <TablixCell>
                                                       <CellContents>
@@ -4720,7 +4719,7 @@
                                                                   <Style>
                                                                     <FontFamily>Tahoma</FontFamily>
                                                                     <FontSize>6pt</FontSize>
-                                                                    <Format>#,0;(#,0);'0'</Format>
+                                                                    <Format>#,##0.00</Format>
                                                                   </Style>
                                                                 </TextRun>
                                                               </TextRuns>
@@ -4767,7 +4766,7 @@
                                                   </TablixCells>
                                                 </TablixRow>
                                                 <TablixRow>
-                                                  <Height>0.14814in</Height>
+                                                  <Height>0.17283in</Height>
                                                   <TablixCells>
                                                     <TablixCell>
                                                       <CellContents>
@@ -4839,7 +4838,7 @@
                                                                   <Style>
                                                                     <FontFamily>Tahoma</FontFamily>
                                                                     <FontSize>6pt</FontSize>
-                                                                    <Format>#,0;(#,0);'0'</Format>
+                                                                    <Format>#,##0.00</Format>
                                                                   </Style>
                                                                 </TextRun>
                                                               </TextRuns>
@@ -4886,7 +4885,7 @@
                                                   </TablixCells>
                                                 </TablixRow>
                                                 <TablixRow>
-                                                  <Height>0.17591in</Height>
+                                                  <Height>0.2006in</Height>
                                                   <TablixCells>
                                                     <TablixCell>
                                                       <CellContents>
@@ -4959,7 +4958,7 @@
                                                                     <FontFamily>Tahoma</FontFamily>
                                                                     <FontSize>6pt</FontSize>
                                                                     <FontWeight>Normal</FontWeight>
-                                                                    <Format>#,0;(#,0);'0'</Format>
+                                                                    <Format>#,##0.00</Format>
                                                                   </Style>
                                                                 </TextRun>
                                                               </TextRuns>
@@ -5006,126 +5005,7 @@
                                                   </TablixCells>
                                                 </TablixRow>
                                                 <TablixRow>
-                                                  <Height>0.14814in</Height>
-                                                  <TablixCells>
-                                                    <TablixCell>
-                                                      <CellContents>
-                                                        <Textbox Name="Textbox188">
-                                                          <rd:DefaultName>Textbox187</rd:DefaultName>
-                                                          <CanGrow>true</CanGrow>
-                                                          <KeepTogether>true</KeepTogether>
-                                                          <Paragraphs>
-                                                            <Paragraph>
-                                                              <TextRuns>
-                                                                <TextRun>
-                                                                  <Value>Rounded Off</Value>
-                                                                  <Style>
-                                                                    <FontFamily>Tahoma</FontFamily>
-                                                                    <FontSize>6pt</FontSize>
-                                                                    <FontWeight>Bold</FontWeight>
-                                                                  </Style>
-                                                                </TextRun>
-                                                              </TextRuns>
-                                                              <Style />
-                                                            </Paragraph>
-                                                          </Paragraphs>
-                                                          <Style>
-                                                            <Border>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </Border>
-                                                            <TopBorder>
-                                                              <Color>Black</Color>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </TopBorder>
-                                                            <BottomBorder>
-                                                              <Color>Black</Color>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </BottomBorder>
-                                                            <LeftBorder>
-                                                              <Color>Black</Color>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </LeftBorder>
-                                                            <RightBorder>
-                                                              <Color>Black</Color>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </RightBorder>
-                                                            <PaddingLeft>2pt</PaddingLeft>
-                                                            <PaddingRight>2pt</PaddingRight>
-                                                            <PaddingTop>2pt</PaddingTop>
-                                                            <PaddingBottom>2pt</PaddingBottom>
-                                                          </Style>
-                                                        </Textbox>
-                                                        <ColSpan>2</ColSpan>
-                                                      </CellContents>
-                                                    </TablixCell>
-                                                    <TablixCell />
-                                                    <TablixCell>
-                                                      <CellContents>
-                                                        <Textbox Name="Textbox190">
-                                                          <rd:DefaultName>Textbox189</rd:DefaultName>
-                                                          <CanGrow>true</CanGrow>
-                                                          <KeepTogether>true</KeepTogether>
-                                                          <Paragraphs>
-                                                            <Paragraph>
-                                                              <TextRuns>
-                                                                <TextRun>
-                                                                  <Value>=Fields!GL_amt.Value</Value>
-                                                                  <Style>
-                                                                    <FontFamily>Tahoma</FontFamily>
-                                                                    <FontSize>6pt</FontSize>
-                                                                    <Format>#,0;(#,0);'0'</Format>
-                                                                  </Style>
-                                                                </TextRun>
-                                                              </TextRuns>
-                                                              <Style>
-                                                                <TextAlign>Right</TextAlign>
-                                                              </Style>
-                                                            </Paragraph>
-                                                          </Paragraphs>
-                                                          <Style>
-                                                            <Border>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </Border>
-                                                            <TopBorder>
-                                                              <Color>Black</Color>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </TopBorder>
-                                                            <BottomBorder>
-                                                              <Color>Black</Color>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </BottomBorder>
-                                                            <LeftBorder>
-                                                              <Color>Black</Color>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </LeftBorder>
-                                                            <RightBorder>
-                                                              <Color>Black</Color>
-                                                              <Style>Solid</Style>
-                                                              <Width>0.75pt</Width>
-                                                            </RightBorder>
-                                                            <PaddingLeft>2pt</PaddingLeft>
-                                                            <PaddingRight>2pt</PaddingRight>
-                                                            <PaddingTop>2pt</PaddingTop>
-                                                            <PaddingBottom>2pt</PaddingBottom>
-                                                          </Style>
-                                                        </Textbox>
-                                                        <ColSpan>2</ColSpan>
-                                                      </CellContents>
-                                                    </TablixCell>
-                                                    <TablixCell />
-                                                  </TablixCells>
-                                                </TablixRow>
-                                                <TablixRow>
-                                                  <Height>0.14814in</Height>
+                                                  <Height>0.17283in</Height>
                                                   <TablixCells>
                                                     <TablixCell>
                                                       <CellContents>
@@ -5197,7 +5077,7 @@
                                                                   <Style>
                                                                     <FontFamily>Tahoma</FontFamily>
                                                                     <FontSize>6pt</FontSize>
-                                                                    <Format>#,0;(#,0);'0'</Format>
+                                                                    <Format>#,##0.00</Format>
                                                                   </Style>
                                                                 </TextRun>
                                                               </TextRuns>
@@ -5261,7 +5141,6 @@
                                                 <TablixMember />
                                                 <TablixMember />
                                                 <TablixMember />
-                                                <TablixMember />
                                               </TablixMembers>
                                             </TablixRowHierarchy>
                                             <DataSetName>DataSet_Result</DataSetName>
@@ -5317,7 +5196,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Total Amount In Words:-</Value>
+                                                    <Value>Total Amount In Words:- </Value>
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>7pt</FontSize>
@@ -5325,7 +5204,7 @@
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>=Code.RupeesToWord(Fields!amounttoCustomer.Value)</Value>
+                                                    <Value>=Fields!amountinwords.Value</Value>
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>7pt</FontSize>
@@ -7715,12 +7594,12 @@ MyNumber = Trim(Str(MyNumber))
 ' Find decimal place.
 DecimalPlace = InStr(MyNumber, ".")
 
-' If we find decimal place...
-If DecimalPlace &gt; 0 Then
-' Convert Paisa
-Temp = Left(Mid(MyNumber, DecimalPlace + 1) &amp; "00", 2)
-'Paisa = " and " &amp; ConvertTens(Temp) &amp; " Paisa"
-Paisa = ""
+  ' If we find decimal place...
+  If DecimalPlace &gt; 0 Then
+  ' Convert Paisa
+  Temp = Left(Mid(MyNumber, DecimalPlace + 1) &amp; "00", 2)
+  'Paisa = " and " &amp; ConvertTens(Temp) &amp; " Paisa"
+  Paisa = " "
 
 ' Strip off paisa from remainder to convert.
 MyNumber = Trim(Left(MyNumber, DecimalPlace - 1))
@@ -8358,6 +8237,9 @@ nZkzZ2aRd9hAS1FTgBQkN6m0AQQIyZU14ZGLhx56qHXjjTdmkWmDAZh3vaPnrFmzKtLIOoD0gazs1QZ1
         <Field Name="amounttoCustomerFormat">
           <DataField>amounttoCustomerFormat</DataField>
         </Field>
+        <Field Name="amountinwords">
+          <DataField>amountinwords</DataField>
+        </Field>
         <Field Name="GST_Bill_to_State_Code">
           <DataField>GST_Bill_to_State_Code</DataField>
         </Field>
@@ -8586,12 +8468,6 @@ nZkzZ2aRd9hAS1FTgBQkN6m0AQQIyZU14ZGLhx56qHXjjTdmkWmDAZh3vaPnrFmzKtLIOoD0gazs1QZ1
         <Field Name="SalespersonCode">
           <DataField>SalespersonCode</DataField>
         </Field>
-        <Field Name="ROUNDValue">
-          <DataField>ROUNDValue</DataField>
-        </Field>
-        <Field Name="ROUNDValueFormat">
-          <DataField>ROUNDValueFormat</DataField>
-        </Field>
         <Field Name="SalesPerson_Name">
           <DataField>SalesPerson_Name</DataField>
         </Field>
@@ -8720,9 +8596,6 @@ nZkzZ2aRd9hAS1FTgBQkN6m0AQQIyZU14ZGLhx56qHXjjTdmkWmDAZh3vaPnrFmzKtLIOoD0gazs1QZ1
         </Field>
         <Field Name="SRNo">
           <DataField>SRNo</DataField>
-        </Field>
-        <Field Name="amountinwords">
-          <DataField>amountinwords</DataField>
         </Field>
         <Field Name="taxableAmt">
           <DataField>taxableAmt</DataField>

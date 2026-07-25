@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-02T10:36:20.1615573Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-25T04:21:16.6326734Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -47,10 +47,10 @@
                   <Width>0.56944in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.2639in</Width>
+                  <Width>1.15973in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.19444in</Width>
+                  <Width>1.29861in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.09028in</Width>
@@ -64,7 +64,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.13888in</Height>
+                  <Height>1.22221in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -76,7 +76,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Gate No.</Value>
+                                  <Value>Gate Pass No.</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -89,7 +89,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Type</Value>
+                                  <Value>Nature</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -138,6 +138,19 @@
                               </TextRuns>
                               <Style />
                             </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>From Department</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
                           </Paragraphs>
                           <Style>
                             <Border>
@@ -163,6 +176,19 @@
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>:</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
@@ -268,7 +294,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!GatePassType.Value</Value>
+                                  <Value>=Fields!Procurement_Type.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -315,6 +341,18 @@
                               </TextRuns>
                               <Style />
                             </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!From_Department_Name.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
                           </Paragraphs>
                           <Style>
                             <Border>
@@ -347,19 +385,6 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>From Department</Value>
-                                  <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
                                   <Value>To Department</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
@@ -386,7 +411,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Source Name</Value>
+                                  <Value>Received From</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -400,6 +425,32 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Remarks</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Gate Out Pass No.</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Gate Out Pass Date</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -497,7 +548,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>:</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -531,18 +582,6 @@
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!From_Department_Name.Value</Value>
-                                  <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
@@ -583,6 +622,42 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Remarks.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Outward_Document_No_.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=format(Fields!SystemCreatedAt.Value, "dd-MM-yyyy")</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -735,7 +810,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Specification</Value>
+                                  <Value>Remarks</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1244,7 +1319,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Printed By :</Value>
+                                  <Value>Checked By :</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1349,7 +1424,7 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>1.30083in</Top>
             <Left>0.16194in</Left>
-            <Height>2.49305in</Height>
+            <Height>2.57638in</Height>
             <Width>7.84723in</Width>
             <Style>
               <Border>
@@ -1394,7 +1469,9 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!LocationAdd2.Value</Value>
+                    <Value>=Fields!LocationAdd2.Value &amp; ", " &amp;
+Fields!LocCity.Value &amp; " - " &amp;
+Fields!LocPostCode.Value</Value>
                     <Style>
                       <FontFamily>Segoe UI</FontFamily>
                       <FontWeight>Normal</FontWeight>
@@ -1556,6 +1633,12 @@ End Function
         <Field Name="LocationPhoneNo">
           <DataField>LocationPhoneNo</DataField>
         </Field>
+        <Field Name="LocCity">
+          <DataField>LocCity</DataField>
+        </Field>
+        <Field Name="LocPostCode">
+          <DataField>LocPostCode</DataField>
+        </Field>
         <Field Name="GatePassType">
           <DataField>GatePassType</DataField>
         </Field>
@@ -1600,6 +1683,15 @@ End Function
         </Field>
         <Field Name="PrintedBy">
           <DataField>PrintedBy</DataField>
+        </Field>
+        <Field Name="Procurement_Type">
+          <DataField>Procurement_Type</DataField>
+        </Field>
+        <Field Name="Outward_Document_No_">
+          <DataField>Outward_Document_No_</DataField>
+        </Field>
+        <Field Name="SystemCreatedAt">
+          <DataField>SystemCreatedAt</DataField>
         </Field>
         <Field Name="Line_No_">
           <DataField>Line_No_</DataField>

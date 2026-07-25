@@ -33,6 +33,12 @@ report 50047 "E3 Gate OutWard Print"
             column(LocationPhoneNo; LocationPhoneNo)
             {
             }
+            column(LocCity; LocCity)
+            {
+            }
+            column(LocPostCode; LocPostCode)
+            {
+            }
 
             column(GatePassType; "Gate Pass Type")
             {
@@ -89,6 +95,9 @@ report 50047 "E3 Gate OutWard Print"
             column(PrintedDateTime; CurrentDateTime)
             {
             }
+            column(Procurement_Type; "Procurement Type")
+            {
+            }
             dataitem(GateEntryLine; "E3 Posted Gate Entry Line")
             {
                 DataItemLink = "Document No." = field("Document No.");
@@ -139,6 +148,8 @@ report 50047 "E3 Gate OutWard Print"
                             LocationAdd2 := Location."Address 2";
                             LocationPhoneNo := Location."Phone No.";
                             LocationName := Location.Name;
+                            LocCity := Location.City;
+                            LocPostCode := Location."Post Code";
 
                         end;
                     end;
@@ -202,6 +213,8 @@ report 50047 "E3 Gate OutWard Print"
         LocationAdd2: Text[100];
         LocationPhoneNo: Text[30];
         LocationName: Text[100];
+        LocCity: Text[30];
+        LocPostCode: Code[20];
         UserC: Record User;
         compInfo: Record "Company Information";
 

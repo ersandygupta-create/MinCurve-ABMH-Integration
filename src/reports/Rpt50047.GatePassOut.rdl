@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-01T12:19:58.3583234Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-07-25T03:58:33.2816977Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -76,7 +76,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Gate Entry No.</Value>
+                                  <Value>Gate Pass No.</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -89,7 +89,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Type</Value>
+                                  <Value>Nature</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -268,7 +268,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!GatePassType.Value</Value>
+                                  <Value>=Fields!Procurement_Type.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -386,7 +386,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Destination</Value>
+                                  <Value>Sent To</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -735,7 +735,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Specification</Value>
+                                  <Value>Remark</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -773,6 +773,44 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
+                                  <Value>Asset No.</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox10">
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
                                   <Value>Estm. value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
@@ -797,11 +835,8 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
@@ -969,8 +1004,51 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox4">
-                          <rd:DefaultName>Textbox4</rd:DefaultName>
+                        <Textbox Name="AssetNo">
+                          <rd:DefaultName>AssetNo</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!AssetNo.Value</Value>
+                                  <Style>
+                                    <rd:FormatSymbolCulture>en-IN</rd:FormatSymbolCulture>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <Format>'₹'#,0.00;('₹'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox13">
+                          <rd:DefaultName>Textbox13</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1006,11 +1084,8 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
@@ -1173,7 +1248,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Printed By :</Value>
+                                  <Value>Checked By :</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1320,7 +1395,9 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!LocationAdd2.Value</Value>
+                    <Value>=Fields!LocationAdd2.Value &amp; ", " &amp;
+Fields!LocCity.Value &amp; " - " &amp;
+Fields!LocPostCode.Value</Value>
                     <Style>
                       <FontFamily>Segoe UI</FontFamily>
                       <FontWeight>Normal</FontWeight>
@@ -1412,10 +1489,10 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>7.47916in</Height>
+        <Height>3.71054in</Height>
         <Style />
       </Body>
-      <Width>8.35639in</Width>
+      <Width>8.16193in</Width>
       <Page>
         <Style />
       </Page>
@@ -1482,6 +1559,12 @@ End Function
         <Field Name="LocationPhoneNo">
           <DataField>LocationPhoneNo</DataField>
         </Field>
+        <Field Name="LocCity">
+          <DataField>LocCity</DataField>
+        </Field>
+        <Field Name="LocPostCode">
+          <DataField>LocPostCode</DataField>
+        </Field>
         <Field Name="GatePassType">
           <DataField>GatePassType</DataField>
         </Field>
@@ -1529,6 +1612,9 @@ End Function
         </Field>
         <Field Name="PrintedDateTime">
           <DataField>PrintedDateTime</DataField>
+        </Field>
+        <Field Name="Procurement_Type">
+          <DataField>Procurement_Type</DataField>
         </Field>
         <Field Name="ItemName">
           <DataField>ItemName</DataField>

@@ -34,6 +34,12 @@ report 50048 "E3 Gate In Print"
             column(LocationPhoneNo; LocationPhoneNo)
             {
             }
+            column(LocCity; LocCity)
+            {
+            }
+            column(LocPostCode; LocPostCode)
+            {
+            }
 
             column(GatePassType; "Gate Pass Type")
             {
@@ -85,6 +91,15 @@ report 50048 "E3 Gate In Print"
             {
             }
             column(PrintedBy; userc."User Name")
+            {
+            }
+            column(Procurement_Type; "Procurement Type")
+            {
+            }
+            column(Outward_Document_No_; "Outward Document No.")
+            {
+            }
+            column(SystemCreatedAt; SystemCreatedAt)
             {
             }
 
@@ -140,6 +155,8 @@ report 50048 "E3 Gate In Print"
                             LocationAdd2 := Location."Address 2";
                             LocationPhoneNo := Location."Phone No.";
                             LocationName := Location.Name;
+                            LocCity := Location.City;
+                            LocPostCode := Location."Post Code";
                         end;
 
                     end;
@@ -203,6 +220,8 @@ report 50048 "E3 Gate In Print"
         LocationAdd2: Text[100];
         LocationPhoneNo: Text[30];
         LocationName: Text[100];
+        LocCity: Text[30];
+        LocPostCode: Code[20];
         UserC: Record User;
         GateLine: Record "E3 Posted Gate Entry Line";
         CompInfo: Record "Company Information";

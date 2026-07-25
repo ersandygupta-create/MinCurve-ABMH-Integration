@@ -96,6 +96,9 @@ report 50002 "GST Sales Invoice Print"
             {
 
             }
+            column(amountinwords; amountinwords)
+            {
+            }
             column(GST_Bill_to_State_Code; "GST Bill-to State Code")
             {
 
@@ -342,9 +345,9 @@ report 50002 "GST Sales Invoice Print"
             column(SalespersonCode; "Sales Header"."Salesperson Code")
             {
             }
-            column(ROUNDValue; ROUNDValue)
-            {
-            }
+            // column(ROUNDValue; ROUNDValue)
+            // {
+            // }
             column(SalesPerson_Name; SalesPersonRec.Name)
             {
             }
@@ -486,10 +489,7 @@ report 50002 "GST Sales Invoice Print"
                         column(SRNo; SRNo)
                         {
                         }
-                        column(amountinwords; amountinwords)
-                        {
 
-                        }
                         column(taxableAmt; taxableAmt)
                         {
 
@@ -750,6 +750,7 @@ report 50002 "GST Sales Invoice Print"
 
                 amounttoCustomer := 0;
                 CalculateStructure.GetPostedSalesInvStatisticsAmount("Sales Header", amounttoCustomer);
+                amountinwords := ConvertAmountToWords(amounttoCustomer);
 
 
 
@@ -1080,6 +1081,19 @@ report 50002 "GST Sales Invoice Print"
         Branch: Text[50];
 
 
+    local procedure ConvertAmountToWords(Amount: Decimal): Text
+    var
+        TempCheckReport: Report 1401;
+        NoText: array[2] of Text;
+    begin
+        Clear(NoText);
+
+        TempCheckReport.InitTextVariable();
+        TempCheckReport.FormatNoText(NoText, Amount, '');
+
+        exit(NoText[1] + NoText[2]);
+    end;
+
     procedure SetType(LocalSalesType: Text)
     begin
         Salestype := LocalSalesType;
@@ -1092,11 +1106,5 @@ report 50002 "GST Sales Invoice Print"
         Salestype := SalesTypePara;
         fromFunction := TRUE;
     end;
-
-
-
-
-
-
 
 }
