@@ -102,6 +102,7 @@ page 50164 "E3 Gate Entry Inward Header"
                 {
                     ToolTip = 'Specifies the value of the Person field';
                     ApplicationArea = All;
+                    Caption = 'ABMH User Name';
                 }
                 field(Status; Rec.Status)
                 {
@@ -118,15 +119,15 @@ page 50164 "E3 Gate Entry Inward Header"
                     ToolTip = 'Specifies the value of the Reference Document No. field';
                     ApplicationArea = All;
                 }
-                field(Remarks; Rec.Remarks)
-                {
-                    ToolTip = 'Specifies the value of the Remarks field';
-                    ApplicationArea = All;
-                }
                 field("Reference Document Date"; Rec."Reference Document Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date of the reference document associated with this record.';
+                }
+                field(Remarks; Rec.Remarks)
+                {
+                    ToolTip = 'Specifies the value of the Remarks field';
+                    ApplicationArea = All;
                 }
 
                 field("Procurement Type"; Rec."Procurement Type")

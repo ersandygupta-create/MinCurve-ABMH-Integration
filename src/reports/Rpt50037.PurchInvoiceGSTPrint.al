@@ -20,7 +20,7 @@ report 50037 "Purchase Invoice Print GST"
             column(InvDiscountAmountCaption; InvDiscountAmountCaptionLbl)
             {
             }
-            column(Buy_from_Address; "Buy-from Address")
+            column(Buy_from_Address; StrSubstNo('%1, %2, %3 - %4', "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from Post Code"))
             {
 
             }
@@ -200,6 +200,9 @@ report 50037 "Purchase Invoice Print GST"
                     {
                     }
                     column(VATBasDisc_PurchInvHeader; "Purch. Inv. Header"."VAT Base Discount %")
+                    {
+                    }
+                    column(CommentTxt; CommentTxt)
                     {
                     }
                     column(PricesInclVATtxt; PricesInclVATtxt)
@@ -560,15 +563,16 @@ report 50037 "Purchase Invoice Print GST"
                         }
 
                         trigger OnAfterGetRecord()
+
                         begin
                             //ak
-
                             txtLedgerDescription := '';
                             case "Purch. Inv. Line".Type of
                                 "Purch. Inv. Line".Type::"G/L Account":
                                     if GLAccount.Get("Purch. Inv. Line"."No.") then
                                         txtLedgerDescription := GLAccount.Name
                             end;
+
                             //ak
                             GetGSTAmount("Purch. Inv. Header", "Purch. Inv. Line");
 
@@ -578,7 +582,10 @@ report 50037 "Purchase Invoice Print GST"
                             TotalInvoiceDiscountAmount -= "Inv. Discount Amount";
                             TotalAmount += Amount;
                             TotalPaymentDiscountOnVAT += -("Line Amount" - "Inv. Discount Amount" - "Amount Including VAT");
+
+
                         end;
+
 
                         trigger OnPreDataItem()
                         var
@@ -795,10 +802,25 @@ report 50037 "Purchase Invoice Print GST"
 
                 if RespCenter.Get("Responsibility Center") then begin
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
-                    CompanyInfo."Phone No." := RespCenter."Phone No.";
+                    //CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
+
+                CommentTxt := '';
+                PurchCommentLine.Reset();
+                PurchCommentLine.SetRange("Document Type",
+                    PurchCommentLine."Document Type"::"Posted Invoice");
+                PurchCommentLine.SetRange("No.", "No.");
+
+                if PurchCommentLine.FindSet() then
+                    repeat
+                        if CommentTxt = '' then
+                            CommentTxt := PurchCommentLine.Comment
+                        else
+                            CommentTxt += '\' + PurchCommentLine.Comment; // New line in RDLC
+                    until PurchCommentLine.Next() = 0;
+
 
                 VendorBankName := '';
                 VendorBankAccountNo := '';
@@ -859,6 +881,7 @@ report 50037 "Purchase Invoice Print GST"
                 end;
 
                 FormatAddr.PurchInvPayTo(VendAddr, "Purch. Inv. Header");
+
                 if "Payment Terms Code" = '' then
                     PaymentTerms.Init()
                 else begin
@@ -1079,6 +1102,8 @@ report 50037 "Purchase Invoice Print GST"
         VendorBankIFSC: Code[20];
         VendorBankSWIFT: Code[20];
         VendorBankAccount: Record "Vendor Bank Account";
+        PurchCommentLine: Record "Purch. Comment Line";
+        CommentTxt: Text[160];
 
     procedure InitializeRequest(NewNoOfCopies: Integer; NewShowInternalInfo: Boolean; NewLogInteraction: Boolean)
     begin

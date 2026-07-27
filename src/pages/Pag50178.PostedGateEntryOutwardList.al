@@ -95,20 +95,21 @@ page 50178 "E3Posted Gate Ent Outward List"
                 {
                     ToolTip = 'Specifies the value of the Person field';
                     ApplicationArea = All;
+                    Caption = 'ABMH User Name';
                 }
                 field(Status; Rec.Status)
                 {
                     ToolTip = 'Specifies the value of the GRN ID field';
                     ApplicationArea = All;
                 }
-                field("Expected Return Date"; Rec."Expected Return Date")
-                {
-                    ToolTip = 'Specifies the value of the Expected Return Date field';
-                    ApplicationArea = All;
-                }
                 field("Reference Document No."; Rec."Reference Document No.")
                 {
                     ToolTip = 'Specifies the value of the Reference Document No. field';
+                    ApplicationArea = All;
+                }
+                field("Expected Return Date"; Rec."Expected Return Date")
+                {
+                    ToolTip = 'Specifies the value of the Expected Return Date field';
                     ApplicationArea = All;
                 }
                 field(Remarks; Rec.Remarks)

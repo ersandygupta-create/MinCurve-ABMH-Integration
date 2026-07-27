@@ -40,7 +40,9 @@ report 50048 "E3 Gate In Print"
             column(LocPostCode; LocPostCode)
             {
             }
-
+            column(Entry_Type; "Entry Type")
+            {
+            }
             column(GatePassType; "Gate Pass Type")
             {
             }
@@ -67,7 +69,7 @@ report 50048 "E3 Gate In Print"
             {
             }
 
-            column(DepartmentName; "Department Code")
+            column(FromDepartmentCode; "From Department Code")
             {
             }
             column(To_Department_Name; "To Department Name")
@@ -76,7 +78,12 @@ report 50048 "E3 Gate In Print"
             column(From_Department_Name; "From Department Name")
             {
             }
-
+            column(Reference_Document_No_; "Reference Document No.")
+            {
+            }
+            column(Reference_Document_Date; "Reference Document Date")
+            {
+            }
             column(ToDestination; "To Destination")
             {
             }

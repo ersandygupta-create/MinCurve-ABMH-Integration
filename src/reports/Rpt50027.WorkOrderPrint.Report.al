@@ -434,30 +434,7 @@ report 50027 "Work Order Print"
             LineGSTAmount)
             {
             }
-            column(Warrnty; Warrnty)
-            {
-            }
-            column(Parts; Parts)
-            {
-            }
-            column(AMC_Amount; PurchaseLine."EDC AMC Amount")
-            {
-            }
-            column(CMC_Amount; PurchaseLine."EDC CMC Amount")
-            {
-            }
-            column(YOY_Amount; YOYPer)
-            {
-            }
-            column(ModelName; Model)
-            {
-            }
-            column(AMCPer; PurchaseLine."EDC AMC Percentage")
-            {
-            }
-            column(CMCPer; PurchaseLine."EDC CMC Percentage")
-            {
-            }
+            column(Parts; Parts) { }
             column(DeliveryTerms; DeliveryTerms)
             {
             }
@@ -488,84 +465,7 @@ report 50027 "Work Order Print"
                 LineGSTAmount := PurchaseLine."Line Amount" * decGSTPer / 100;
 
 
-                //ak
-                RequisitionProcessing.RESET;
-                RequisitionProcessing.SETRANGE("Requisition No", "recPurchaseLine"."EDC Indent No.");
-                IF RequisitionProcessing.FIND('-') THEN BEGIN
-                    IF RequisitionProcessing."First Name/Model" <> '' THEN
-                        ModelName := RequisitionProcessing."First Name/Model";
 
-
-                    IF RequisitionProcessing."Second Name/Model" <> '' THEN
-                        ModelName := RequisitionProcessing."Second Name/Model";
-                    IF RequisitionProcessing."Third Name/Model" <> '' THEN
-                        ModelName := RequisitionProcessing."Third Name/Model";
-
-                    RequisitionLines.RESET;
-                    RequisitionLines.SETRANGE("Requisition No", "EDC Indent No.");
-                    IF RequisitionLines.FINDFIRST THEN
-                        IF RequisitionLines."First Vendor PO Creation" = TRUE THEN BEGIN
-                            YOYPer := RequisitionLines."First YOY Percentage";
-                            YOYAmount := RequisitionLines."Fir YOY Escalation on AMC/CMC";
-                            InstallChrg := RequisitionLines."First Installtion Charges";
-                            FreeItemValue := RequisitionLines."First Accessories";
-                            GSTonAcc := RequisitionLines."First GST on Accessories";
-                            Model := RequisitionLines."First Name/Model";
-                            Warrnty := RequisitionLines."First Equipments (in Months)";
-                            Parts := RequisitionLines."First Parts/Acce (in months)";
-                            PreInstallation := RequisitionLines."First Pre Installation Requir";
-                            DeliveryTerms := RequisitionLines."First Delivery Time";
-                            PaymentTerm := RequisitionLines."First Payment Terms";
-                            FeturedReq := RequisitionLines."Firs Feature Available not pur";
-                            TransportationChg := RequisitionLines."First Transportation Charges";
-                            AMC := RequisitionLines."First AMC Amount";
-                            AMCPer := RequisitionLines."First AMC Percentage";
-                            CMC := RequisitionLines."First CMC Amount";
-                            CMCPer := RequisitionLines."First CMC Percentage";
-                        END ELSE
-                            IF RequisitionLines."Second Vendor PO Creation" = TRUE THEN BEGIN
-                                YOYPer := RequisitionLines."Second YOY Percentage";
-                                YOYAmount := RequisitionLines."Sec YOY Escalation on AMC/CMC";
-                                InstallChrg := RequisitionLines."Second Installtion Charges";
-                                FreeItemValue := RequisitionLines."Second Accessories";
-                                GSTonAcc := RequisitionLines."Second GST on Accessories";
-                                Model := RequisitionLines."Second Name/Model";
-                                Warrnty := RequisitionLines."Second Equipments (in Months)";
-                                PreInstallation := RequisitionLines."Second Pre Installation Requir";
-                                DeliveryTerms := RequisitionLines."Second Delivery Terms";
-                                PaymentTerm := RequisitionLines."Second Payment Terms";
-                                FeturedReq := RequisitionLines."Sec Feature Available not pur";
-                                TransportationChg := RequisitionLines."Second Transportation Charges";
-                                Warrnty := RequisitionLines."Second Equipments (in Months)";
-                                Parts := RequisitionLines."Second Parts/Acce (in months)";
-                                AMC := RequisitionLines."Second AMC Amount";
-                                AMCPer := RequisitionLines."Second AMC Percentage";
-                                CMC := RequisitionLines."Second CMC Amount";
-                                CMCPer := RequisitionLines."Second CMC Percentage";
-                            END ELSE
-                                IF RequisitionLines."Third Vendor PO Creation" = TRUE THEN BEGIN
-                                    YOYPer := RequisitionLines."Third YOY Percentage";
-                                    YOYAmount := RequisitionLines."Thir YOY Escalation on AMC/CMC";
-                                    InstallChrg := RequisitionLines."Third Installtion Charges";
-                                    FreeItemValue := RequisitionLines."Third Accessories";
-                                    GSTonAcc := RequisitionLines."Third GST on Accessories";
-                                    Model := RequisitionLines."Third Name/Model";
-                                    Warrnty := RequisitionLines."Third Equipments (in Months)";
-                                    PreInstallation := RequisitionLines."Third Pre Installation Requir";
-                                    DeliveryTerms := RequisitionLines."Third Delivery Time";
-                                    PaymentTerm := RequisitionLines."Third Payment Terms";
-                                    FeturedReq := RequisitionLines."Thir Feature Available not pur";
-                                    TransportationChg := RequisitionLines."Third Transportation Charges";
-                                    Warrnty := RequisitionLines."Third Equipments (in Months)";
-                                    Parts := RequisitionLines."Third Parts/Acce (in months)";
-                                    AMC := RequisitionLines."Third AMC Amount";
-                                    AMCPer := RequisitionLines."Third AMC Percentage";
-                                    CMC := RequisitionLines."Third CMC Amount";
-                                    CMCPer := RequisitionLines."Third CMC Percentage";
-
-                                END;
-                    //ak
-                end;
             End;
         }
     }
@@ -676,36 +576,8 @@ report 50027 "Work Order Print"
         CGST_Amt: Decimal;
         IGST_Amt: Decimal;
         SGST_Amt: Decimal;
-        RequisitionProcessing: Record "EDC Requisition Processing";
-        RequisitionHeader: Record "EDC Requisition Header";
-        RequisitionLines: Record "EDC Requisition Lines";
-        DT: Text;
-        YOY: Decimal;
-        PT: Text;
-        PI: Text;
-        AMC: Decimal;
-        CMC: Decimal;
-        FI: Decimal;
-        FN: Text;
-        WI: Text;
-        WP: Text;
-        AMCPer: Decimal;
-        CMCPer: Decimal;
-        YOYPer: Decimal;
-        InstallChrg: Decimal;
-        FreeItemValue: Text[100];
-        GSTonAcc: Decimal;
-        Model: Text[50];
-        YOYAmount: Decimal;
-        Warrnty: Text[100];
-        PreInstallation: Text[100];
         DeliveryTerms: Text[100];
         PaymentTerm: Text[200];
-        FeturedReq: Text[100];
-        FreightAmt: Decimal;
-        InstalationAmt: Decimal;
-        GSTOnAcc1: Decimal;
-        TransportationChg: Decimal;
         Parts: Text[100];
         ModelName: Text;
         LastAEdt: DateTime;

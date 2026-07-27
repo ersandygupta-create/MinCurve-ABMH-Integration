@@ -103,6 +103,7 @@ page 50176 "E3 Posted Gate Ent Inward Hdr"
                 {
                     ToolTip = 'Specifies the value of the Person field';
                     ApplicationArea = All;
+                    Caption = 'ABMH User Name';
                 }
                 field(Status; Rec.Status)
                 {
@@ -114,14 +115,14 @@ page 50176 "E3 Posted Gate Ent Inward Hdr"
                     ToolTip = 'Specifies the value of the Expected Return Date field';
                     ApplicationArea = All;
                 }
-                field("Reference Document No."; Rec."Reference Document No.")
-                {
-                    ToolTip = 'Specifies the value of the Reference Document No. field';
-                    ApplicationArea = All;
-                }
                 field(Remarks; Rec.Remarks)
                 {
                     ToolTip = 'Specifies the value of the Remarks field';
+                    ApplicationArea = All;
+                }
+                field("Reference Document No."; Rec."Reference Document No.")
+                {
+                    ToolTip = 'Specifies the value of the Reference Document No. field';
                     ApplicationArea = All;
                 }
                 field("Reference Document Date"; Rec."Reference Document Date")

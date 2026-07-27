@@ -53,9 +53,9 @@ pageextension 50009 "E3 HIS Purchase Order" extends "Purchase Order"
                     recPurchHdr.Reset();
                     recPurchHdr.SetRange("No.", Rec."No.");
 
-                    if Rec."EDC Procurement Type" = Rec."EDC Procurement Type"::CAPEX then begin
+                    if Rec."E3 Capex Type" = Rec."E3 Capex Type"::CAPEX then begin
                         REPORT.RUNMODAL(Report::"Purchase Order Print_New", TRUE, TRUE, recPurchHdr);
-                    end else if Rec."EDC Procurement Type" = Rec."EDC Procurement Type"::OPEX then begin
+                    end else if Rec."E3 Capex Type" = Rec."E3 Capex Type"::OPEX then begin
                         REPORT.RUNMODAL(Report::"Work Order Print", TRUE, TRUE, recPurchHdr);
                     end else
                         Error('Procurement Type is not configured for printing.');

@@ -515,7 +515,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     Item.Validate("HSN/SAC Code", HisMasterStaging."HSN/SAC Code");
                     Item.Validate("GST Credit", HisMasterStaging."GST Credit");
                     Item.Validate(Type, HisMasterStaging."Inventory-NonInventory");
-                    Item.Validate("EDC Purchase Allowed", HisMasterStaging."Purchase Allowed");
+                    //Item.Validate("EDC Purchase Allowed", HisMasterStaging."Purchase Allowed");
                     Item."E3 HIS Type" := HisMasterStaging."HIS Type";
                     Item."E3 Item Type" := HisMasterStaging."Item Type";
                     Item.Modify();

@@ -51,12 +51,6 @@ query 50005 "E3 GL Budget Entry Data"
             column(dimensionSetID; "Dimension Set ID")
             {
             }
-            column(itemType; "EDC Item Type")
-            {
-            }
-            column(remarks; "EDC Remarks")
-            {
-            }
 
         }
     }

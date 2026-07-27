@@ -108,6 +108,7 @@ page 50175 "E3 Posted Gate Ent Inward List"
                 {
                     ToolTip = 'Specifies the value of the Person field';
                     ApplicationArea = All;
+                    Caption = 'ABMH User Name';
                 }
                 field(Status; Rec.Status)
                 {

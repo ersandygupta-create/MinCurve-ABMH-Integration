@@ -73,6 +73,7 @@ page 50163 "E3 Gate Entry Inward List"
                 {
                     ToolTip = 'Specifies the value of the Person field';
                     ApplicationArea = All;
+                    Caption = 'ABMH User Name';
                 }
                 field(Status; Rec.Status)
                 {

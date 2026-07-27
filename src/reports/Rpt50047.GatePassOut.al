@@ -39,7 +39,7 @@ report 50047 "E3 Gate OutWard Print"
             column(LocPostCode; LocPostCode)
             {
             }
-
+            column(Entry_Type; "Entry Type") { }
             column(GatePassType; "Gate Pass Type")
             {
             }
@@ -66,7 +66,7 @@ report 50047 "E3 Gate OutWard Print"
             {
             }
 
-            column(DepartmentName; "Department Code")
+            column(From_Department_Code; "From Department Code")
             {
             }
             column(To_Department_Name; "To Department Name")
@@ -78,7 +78,10 @@ report 50047 "E3 Gate OutWard Print"
             column(Expected_Return_Date; "Expected Return Date")
             {
             }
-
+            column(Reference_Document_No_; "Reference Document No.")
+            {
+            }
+            column(Reference_Document_Date; "Reference Document Date") { }
             column(ToDestination; "To Destination")
             {
             }

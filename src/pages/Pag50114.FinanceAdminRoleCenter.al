@@ -1093,67 +1093,6 @@ page 50114 "E3 Finance Admin Role Center"
                 }
 
             }
-            group("Excel Reports")
-            {
-                Caption = 'Excel Reports';
-                Image = Excel;
-                action(ExcelTemplatesBalanceSheet)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Balance Sheet';
-                    Image = "Report";
-                    RunObject = Codeunit "Run Template Balance Sheet";
-                    ToolTip = 'Open a spreadsheet that shows your company''s assets, liabilities, and equity.';
-                }
-                action(ExcelTemplateIncomeStmt)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Income Statement';
-                    Image = "Report";
-                    RunObject = Codeunit "Run Template Income Stmt.";
-                    ToolTip = 'Open a spreadsheet that shows your company''s income and expenses.';
-                }
-                action(ExcelTemplateCashFlowStmt)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Cash Flow Statement';
-                    Image = "Report";
-                    RunObject = Codeunit "Run Template CashFlow Stmt.";
-                    ToolTip = 'Open a spreadsheet that shows how changes in balance sheet accounts and income affect the company''s cash holdings.';
-                }
-                action(ExcelTemplateRetainedEarn)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Retained Earnings Statement';
-                    Image = "Report";
-                    RunObject = Codeunit "Run Template Retained Earn.";
-                    ToolTip = 'Open a spreadsheet that shows your company''s changes in retained earnings based on net income from the other financial statements.';
-                }
-                action(ExcelTemplateTrialBalance)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Trial Balance';
-                    Image = "Report";
-                    RunObject = Codeunit "Run Template Trial Balance";
-                    ToolTip = 'Open a spreadsheet that shows a summary trial balance by account.';
-                }
-                action(ExcelTemplateAgedAccPay)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Aged Accounts Payable';
-                    Image = "Report";
-                    RunObject = Codeunit "Run Template Aged Acc. Pay.";
-                    ToolTip = 'Open a spreadsheet that shows a list of aged remaining balances for each vendor by period.';
-                }
-                action(ExcelTemplateAgedAccRec)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Aged Accounts Receivable';
-                    Image = "Report";
-                    RunObject = Codeunit "Run Template Aged Acc. Rec.";
-                    ToolTip = 'Open a spreadsheet that shows when customer payments are due or overdue by period.';
-                }
-            }
         }
     }
 }

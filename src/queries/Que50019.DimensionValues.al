@@ -32,11 +32,6 @@ query 50019 "Dimension Values"
             column(systemModifiedAt; SystemModifiedAt) { }
             column(systemModifiedBy; SystemModifiedBy) { }
             column(systemRowVersion; SystemRowVersion) { }
-            column(projectType; "EDC Project Type") { }
-            column(shortcutDimension1Code; "EDC Shortcut Dimension 1 Code") { }
-            column(shortcutDimension2Code; "EDC Shortcut Dimension 2 Code") { }
-            column(procurementType; "EDC Procurement Type") { }
-            column(financialYear; "EDC Financial Year") { }
             column(securityCenterCode; "EDC Security Center Code") { }
         }
     }

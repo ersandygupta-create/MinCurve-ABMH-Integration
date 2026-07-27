@@ -55,42 +55,6 @@ pageextension 50050 "E3 HIS Purch. Order Subform" extends "Purchase Order Subfor
         {
             Editable = IsLineEditable;
         }
-        modify("EDC Requested Quantity")
-        {
-            Editable = IsLineEditable;
-        }
-        modify("EDC Requested Unit of Measure")
-        {
-            Editable = IsLineEditable;
-        }
-        modify("EDC Indent No.")
-        {
-            Editable = IsLineEditable;
-        }
-        modify("EDC Indent Date")
-        {
-            Editable = IsLineEditable;
-        }
-        modify("EDC Indent Line No.")
-        {
-            Editable = IsLineEditable;
-        }
-        modify("EDC AMC Percentage")
-        {
-            Editable = IsLineEditable;
-        }
-        modify("EDC AMC Amount")
-        {
-            Editable = IsLineEditable;
-        }
-        modify("EDC CMC Percentage")
-        {
-            Editable = IsLineEditable;
-        }
-        modify("EDC CMC Amount")
-        {
-            Editable = IsLineEditable;
-        }
         addafter("Expected Receipt Date")
         {
             field("Indent No."; Rec."Indent No.")
