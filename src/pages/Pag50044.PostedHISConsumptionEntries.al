@@ -32,6 +32,16 @@ page 50044 "E3 Posted HIS Cons. Entries"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Shortcut Dimension 1 Code field.';
                 }
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 2 Code field.';
+                }
+                field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 3 Code field.';
+                }
                 field(UHID; Rec.UHID)
                 {
                     Caption = 'UHID';

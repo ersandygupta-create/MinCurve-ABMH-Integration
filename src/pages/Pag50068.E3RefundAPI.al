@@ -135,6 +135,10 @@ page 50068 "E3 Refund API"
                 {
                     Caption = 'Branch';
                 }
+                field(bankName; Rec."Bank Name")
+                {
+                    Caption = 'Bank Name';
+                }
             }
         }
     }

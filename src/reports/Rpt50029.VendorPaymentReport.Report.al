@@ -11,8 +11,7 @@ report 50029 "Vendor Payment Report"
         dataitem("Bank Account Ledger Entry"; "Bank Account Ledger Entry")
         {
             DataItemTableView = SORTING("Entry No.")
-                                WHERE("Bal. Account Type" = FILTER(Vendor),
-                                      "Cheque No." = FILTER(<> ''), Reversed = filter(false));
+                                WHERE("Bal. Account Type" = FILTER(Vendor), Reversed = filter(false));
             //RequestFilterFields = "Cheque No.";
             column(BankAccNo; BankAccNo)
             {

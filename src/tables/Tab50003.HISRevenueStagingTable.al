@@ -310,6 +310,11 @@ table 50003 "E3 HIS Revenue Staging Table"
         {
             Caption = 'Branch';
         }
+        field(113; "Bank Name"; Text[100])
+        {
+            Caption = 'Bank Name';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {

@@ -155,6 +155,11 @@ page 50010 "E3 HIS Revenue Stagging"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Receipt No. field.';
                 }
+                field("Bank Name"; Rec."Bank Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bank Name field.';
+                }
                 field("E3 Bank Account No."; Rec."E3 Bank Account No.")
                 {
                     Caption = 'Bank Account No.';

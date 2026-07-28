@@ -110,6 +110,11 @@ page 50043 "E3 HIS Consumption Entries"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Shortcut Dimension 2 Code field.';
                 }
+                field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 3 Code field.';
+                }
                 field(DepartmentName; Rec.DepartmentName)
                 {
                     ApplicationArea = all;

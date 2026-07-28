@@ -131,6 +131,10 @@ page 50075 "E3 Consumption API"
                 {
                     Caption = 'Shortcut Dimension 2 Code';
                 }
+                field(shortcutDimension3Code; Rec."Shortcut Dimension 3 Code")
+                {
+                    Caption = 'Shortcut Dimension 3 Code';
+                }
                 field(lineNarration; Rec."Line Narration")
                 {
                     Caption = 'Line Narration';

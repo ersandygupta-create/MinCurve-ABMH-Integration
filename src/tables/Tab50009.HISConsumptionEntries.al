@@ -404,6 +404,14 @@ table 50009 "E3 HIS Consumption Entries"
             Caption = 'Error Description';
             DataClassification = CustomerContent;
         }
+        field(110; "Shortcut Dimension 3 Code"; Code[20])
+        {
+            CaptionClass = '1,1,3';
+            Caption = 'Shortcut Dimension 3 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
+            ValidateTableRelation = false;
+            DataClassification = CustomerContent;
+        }
 
     }
     keys
