@@ -1154,6 +1154,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
 
                     if HISConsumptionEntry."Shortcut Dimension 1 Code" <> '' then
                         GenJournalLine.VALIDATE("Shortcut Dimension 2 Code", GetMappedDimension(HISConsumptionEntry."Shortcut Dimension 2 Code"));
+                    GenJournalLine.ValidateShortcutDimCode(3, HISConsumptionEntry."Shortcut Dimension 3 Code");
 
                     GenJournalLine.VALIDATE("External Document No.", HISConsumptionEntry."External Document No.");
                     GenJournalLine."E3 Narration" := COPYSTR(HISConsumptionEntry."Line Narration", 1, 50);
