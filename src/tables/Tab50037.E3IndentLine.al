@@ -158,13 +158,17 @@ table 50037 "E3 Indent Line"
             begin
                 if "Vendor No." = '' then begin
                     "Vendor Name" := '';
+                    "Payment Terms" := '';
                     exit;
                 end;
 
-                if VendorRec.Get("Vendor No.") then
-                    "Vendor Name" := VendorRec.Name
-                else
+                if VendorRec.Get("Vendor No.") then begin
+                    "Vendor Name" := VendorRec.Name;
+                    Validate("Payment Terms", VendorRec."Payment Terms Code");
+                end else begin
                     "Vendor Name" := '';
+                    "Payment Terms" := '';
+                end;
             end;
         }
         field(14; "Vendor Name"; Text[100])

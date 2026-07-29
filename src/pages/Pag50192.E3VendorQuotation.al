@@ -255,7 +255,6 @@ page 50192 "E3 Quotation"
         if SelectedLine."Requested Qty" <> 0 then
             QuotAmount := SelectedLine."Quotation Amount" / SelectedLine."Requested Qty";
 
-
         // Find Last Line No.
         LastLine.Reset();
         LastLine.SetRange("Document No.", SelectedLine."Document No.");
@@ -287,6 +286,12 @@ page 50192 "E3 Quotation"
         NewLine."Original Request Qty" := SelectedLine."Original Request Qty";
         NewLine."Split Line" := true;
 
+        //=========================
+        // Added Quotation Amount Logic
+        //=========================
+        NewLine.Amount := Round(UnitAmount * SplitQty, 0.01);
+        NewLine."Quotation Amount" := Round(QuotAmount * SplitQty, 0.01);
+
         NewLine.Insert(true);
 
         // Update Existing Line
@@ -298,6 +303,12 @@ page 50192 "E3 Quotation"
 
         if SelectedLine."Approved Qty" > SelectedLine."Requested Qty" then
             Error('Approved Qty should not be greater than Request Qty.');
+
+        //=========================
+        // Update Existing Line Amount & Quotation Amount
+        //=========================
+        SelectedLine.Amount := Round(UnitAmount * SelectedLine."Requested Qty", 0.01);
+        SelectedLine."Quotation Amount" := Round(QuotAmount * SelectedLine."Requested Qty", 0.01);
 
         SelectedLine.Modify(true);
     end;

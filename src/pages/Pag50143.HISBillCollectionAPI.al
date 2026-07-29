@@ -56,6 +56,10 @@ page 50143 "E3 HIS Bill Collection API"
                 {
                     Caption = 'Shortcut Dimension 1 Code';
                 }
+                field(hisUserName; Rec."HIS User Name")
+                {
+                    Caption = 'HIS User Name';
+                }
                 field(validationHISKey; Rec."Validation HIS Key")
                 {
                     Caption = 'Validation HIS Key';
