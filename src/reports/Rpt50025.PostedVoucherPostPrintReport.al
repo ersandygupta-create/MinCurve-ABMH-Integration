@@ -401,7 +401,7 @@ report 50025 "Posted Voucher - Post Voucher"
         BankAcc: Record "Bank Account";
         FA: Record "Fixed Asset";
         Employee: Record Employee;
-        GlobalDim2Code: Text[100];
+        GlobalDim2Code: Text[500];
         GlobalDim1Name: Text[150];
         DocumentDate: Date;
         SourCurrCode: Code[10];
