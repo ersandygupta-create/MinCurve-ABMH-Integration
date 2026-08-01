@@ -26,6 +26,9 @@ report 50032 "EDC Fixed Assets Register"
             column(Nature_Of_Asset; Format("Nature Of Asset"))
             { }
             column(Remark; Remark) { }
+            column(Remarks2; "Remarks 1") { }
+            column(remark3; "Remarks 2") { }
+            column(InsuranceValue; "Insurance Value") { }
             column(Qty; Qty) { }
             column(Sub_Asset_Group_Name; "Sub Asset Group Name") { }
 
