@@ -32,6 +32,22 @@ tableextension 50056 "E3 HIS Fixed Asset" extends "Fixed Asset"
         {
             Caption = 'Remark';
         }
+        field(50007; "Remarks 1"; Text[100])
+        {
+            Caption = 'Remarks 1';
+            DataClassification = CustomerContent;
+        }
+        field(50008; "Remarks 2"; Text[100])
+        {
+            Caption = 'Remarks 2';
+            DataClassification = CustomerContent;
+        }
+        field(50009; "Insurance Value"; Decimal)
+        {
+            Caption = 'Insurance Value';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 2;
+        }
     }
     trigger OnBeforeRename()
     begin

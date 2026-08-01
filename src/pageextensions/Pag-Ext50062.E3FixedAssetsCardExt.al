@@ -53,6 +53,21 @@ pageextension 50062 "E3 HIS Fixed Assets Card" extends "Fixed Asset Card"
                 ToolTip = 'Remark';
                 ApplicationArea = All;
             }
+            field("Remarks 1"; Rec."Remarks 1")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the Remarks 1.';
+            }
+            field("Remarks 2"; Rec."Remarks 2")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the Remarks 2.';
+            }
+            field("Insurance Value"; Rec."Insurance Value")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the Insurance Value.';
+            }
         }
         addlast(factboxes)
         {
