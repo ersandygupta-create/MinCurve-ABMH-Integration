@@ -342,6 +342,33 @@ table 50037 "E3 Indent Line"
             DataClassification = CustomerContent;
             Editable = false;
         }
+        field(42; "Indent Qty"; Decimal)
+        {
+            Caption = 'Indent Qty';
+            DataClassification = CustomerContent;
+        }
+        field(43; "Indent Approved Qty"; Decimal)
+        {
+            Caption = 'Indent Approved Qty';
+            DataClassification = CustomerContent;
+        }
+        field(44; "Purch. Unit of Measure"; Code[20])
+        {
+            Caption = 'Purch. Unit of Measure';
+            DataClassification = CustomerContent;
+            TableRelation = "Unit of Measure".Code;
+        }
+        field(45; "Qty Per Purch. Unit of Measure"; Decimal)
+        {
+            Caption = 'Qty Per Purch. Unit of Measure';
+            DataClassification = CustomerContent;
+        }
+        field(46; "Short Qty"; Decimal)
+        {
+            Caption = 'Short Qty';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
+        }
         field(80285; "Currency Code"; Code[10])
         {
             DataClassification = CustomerContent;

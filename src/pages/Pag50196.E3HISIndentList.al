@@ -5,7 +5,7 @@ page 50196 "E3 HIS Indent List"
     ApplicationArea = All;
     UsageCategory = Lists;
     Caption = 'HIS Indent List';
-    CardPageId = "E3 Indent Card";
+    CardPageId = "E3 HIS Indent Card";
     SourceTableView = WHERE(Status = FILTER(Open | "Pending Approval"), "Source Type" = filter(HIS));
 
     layout

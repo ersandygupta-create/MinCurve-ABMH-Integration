@@ -82,6 +82,31 @@ page 50192 "E3 Quotation"
                     Editable = CanEdit;
                     ToolTip = 'Specifies the ordered quantity.';
                 }
+                field("Indent Qty"; Rec."Indent Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the Indent Qty.';
+                }
+                field("Indent Approved Qty"; Rec."Indent Approved Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the Indent Approved Qty.';
+                }
+                field("Purch. Unit of Measure"; Rec."Purch. Unit of Measure")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the Purch. Unit of Measure.';
+                }
+                field("Qty Per Purch. Unit of Measure"; Rec."Qty Per Purch. Unit of Measure")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the Qty Per Purch. Unit of Measure.';
+                }
+                field("Short Qty"; Rec."Short Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the Short Qty.';
+                }
                 field("Currency Code"; Rec."Currency Code")
                 {
                     ApplicationArea = All;
@@ -304,9 +329,6 @@ page 50192 "E3 Quotation"
         if SelectedLine."Approved Qty" > SelectedLine."Requested Qty" then
             Error('Approved Qty should not be greater than Request Qty.');
 
-        //=========================
-        // Update Existing Line Amount & Quotation Amount
-        //=========================
         SelectedLine.Amount := Round(UnitAmount * SelectedLine."Requested Qty", 0.01);
         SelectedLine."Quotation Amount" := Round(QuotAmount * SelectedLine."Requested Qty", 0.01);
 
