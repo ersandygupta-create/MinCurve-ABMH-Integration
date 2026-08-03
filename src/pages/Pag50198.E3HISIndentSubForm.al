@@ -56,26 +56,31 @@ page 50198 "E3 HIS Indent Line Subform"
                 field("Indent Qty"; Rec."Indent Qty")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the Indent Qty.';
                 }
                 field("Indent Approved Qty"; Rec."Indent Approved Qty")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the Indent Approved Qty.';
                 }
                 field("Purch. Unit of Measure"; Rec."Purch. Unit of Measure")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the Purch. Unit of Measure.';
                 }
                 field("Qty Per Purch. Unit of Measure"; Rec."Qty Per Purch. Unit of Measure")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the Qty Per Purch. Unit of Measure.';
                 }
                 field("Short Qty"; Rec."Short Qty")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the Short Qty.';
                 }
                 field("Unit Cost"; Rec."Unit Cost")
