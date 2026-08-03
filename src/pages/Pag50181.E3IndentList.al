@@ -7,6 +7,7 @@ page 50181 "E3 Indent List"
     Caption = 'System Indent List';
     CardPageId = "E3 Indent Card";
     SourceTableView = WHERE(Status = FILTER(Open | "Pending Approval"), "Source Type" = filter(D365));
+    editable = false;
 
     layout
     {

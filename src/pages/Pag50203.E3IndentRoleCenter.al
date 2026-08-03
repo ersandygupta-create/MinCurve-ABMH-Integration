@@ -90,31 +90,41 @@ page 50203 "E3 Indent Role Center"
                 }
             }
         }
-        area(Creation)
-        {
-            action(NewHISIndent)
-            {
-                Caption = 'New HIS Indent';
-                Image = NewDocument;
-                ApplicationArea = All;
-                RunObject = Page "E3 HIS Indent List";
-                RunPageMode = Create;
-            }
-        }
+        // area(Creation)
+        // {
+
+        // }
         area(Processing)
         {
+            action(Vendor)
+            {
+                Caption = 'Vendor';
+                Image = Vendor;
+                visible = false;
+                RunObject = Page "Vendor List";
+            }
+            action(SyatemIndent)
+            {
+                Caption = 'System Indent';
+                Image = View;
+                RunObject = Page "E3 Indent List";
+            }
+            action(HISIndent)
+            {
+                Caption = 'HIS Indent';
+                Image = View;
+                RunObject = Page "E3 HIS Indent List";
+            }
             action(ApprovedIndentList)
             {
                 Caption = 'Approved Indents';
                 Image = Approvals;
-                ApplicationArea = All;
                 RunObject = Page "E3 Approved Indent List";
             }
             action(VendorQuotationList)
             {
                 Caption = 'Vendor Quotation';
                 Image = Quote;
-                ApplicationArea = All;
                 RunObject = Page "E3 Quotation List";
             }
             action(ItemMake)

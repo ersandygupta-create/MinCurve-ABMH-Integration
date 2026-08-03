@@ -28,6 +28,9 @@ permissionset 50001 "E3 Indent Permission"
     table "E3 Indent Cue" = X,
     tabledata "E3 Indent Cue" = RIMD,
     page "E3 Indent Cue Card" = X,
-    page "E3 Indent Role Center" = X;
+    page "E3 Indent Role Center" = X,
+    Page "E3 HIS Indent List" = X,
+    Page "E3 HIS Indent Card" = X,
+    page "E3 HIS Indent Line Subform" = X;
 
 }

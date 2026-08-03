@@ -1,4 +1,4 @@
-pageextension 50079 "JV Worksheet Ext" extends "Journal Voucher" // Page 18557
+pageextension 50080 "JV Worksheet Ext" extends "Journal Voucher" // Page 18557
 {
     layout
     {
