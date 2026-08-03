@@ -1,4 +1,4 @@
-report 50001 "TCS Register Report"
+    report 50001 "TCS Register Report"
 {
     Caption = 'TCS Register';
     DefaultLayout = RDLC;

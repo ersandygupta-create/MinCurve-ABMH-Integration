@@ -3748,11 +3748,13 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         GenJournalLine.VALIDATE(GenJournalLine."Journal Template Name", IntegrationSetupLine."General Journal Template Code");
                         GenJournalLine.VALIDATE(GenJournalLine."Journal Batch Name", IntegrationSetupLine."General Journal Batch Code");
                         GenJournalLine."Line No." := LineNo;
+                        genjournalline."System-Created Entry" := TRUE;
                         IF (HISRevenueHeader."Record Type" = HISRevenueHeader."Record Type"::Revenue) AND (HISRevenueHeader."Document Type" = HISRevenueHeader."Document Type"::Invoice) THEN
                             GenJournalLine.VALIDATE("Document Type", GenJournalLine."Document Type"::Invoice)
                         ELSE
                             IF (HISRevenueHeader."Record Type" = HISRevenueHeader."Record Type"::"Revenue Cancel") AND (HISRevenueHeader."Document Type" = HISRevenueHeader."Document Type"::"Credit Memo") THEN
                                 GenJournalLine.VALIDATE("Document Type", GenJournalLine."Document Type"::"Credit Memo");
+
 
                         GenJournalLine.VALIDATE("Document No.", HISRevenueHeader."Document No.");
                         GenJournalLine.VALIDATE("Document Date", HISRevenueHeader."Document Date");
@@ -3819,6 +3821,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     GenJournalLine.VALIDATE(GenJournalLine."Journal Template Name", IntegrationSetupLine."General Journal Template Code");
                     GenJournalLine.VALIDATE(GenJournalLine."Journal Batch Name", IntegrationSetupLine."General Journal Batch Code");
                     GenJournalLine."Line No." := LineNo;
+                    genjournalline."System-Created Entry" := TRUE;
                     IF (HISRevenueHeader."Record Type" = HISRevenueHeader."Record Type"::Revenue) AND (HISRevenueHeader."Document Type" = HISRevenueHeader."Document Type"::Invoice) THEN
                         GenJournalLine.VALIDATE("Document Type", GenJournalLine."Document Type"::Invoice)
                     ELSE
@@ -3960,6 +3963,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                 GenJournalLine.VALIDATE(GenJournalLine."Journal Template Name", IntegrationSetupLine."General Journal Template Code");
                 GenJournalLine.VALIDATE(GenJournalLine."Journal Batch Name", IntegrationSetupLine."General Journal Batch Code");
                 GenJournalLine."Line No." := LineNo;
+                genjournalline."System-Created Entry" := TRUE;
                 IF (HISRevenueHeader."Record Type" = HISRevenueHeader."Record Type"::Revenue) AND (HISRevenueHeader."Document Type" = HISRevenueHeader."Document Type"::Invoice) THEN
                     GenJournalLine.VALIDATE("Document Type", GenJournalLine."Document Type"::Invoice)
                 ELSE

@@ -425,5 +425,23 @@ codeunit 50001 "E3 HIS Event Subscriber"
         DocumentAttachmentMgmt.CopyAttachments(FromRecRef, ToRecRef);
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnBeforeCheckDirectPosting', '', false, false)]
+    local procedure BypassDirectPostingForGSTMapping(var GLAccount: Record "G/L Account"; var IsHandled: Boolean; GenJournalLine: Record "Gen. Journal Line")
+    var
+        HISGLAccountMapping: Record "E3 HIS GL Accounts Mapping";
+    begin
+        if IsHandled then
+            exit;
+
+        if (GenJournalLine."System-Created Entry" = true) then begin
+            HISGLAccountMapping.Reset();
+            hisglaccountmapping.SetRange(Type, HISGLAccountMapping.Type::Revenue);
+            HISGLAccountMapping.SetRange("Account No.", GLAccount."No.");
+            if HISGLAccountMapping.FindFirst() then
+                IsHandled := true;
+        end;
+
+    end;
+
 
 }
