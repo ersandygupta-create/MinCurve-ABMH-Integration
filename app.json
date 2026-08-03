@@ -2,7 +2,7 @@
   "id": "edb8c7dd-4931-4e62-a693-45af77988a54",
   "name": "ABMH Integration",
   "publisher": "MindCurve",
-  "version": "1.0.0.1",
+  "version": "1.0.0.2",
   "brief": "ABMH Integration",
   "description": "HIS Integration ABMH",
   "privacyStatement": "https://MindCurve.in",
@@ -17,6 +17,7 @@
         "publisher":"Microsoft",
         "version": "1.0.0.0"
         },
+       
         {
             "id": "d3c551dd-5903-4194-b153-04ced9d29a2c",
             "name": "India Tax Base",
