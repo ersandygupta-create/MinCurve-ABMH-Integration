@@ -1,7 +1,7 @@
 report 50002 "GST Sales Invoice Print"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './src/reports/Rpt50002.GST Sales Invoice.rdl';
+    RDLCLayout = './src/reports/Rpt50002.GSTSalesInvoice.rdl';
     Permissions = tabledata "Sales Invoice Header" = RM;
     Caption = 'Sales Invocie - GST';
     UsageCategory = ReportsAndAnalysis;
@@ -96,7 +96,7 @@ report 50002 "GST Sales Invoice Print"
             {
 
             }
-            column(amountinwords; amountinwords)
+            column(amountinwords; AmountText)
             {
             }
             column(GST_Bill_to_State_Code; "GST Bill-to State Code")
@@ -750,7 +750,15 @@ report 50002 "GST Sales Invoice Print"
 
                 amounttoCustomer := 0;
                 CalculateStructure.GetPostedSalesInvStatisticsAmount("Sales Header", amounttoCustomer);
-                amountinwords := ConvertAmountToWords(amounttoCustomer);
+
+                CheckReport.InitTextVariable();
+                CheckReport.FormatNoText(amountinwords, amounttoCustomer, "Sales Header"."Currency Code");
+                if StrPos(amountinwords[1], '**** ') = 1 then
+                    amountinwords[1] := CopyStr(amountinwords[1], 6);
+
+                AmountText := amountinwords[1];
+                if amountinwords[2] <> '' then
+                    AmountText += ' ' + amountinwords[2];
 
 
 
@@ -1024,11 +1032,10 @@ report 50002 "GST Sales Invoice Print"
 
         NoText: array[100] of Text;
 
-        amountinwords: Text;
-
+        amountinwords: array[2] of Text;
         netamt: Decimal;
-
-
+        CheckReport: Report "Check Report";
+        AmountText: Text[250];
         saleinvline: Record "Sales Invoice Line";
         GSTCodeBill: Code[30];
         GSTCOdeShip: Code[30];
@@ -1079,20 +1086,6 @@ report 50002 "GST Sales Invoice Print"
         BankAccountNo: Code[50];
         IFSCCode: Code[20];
         Branch: Text[50];
-
-
-    local procedure ConvertAmountToWords(Amount: Decimal): Text
-    var
-        TempCheckReport: Report 1401;
-        NoText: array[2] of Text;
-    begin
-        Clear(NoText);
-
-        TempCheckReport.InitTextVariable();
-        TempCheckReport.FormatNoText(NoText, Amount, '');
-
-        exit(NoText[1] + NoText[2]);
-    end;
 
     procedure SetType(LocalSalesType: Text)
     begin
