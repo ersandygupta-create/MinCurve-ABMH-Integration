@@ -430,6 +430,7 @@ table 50037 "E3 Indent Line"
         end;
     end;
 
+
     var
         IndentHeader: Record "E3 Indent Header";
         GLAcc: Record "G/L Account";
