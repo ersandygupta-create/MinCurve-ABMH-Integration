@@ -1,4 +1,4 @@
-table 50204 "E3 Indent Cue"
+table 50044 "E3 Indent Cue"
 {
     DataClassification = CustomerContent;
 
