@@ -86,9 +86,11 @@ codeunit 50028 "E3 Bank Integration"
     begin
     end;
 
+
     procedure SCExportTransactionRequestFile(var TempBankAccountLedgerEntry: Record 271 temporary)
     var
         BankIntegrationTable: Record "E3 Bank Integration";
+        VendBankAcc: Record "Vendor Bank Account";
         BankAccountLedgerEntry: Record 271;
         PPsetup: Record "Purchases & Payables Setup";
         NoSeriesLine: Record "No. Series Line";
@@ -102,6 +104,7 @@ codeunit 50028 "E3 Bank Integration"
         i: Integer;
         c: Char;
         CleanBeneficiaryName: Text[100];
+        DebitAccNo: text[20];
         BeneficiaryAccNo: Text[50];
         CurrentDate: Date;
         DayTxt: Text[2];
@@ -147,7 +150,7 @@ codeunit 50028 "E3 Bank Integration"
         BankAccountTable.SetRange("No.", TempBankAccountLedgerEntry."Bank Account No.");
         if BankAccountTable.find('-') then;
 
-        FileName := StrSubstNo('%1_%2_%3%4%5.%6', BankAccountTable."Server Code", BankAccountTable."Client Code", DayTxt, MonthTxt, YearTxt, CurrentValue);
+        FileName := StrSubstNo('%1_%2_%3%4%5.%6', T1Lbl, T2Lbl, DayTxt, MonthTxt, YearTxt, CurrentValue);
 
         //  FileName := StrSubstNo('H2HCBX_RBINE_RBINE%1%2.%3', DayTxt, MonthTxt, CurrentValue);
 
@@ -217,6 +220,11 @@ codeunit 50028 "E3 Bank Integration"
                     else
                         BeneficiaryAccNo := '';
 
+                    DebitAccNo := TempBankAccountLedgerEntry."Bal. Account No.";
+                    VendBankAcc.Reset();
+                    VendBankAcc.SetRange("Vendor No.", DebitAccNo);
+                    if VendBankAcc.Find('-') then;
+
                     VenBank.Reset();
                     VenBank.SetRange("Vendor No.", "Bal. Account No.");
                     if VenBank.Find('-') then
@@ -224,14 +232,7 @@ codeunit 50028 "E3 Bank Integration"
                     "Recipient Branch Name" := VenBank."Bank Branch No.";
 
 
-                    if CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) = 'ICICI' then
-                        "Record Identifier" := 'I'
-                    else
-                        if (CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) <> 'ICICI') then
-                            if (Abs(TempBankAccountLedgerEntry.Amount) <= 200000) then
-                                "Record Identifier" := 'N'
-                            else
-                                "Record Identifier" := 'R';
+                    "Record Identifier" := 'P';
 
                     if CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) = 'ICICI' then
                         "Payment Indicator" := 'I'
@@ -251,7 +252,7 @@ codeunit 50028 "E3 Bank Integration"
                         DelChr(DelChr(Format(TempBankAccountLedgerEntry.Amount, 0, 1), '=', ','), '=', '-') + ',' +
                         Format(TempBankAccountLedgerEntry."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + ',' +
                         TempBankAccountLedgerEntry."Cheque No." + ',' +
-                        "Debit Account No." + ',' +
+                        VendBankAcc."Bank Account No." + ',' +
                         TempBankAccountLedgerEntry."Recipient Bank Account" + ',' +
                         TempBankAccountLedgerEntry."Recipient Bank IFSC Code" + ',' +
                         TempBankAccountLedgerEntry."Recipient Bank Name" + ',' +
@@ -331,6 +332,8 @@ codeunit 50028 "E3 Bank Integration"
         Text000Lbl: Label 'Fixed Asset G/L Journal';
 #pragma warning disable AA0470
         Text001Lbl: Label '%1 journal';
+        T1Lbl: Label 'ADBMHVEN';
+        T2Lbl: Label 'ADBMHVENSAP';
 #pragma warning restore AA0470
         Text002Lbl: Label 'RECURRING';
         Text003Lbl: Label 'Recurring General Journal';
