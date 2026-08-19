@@ -68,7 +68,7 @@ codeunit 50032 "E3 Gate Entry Transfer"
         GateEntryLine.SetRange("Document No.", GateEntryHeader."Document No.");
         if GateEntryLine.FindSet() then
             GateEntryLine.DeleteAll();
-        GateEntryHeader.DeleteAll();
+        GateEntryHeader.Delete();
         Message('Shipment %1 posted successfully and inward entry created.', ShipmentNo);
     end;
 

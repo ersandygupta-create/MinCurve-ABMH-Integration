@@ -597,31 +597,7 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                     }
 
                 }
-                // group("E3 HIS Opex GRN Entries")
-                // {
-                //     Caption = 'Opex GRN Entries';
 
-                //     action("E3 HIS Opex GRN")
-                //     {
-                //         AccessByPermission = TableData "E3 HIS Purchase Header" = IMD;
-                //         ApplicationArea = Basic, Suite;
-                //         Caption = 'Create Opex GRN';
-                //         Image = Archive;
-                //         RunObject = Page "E3 HIS GRN Opex List";
-                //         RunPageMode = Create;
-                //         ToolTip = 'Create a new Opex GRN Entries for Vendor.';
-                //     }
-                //     action("E3 Created HIS Opex GRN")
-                //     {
-                //         AccessByPermission = TableData "E3 HIS Purchase Header" = R;
-                //         ApplicationArea = Basic, Suite;
-                //         Caption = 'Created Opex GRN';
-                //         Image = Archive;
-                //         RunObject = Page "E3 Posted HIS GRN Opex List";
-                //         RunPageMode = Create;
-                //         ToolTip = 'Created a Opex GRN Entries for Vendor.';
-                //     }
-                // }
                 group("E3 HIS Capex GRN Entries")
                 {
                     Caption = 'Capex GRN Entries';
@@ -647,71 +623,72 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                         ToolTip = 'Created a Capex GRN Entries for Vendor.';
                     }
                 }
-                group("E3 Gate Entry")
+
+            }
+            group("E3 Gate Entry")
+            {
+                Caption = 'Gate Entry';
+
+                group("E3 Gate Entry Creation")
                 {
-                    Caption = 'Gate Entry';
-
-                    group("E3 Gate Entry Creation")
+                    Caption = 'Gate Entry Creation';
+                    action("E3 Gate Entry Outward")
                     {
-                        Caption = 'Gate Entry Creation';
-                        action("E3 Gate Entry Outward")
-                        {
-                            AccessByPermission = TableData "E3 Gate Entry Header" = R;
-                            ApplicationArea = Basic, Suite;
-                            Caption = 'Create Gate Entry Outward';
-                            Image = Archive;
-                            RunObject = Page "E3 Gate Entry Outward List";
-                            RunPageMode = Create;
-                            ToolTip = 'Created a Gate Entry Outward for Vendor.';
-                        }
-                        action("E3 Gate Entry Inward")
-                        {
-                            AccessByPermission = TableData "E3 Gate Entry Header" = IMD;
-                            ApplicationArea = Basic, Suite;
-                            Caption = 'Create Gate Entry Inward';
-                            Image = Archive;
-                            RunObject = Page "E3 Gate Entry Inward List";
-                            RunPageMode = Create;
-                            ToolTip = 'Create a new Gate Entry Inward for Vendor.';
-                        }
+                        AccessByPermission = TableData "E3 Gate Entry Header" = R;
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Create Gate Entry Outward';
+                        Image = Archive;
+                        RunObject = Page "E3 Gate Entry Outward List";
+                        RunPageMode = Create;
+                        ToolTip = 'Created a Gate Entry Outward for Vendor.';
                     }
-
-                    group("E3 Posted Gate Entry")
+                    action("E3 Gate Entry Inward")
                     {
-                        Caption = 'Posted Gate Entry';
-                        action("E3 Posted Gate Entry Inward")
-                        {
-                            AccessByPermission = TableData "E3 Posted Gate Entry Header" = IMD;
-                            ApplicationArea = Basic, Suite;
-                            Caption = 'Posted Gate Entry Inward';
-                            Image = Archive;
-                            RunObject = Page "E3 Posted Gate Ent Inward List";
-                            RunPageMode = Create;
-                            ToolTip = 'Create a new Gate Entry Inward for Vendor.';
-                        }
-                        action("E3 Posted Gate Entry Outward")
-                        {
-                            AccessByPermission = TableData "E3 Posted Gate Entry Header" = IMD;
-                            ApplicationArea = Basic, Suite;
-                            Caption = 'Posted Gate Entry Outward';
-                            Image = Archive;
-                            RunObject = Page "E3Posted Gate Ent Outward List";
-                            RunPageMode = Create;
-                            ToolTip = 'Create a new Gate Entry Outward for Vendor.';
-                        }
+                        AccessByPermission = TableData "E3 Gate Entry Header" = IMD;
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Create Gate Entry Inward';
+                        Image = Archive;
+                        RunObject = Page "E3 Gate Entry Inward List";
+                        RunPageMode = Create;
+                        ToolTip = 'Create a new Gate Entry Inward for Vendor.';
                     }
-                    group(Report)
+                }
+
+                group("E3 Posted Gate Entry")
+                {
+                    Caption = 'Posted Gate Entry';
+                    action("E3 Posted Gate Entry Inward")
                     {
-                        Caption = 'Report';
-                        action("Gate Pass Register")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            Caption = 'Gate Pass Register';
-                            Image = Report;
-                            RunObject = report "Gate Pass Register";
-                            RunPageMode = Edit;
-                            ToolTip = 'Executes the Gate Pass Register action.';
-                        }
+                        AccessByPermission = TableData "E3 Posted Gate Entry Header" = IMD;
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Posted Gate Entry Inward';
+                        Image = Archive;
+                        RunObject = Page "E3 Posted Gate Ent Inward List";
+                        RunPageMode = Create;
+                        ToolTip = 'Create a new Gate Entry Inward for Vendor.';
+                    }
+                    action("E3 Posted Gate Entry Outward")
+                    {
+                        AccessByPermission = TableData "E3 Posted Gate Entry Header" = IMD;
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Posted Gate Entry Outward';
+                        Image = Archive;
+                        RunObject = Page "E3Posted Gate Ent Outward List";
+                        RunPageMode = Create;
+                        ToolTip = 'Create a new Gate Entry Outward for Vendor.';
+                    }
+                }
+                group(Report)
+                {
+                    Caption = 'Report';
+                    action("Gate Pass Register")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Gate Pass Register';
+                        Image = Report;
+                        RunObject = report "Gate Pass Register";
+                        RunPageMode = Edit;
+                        ToolTip = 'Executes the Gate Pass Register action.';
                     }
                 }
             }

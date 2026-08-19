@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-27T05:43:21.3715729Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-08-13T14:01:01.7059129Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -3139,7 +3139,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               <Top>8.11848cm</Top>
               <Left>0.09176cm</Left>
               <Height>0.5cm</Height>
-              <Width>2.58503cm</Width>
+              <Width>2.44392cm</Width>
               <ZIndex>10</ZIndex>
               <Style>
                 <Border>
@@ -3191,9 +3191,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.11848cm</Top>
-              <Left>2.6477cm</Left>
+              <Left>2.53385cm</Left>
               <Height>0.5cm</Height>
-              <Width>3.28267cm</Width>
+              <Width>6.0988cm</Width>
               <ZIndex>11</ZIndex>
               <Style>
                 <Border>
@@ -3245,9 +3245,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.11143cm</Top>
-              <Left>5.96565cm</Left>
+              <Left>8.63265cm</Left>
               <Height>0.5cm</Height>
-              <Width>5.3749cm</Width>
+              <Width>3.49276cm</Width>
               <ZIndex>12</ZIndex>
               <Style>
                 <Border>
@@ -3287,7 +3287,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>TDS Amount</Value>
+                      <Value>TDS Amount </Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -3301,9 +3301,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.11143cm</Top>
-              <Left>11.32107cm</Left>
-              <Height>0.5cm</Height>
-              <Width>2.3126cm</Width>
+              <Left>12.12541cm</Left>
+              <Height>0.50705cm</Height>
+              <Width>2.07273cm</Width>
               <ZIndex>13</ZIndex>
               <Style>
                 <Border>
@@ -3357,9 +3357,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.11848cm</Top>
-              <Left>13.63368cm</Left>
+              <Left>14.19812cm</Left>
               <Height>0.5cm</Height>
-              <Width>2.6499cm</Width>
+              <Width>2.40296cm</Width>
               <ZIndex>14</ZIndex>
               <Style>
                 <Border>
@@ -3413,9 +3413,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.11848cm</Top>
-              <Left>16.28135cm</Left>
+              <Left>16.60108cm</Left>
               <Height>0.5cm</Height>
-              <Width>2.61239cm</Width>
+              <Width>2.29266cm</Width>
               <ZIndex>15</ZIndex>
               <Style>
                 <Border>
@@ -3468,7 +3468,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
               <Top>8.61143cm</Top>
               <Left>0.0644cm</Left>
               <Height>0.93862cm</Height>
-              <Width>2.61239cm</Width>
+              <Width>2.46945cm</Width>
               <ZIndex>16</ZIndex>
               <Style>
                 <Border>
@@ -3553,9 +3553,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.61495cm</Top>
-              <Left>2.68298cm</Left>
+              <Left>2.53385cm</Left>
               <Height>0.9351cm</Height>
-              <Width>3.28267cm</Width>
+              <Width>6.0988cm</Width>
               <ZIndex>17</ZIndex>
               <Style>
                 <Border>
@@ -3607,9 +3607,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.61143cm</Top>
-              <Left>5.96565cm</Left>
+              <Left>8.63265cm</Left>
               <Height>0.93862cm</Height>
-              <Width>5.3749cm</Width>
+              <Width>3.48217cm</Width>
               <ZIndex>18</ZIndex>
               <Style>
                 <Border>
@@ -3662,10 +3662,10 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>8.61848cm</Top>
-              <Left>11.32107cm</Left>
-              <Height>0.93157cm</Height>
-              <Width>2.3126cm</Width>
+              <Top>8.61143cm</Top>
+              <Left>12.12188cm</Left>
+              <Height>0.93862cm</Height>
+              <Width>2.07625cm</Width>
               <ZIndex>19</ZIndex>
               <Style>
                 <Border>
@@ -3699,9 +3699,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.62553cm</Top>
-              <Left>13.63368cm</Left>
+              <Left>14.19812cm</Left>
               <Height>0.92452cm</Height>
-              <Width>2.6499cm</Width>
+              <Width>2.40296cm</Width>
               <ZIndex>20</ZIndex>
               <Style>
                 <Border>
@@ -3735,9 +3735,9 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 </Paragraph>
               </Paragraphs>
               <Top>8.62553cm</Top>
-              <Left>16.28135cm</Left>
+              <Left>16.60108cm</Left>
               <Height>0.92452cm</Height>
-              <Width>2.61239cm</Width>
+              <Width>2.29266cm</Width>
               <ZIndex>21</ZIndex>
               <Style>
                 <Border>
@@ -4190,7 +4190,7 @@ First(Fields!TotalPayment.Value), 1)</Hidden>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!VendAddr2.Value, "DataSet_Result") &amp; " " &amp; First(Fields!VendAddr3.Value, "DataSet_Result") &amp; " " &amp; First(Fields!VendAddr4.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!VendAddr3.Value, "DataSet_Result") &amp; " " &amp; First(Fields!VendAddr4.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Segoe UI</FontFamily>

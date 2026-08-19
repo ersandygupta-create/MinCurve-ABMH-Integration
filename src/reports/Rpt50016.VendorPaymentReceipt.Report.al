@@ -520,6 +520,11 @@ report 50016 "E3 Vendor - Payment Advice"
                     ChequeDate := BankAccountLedgerEntry."Cheque Date";
                     if BankAccount.Get(BankAccountLedgerEntry."Bank Account No.") then
                         IssueBankName := BankAccount.Name;
+                    // if StrLen(BankAccountLedgerEntry."Recipient Bank Account") > 4 then
+                    //     IssueBankName := BankAccountLedgerEntry."Recipient Bank Name" + '-' + CopyStr(BankAccountLedgerEntry."Recipient Bank Account", StrLen(BankAccountLedgerEntry."Recipient Bank Account") - 3)
+                    // else
+                    //     IssueBankName := BankAccountLedgerEntry."Recipient Bank Name" + '-' + BankAccountLedgerEntry."Recipient Bank Account";
+
                     IssueBankAccountNo := BankAccount."Bank Account No.";
                     if BankAccountLedgerEntry."Cheque No." <> '' then
                         ModeofPayment := 'CHEQUE'
@@ -550,9 +555,12 @@ report 50016 "E3 Vendor - Payment Advice"
 
                 VendorBank.Reset();
                 VendorBank.SetRange("Vendor No.", "Vendor No.");
-                if VendorBank.FindFirst() then
+                if VendorBank.FindFirst() then begin
                     VenBankAccountNo := (VendorBank."Bank Account No.");
-                VenIFSCCode := (VendorBank."Bank Clearing Code");
+                    VenIFSCCode := (VendorBank."E3 IFSC Code");
+
+                end;
+
 
 
                 decTDSAmt := 0;

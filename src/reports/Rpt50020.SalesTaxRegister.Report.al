@@ -771,8 +771,10 @@ report 50020 "Sales Tax Register"
         GenPostingSetup.SetRange("Gen. Bus. Posting Group", "Purch. Cr. Memo Line"."Gen. Bus. Posting Group");
         GenPostingSetup.SetRange("Gen. Prod. Posting Group", "Purch. Cr. Memo Line"."Gen. Prod. Posting Group");
         IF GenPostingSetup.FindFirst() then begin
-            GLAccount.Get(GenPostingSetup."Purch. Account");
-            txtLedgerDescription := GLAccount.Name;
+            GLAccount.Reset();
+            GLAccount.SetRange("No.", GenPostingSetup."Purch. Account");
+            if GLAccount.Find('-') then
+                txtLedgerDescription := GLAccount.Name;
         end;
 
         decTCSPer := 0;

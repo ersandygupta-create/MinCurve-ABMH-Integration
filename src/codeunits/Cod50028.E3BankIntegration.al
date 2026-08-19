@@ -90,7 +90,7 @@ codeunit 50028 "E3 Bank Integration"
     procedure SCExportTransactionRequestFile(var TempBankAccountLedgerEntry: Record 271 temporary)
     var
         BankIntegrationTable: Record "E3 Bank Integration";
-        VendBankAcc: Record "Vendor Bank Account";
+        BankAcc: Record "Bank Account";
         BankAccountLedgerEntry: Record 271;
         PPsetup: Record "Purchases & Payables Setup";
         NoSeriesLine: Record "No. Series Line";
@@ -220,10 +220,10 @@ codeunit 50028 "E3 Bank Integration"
                     else
                         BeneficiaryAccNo := '';
 
-                    DebitAccNo := TempBankAccountLedgerEntry."Bal. Account No.";
-                    VendBankAcc.Reset();
-                    VendBankAcc.SetRange("Vendor No.", DebitAccNo);
-                    if VendBankAcc.Find('-') then;
+                    DebitAccNo := TempBankAccountLedgerEntry."Bank Account No.";
+                    BankAcc.Reset();
+                    BankAcc.SetRange("No.", DebitAccNo);
+                    if BankAcc.Find('-') then;
 
                     VenBank.Reset();
                     VenBank.SetRange("Vendor No.", "Bal. Account No.");
@@ -234,47 +234,15 @@ codeunit 50028 "E3 Bank Integration"
 
                     "Record Identifier" := 'P';
 
-                    if CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) = 'ICICI' then
+                    if CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) = 'ICIC' then
                         "Payment Indicator" := 'I'
                     else
-                        if (CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) <> 'ICICI') then
+                        if (CopyStr(TempBankAccountLedgerEntry."Recipient Bank IFSC Code", 1, 4) <> 'ICIC') then
                             if (Abs(TempBankAccountLedgerEntry.Amount) <= 200000) then
                                 "Payment Indicator" := 'N'
                             else
                                 "Payment Indicator" := 'R';
 
-                    TextBuilder.AppendLine(
-                        "Record Identifier" + ',' +
-                        "Payment Indicator" + ',' +
-                        TempBankAccountLedgerEntry."Document No." + ',' +
-                        TempBankAccountLedgerEntry."Bal. Account No." + ',' +
-                        BeneficiaryName + ',' +
-                        DelChr(DelChr(Format(TempBankAccountLedgerEntry.Amount, 0, 1), '=', ','), '=', '-') + ',' +
-                        Format(TempBankAccountLedgerEntry."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + ',' +
-                        TempBankAccountLedgerEntry."Cheque No." + ',' +
-                        VendBankAcc."Bank Account No." + ',' +
-                        TempBankAccountLedgerEntry."Recipient Bank Account" + ',' +
-                        TempBankAccountLedgerEntry."Recipient Bank IFSC Code" + ',' +
-                        TempBankAccountLedgerEntry."Recipient Bank Name" + ',' +
-                        BeneficiaryAdd1 + ',' +
-                        BeneficiaryAdd2 + ',' +
-                        BeneficiaryAdd3 + ',' +
-                        "Beneficiary Add 4" + ',' +
-                        "Beneficiary Zip" + ',' +
-                        "Debit Narration" + ',' +
-                        "Print Location" + ',' +
-                        "Payable Location" + ',' +
-                        "Fiscal Year" + ',' +
-                        "Company Code" + ',' +
-                        "Email ID" + ',' +
-                        "Mobile Number" + ',' +
-                        "AADHAR Number" + ',' +
-                        "Bene LEI Number" + ',' +
-                        Format("Bene LEI Expiry Date", 0, '<Day,2>-<Month,2>-<Year4>') + ',' +
-                        "Duplicate Validation Field"
-
-
-                        );
                     // code to insert data in table  //sandeep
                     BankIntegrationTable.Init();
                     NextEntryNo += 1;
@@ -306,7 +274,51 @@ codeunit 50028 "E3 Bank Integration"
                     BankIntegrationTable."AADHAR Number" := "AADHAR Number";
                     BankIntegrationTable."Bene LEI Number" := "Bene LEI Number";
                     BankIntegrationTable."Bene LEI Expiry Date" := "Bene LEI Expiry Date";
+                    BankIntegrationTable."Duplicate Validation Field" := "Duplicate Validation Field";
+                    BankIntegrationTable."Document No." := TempBankAccountLedgerEntry."Document No.";
+                    BankIntegrationTable."Bal. Account No." := TempBankAccountLedgerEntry."Bal. Account No.";
+                    BankIntegrationTable.BeneficiaryName := BeneficiaryName;
+                    BankIntegrationTable.Aamount := TempBankAccountLedgerEntry.Amount;
+                    BankIntegrationTable."Posting Date" := TempBankAccountLedgerEntry."Posting Date";
+                    BankIntegrationTable."Cheque No." := TempBankAccountLedgerEntry."Cheque No.";
+                    BankIntegrationTable."Bank Account No." := BankAcc."Bank Account No.";
+                    BankIntegrationTable."Recipient Bank Account" := TempBankAccountLedgerEntry."Recipient Bank Account";
+                    BankIntegrationTable."Recipient Bank IFSC Code" := TempBankAccountLedgerEntry."Recipient Bank IFSC Code";
+                    BankIntegrationTable."Recipient Bank Name" := TempBankAccountLedgerEntry."Recipient Bank Name";
                     BankIntegrationTable.Insert();
+                    TextBuilder.AppendLine(
+                        "Record Identifier" + ',' +
+                        "Payment Indicator" + ',' +
+                        TempBankAccountLedgerEntry."Document No." + ',' +
+                        TempBankAccountLedgerEntry."Bal. Account No." + ',' +
+                        BeneficiaryName + ',' +
+                        DelChr(DelChr(Format(TempBankAccountLedgerEntry.Amount, 0, 1), '=', ','), '=', '-') + ',' +
+                        Format(TempBankAccountLedgerEntry."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + ',' +
+                        TempBankAccountLedgerEntry."Cheque No." + ',' +
+                        BankAcc."Bank Account No." + ',' +
+                        TempBankAccountLedgerEntry."Recipient Bank Account" + ',' +
+                        TempBankAccountLedgerEntry."Recipient Bank IFSC Code" + ',' +
+                        TempBankAccountLedgerEntry."Recipient Bank Name" + ',' +
+                        BeneficiaryAdd1 + ',' +
+                        BeneficiaryAdd2 + ',' +
+                        BeneficiaryAdd3 + ',' +
+                        "Beneficiary Add 4" + ',' +
+                        "Beneficiary Zip" + ',' +
+                        "Debit Narration" + ',' +
+                        "Print Location" + ',' +
+                        "Payable Location" + ',' +
+                        "Fiscal Year" + ',' +
+                        "Company Code" + ',' +
+                        "Email ID" + ',' +
+                        "Mobile Number" + ',' +
+                        "AADHAR Number" + ',' +
+                        "Bene LEI Number" + ',' +
+                        Format("Bene LEI Expiry Date", 0, '<Day,2>-<Month,2>-<Year4>') + ',' +
+                        "Duplicate Validation Field"
+
+
+                        );
+
                 // code to insert data in table // sandeep 
 
                 until Next() = 0;

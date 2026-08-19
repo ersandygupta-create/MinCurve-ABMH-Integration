@@ -236,6 +236,52 @@ table 50032 "E3 Bank Integration"
         {
             DataClassification = ToBeClassified;
         }
+        field(36; "Document No."; Code[35])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(37; "Bal. Account No."; Code[20])
+        {
+            Caption = 'Bal. Account No.';
+        }
+
+        field(38; BeneficiaryName; Text[100])
+        {
+            Caption = 'Beneficiary Name';
+        }
+        field(39; Aamount; Decimal)
+        {
+            Caption = 'Amount';
+        }
+        field(40; "Posting Date"; Date)
+        {
+            Caption = 'Posting Date';
+        }
+        field(41; "Cheque No."; Code[10])
+        {
+            Caption = 'Cheque No.';
+            DataClassification = CustomerContent;
+        }
+        field(42; "Bank Account No."; Text[30])
+        {
+            Caption = 'Bank Account No.';
+            ToolTip = 'Specifies the number used by the bank for the bank account.';
+        }
+        field(43; "Recipient Bank IFSC Code"; Code[50])
+        {
+            Description = 'Recipient Bank IFSC Code';
+            DataClassification = CustomerContent;
+        }
+        field(44; "Recipient Bank Account"; Code[30])
+        {
+            Caption = 'Recipient Bank Account';
+            DataClassification = ToBeClassified;
+        }
+        field(45; "Recipient Bank Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Recipient Bank Name';
+        }
 
 
 
