@@ -22,7 +22,7 @@ tableextension 50002 "E3 Gen. Journal Line Exts" extends "Gen. Journal Line"
             Caption = 'Store Code';
             DataClassification = CustomerContent;
         }
-        field(50012; "E3 Sub Group Code"; Code[10])
+        field(50012; "E3 Sub Group Code"; Code[50])
         {
             Caption = 'Sub Group Code';
             DataClassification = CustomerContent;

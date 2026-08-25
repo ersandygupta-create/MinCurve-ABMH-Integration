@@ -1081,6 +1081,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
     var
         GenJournalLine: Record "Gen. Journal Line";
         HISGLAccountMapping: Record "E3 HIS Item Mapping";
+        HISDimensionMapping: Record "E3 HIS GL Accounts Mapping";
+        Dim3: Code[20];
         HISConsumptionEntry: Record "E3 HIS Consumption Entries";
         intLineNo: Integer;
         MOPLbl: Label 'Item Mapping Setup not found for Item Category %1.';
@@ -1154,7 +1156,21 @@ codeunit 50000 "E3 HIS Integration Mgmt."
 
                     if HISConsumptionEntry."Shortcut Dimension 1 Code" <> '' then
                         GenJournalLine.VALIDATE("Shortcut Dimension 2 Code", GetMappedDimension(HISConsumptionEntry."Shortcut Dimension 2 Code"));
-                    GenJournalLine.ValidateShortcutDimCode(3, HISConsumptionEntry."Shortcut Dimension 3 Code");
+
+                    /// Sandeep Gupta -24-08-2026
+                    /// code fix for Shortcut dimension dimension 3 
+
+                    if HISConsumptionEntry."Shortcut Dimension 3 Code" <> '' then begin
+                        HISDimensionMapping.Reset();
+                        HISDimensionMapping.SetRange(Type, HISDimensionMapping.Type::Dimension);
+                        HISDimensionMapping.SetFilter("Dimension Code", '%1', 'SPECILITY');
+                        HISDimensionMapping.SetRange("HIS Code", HISConsumptionEntry."Shortcut Dimension 3 Code");
+                        if HISDimensionMapping.find('-') then begin
+                            Dim3 := HISDimensionMapping."Department Code";
+                            GenJournalLine.ValidateShortcutDimCode(3, Dim3);
+                        end;
+                    end;
+                    /// code fix for Shortcut dimension dimension 3 
 
                     GenJournalLine.VALIDATE("External Document No.", HISConsumptionEntry."External Document No.");
                     GenJournalLine."E3 Narration" := COPYSTR(HISConsumptionEntry."Line Narration", 1, 50);

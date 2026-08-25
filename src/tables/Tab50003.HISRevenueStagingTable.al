@@ -263,7 +263,7 @@ table 50003 "E3 HIS Revenue Staging Table"
             DataClassification = CustomerContent;
             Caption = 'HIS User Name';
         }
-        field(103; "Mode of Payment"; Text[20])
+        field(103; "Mode of Payment"; Text[30])
         {
             DataClassification = CustomerContent;
             Caption = 'Mode of Payment';
