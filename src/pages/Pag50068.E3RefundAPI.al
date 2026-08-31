@@ -139,6 +139,10 @@ page 50068 "E3 Refund API"
                 {
                     Caption = 'Bank Name';
                 }
+                field(payerCode; Rec."Payer Code")
+                {
+                    Caption = 'Payor Code';
+                }
             }
         }
     }

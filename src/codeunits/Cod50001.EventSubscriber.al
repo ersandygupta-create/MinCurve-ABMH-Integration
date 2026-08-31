@@ -443,5 +443,18 @@ codeunit 50001 "E3 HIS Event Subscriber"
 
     end;
 
+    // 1. Flow field from Purchase Header -> Gen. Journal Line (Codeunit 90)
+    [EventSubscriber(ObjectType::Table, database::"Vendor Ledger Entry", 'OnAfterCopyVendLedgerEntryFromGenJnlLine', '', false, false)]
+    local procedure OnAfterCopyVendLedgerEntryFromGenJnlLine(var VendorLedgerEntry: Record "Vendor Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
+    begin
+        VendorLedgerEntry."E3 Narration" := GenJournalLine."E3 Narration";
+    end;
+
+    // 2. Flow field from Gen. Journal Line -> Vendor Ledger Entry (Codeunit 12)
+    [EventSubscriber(ObjectType::Table, database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', false, false)]
+    local procedure OnAfterCopyGenJnlLineFromPurchHeader(PurchaseHeader: Record "Purchase Header"; var GenJournalLine: Record "Gen. Journal Line")
+    begin
+        GenJournalLine."E3 Narration" := PurchaseHeader."Purchase Narration";
+    end;
 
 }

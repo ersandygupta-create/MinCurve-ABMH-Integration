@@ -129,6 +129,10 @@ page 50067 "E3 Advances API"
                 {
                     Caption = 'Branch';
                 }
+                field(payerCode; Rec."Payer Code")
+                {
+                    Caption = 'Payor Code';
+                }
             }
         }
     }
