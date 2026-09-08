@@ -52,4 +52,21 @@ pageextension 50023 "E3 User Setup Ext" extends "User Setup"
             }
         }
     }
+    actions
+    {
+        addlast(Processing)
+        {
+            action("E3 Master Permissions")
+            {
+                ApplicationArea = All;
+                Visible = false;
+                Caption = 'Advanced Controls';
+                ToolTip = 'Open the master permissions for the selected user.';
+                Image = Permission;
+                RunObject = page "E3 Advanced User Control Setup";
+                RunPageLink = "User ID" = field("User ID");
+            }
+        }
+    }
+
 }

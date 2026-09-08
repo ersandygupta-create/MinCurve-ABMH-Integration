@@ -36,4 +36,13 @@ pageextension 50013 "E3 HIS Contra Voucher" extends "Contra Voucher"
             }
         }
     }
+
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get(UserId());
+        if not UserSetup."Contra Voucher" then
+            Error('You do not have permission to open Cash Payment Voucher.');
+    end;
 }

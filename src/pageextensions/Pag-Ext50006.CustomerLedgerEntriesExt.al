@@ -67,4 +67,13 @@ pageextension 50006 "E3 HIS Cust. Ledger Entries" extends "Customer Ledger Entri
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get(UserId());
+
+        if not UserSetup."Customer Ledger View" then
+            Error('You do not have permission to view Customer Ledger Entries.');
+    end;
 }

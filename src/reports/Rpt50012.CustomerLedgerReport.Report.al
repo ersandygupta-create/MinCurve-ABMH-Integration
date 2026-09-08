@@ -522,7 +522,7 @@ report 50012 "Customer Ledger Report"
 
                     if "Cust. Ledger Entry".Amount > 0 then begin
                         recGLEntry.Reset;
-                        recGLEntry.SetCurrentKey("Document No.", "Posting Date");
+                        recGLEntry.SetCurrentKey("Document No.", "Posting Date", Amount);
                         recGLEntry.SetRange("Document No.", "Cust. Ledger Entry"."Document No.");
                         recGLEntry.SetRange("Posting Date", "Cust. Ledger Entry"."Posting Date");
                         recGLEntry.SetFilter(Amount, '<0');

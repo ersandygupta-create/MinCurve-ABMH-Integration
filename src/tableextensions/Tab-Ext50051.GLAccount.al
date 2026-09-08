@@ -57,6 +57,46 @@ tableextension 50051 "GL Account" extends "G/L Account"
             Error('You cannot modify the GL Account No.');
     end;
 
+    trigger OnBeforeInsert()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if not UserSetup.Get(UserId()) then
+            Error('User Setup is not configured for user %1.', UserId());
+
+        if not UserSetup."GL Insert" then
+            Error(
+                'You do not have permission to create a new G/L Account. ' +
+                'Please contact your administrator.');
+    end;
+
+    trigger OnBeforeModify()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if not UserSetup.Get(UserId()) then
+            Error('User Setup is not configured for user %1.', UserId());
+
+        if not UserSetup."GL Modify" then
+            Error(
+                'You do not have permission to modify G/L Account %1. ' +
+                'Please contact your administrator.',
+                Rec."No.");
+    end;
+
+    trigger OnBeforeDelete()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if not UserSetup.Get(UserId()) then
+            Error('User Setup is not configured for user %1.', UserId());
+
+        if not UserSetup."GL Delete" then
+            Error(
+                'You do not have permission to delete G/L Account %1. ' +
+                'Please contact your administrator.',
+                Rec."No.");
+    end;
 
 }
 

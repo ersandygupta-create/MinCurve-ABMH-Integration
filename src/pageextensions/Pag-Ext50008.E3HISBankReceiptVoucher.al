@@ -77,4 +77,13 @@ pageextension 50008 "E3 HIS Bank Receipt Voucher" extends "Bank Receipt Voucher"
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get(UserId());
+
+        if not UserSetup."Bank Receipt Voucher" then
+            Error('You do not have permission to open Bank Receipt Voucher.');
+    end;
 }

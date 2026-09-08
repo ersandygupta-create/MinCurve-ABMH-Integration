@@ -170,6 +170,12 @@ page 50053 "E3 HIS Revenue Cancel List"
                     ToolTip = 'Specifies the value of the Discharge Bed Category field.';
                     Caption = 'Discharge Bed Category';
                 }
+                field("External Document No."; Rec."External Document No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'External Document No.';
+                    Caption = 'Exteranl Document No.';
+                }
 
                 field("Error Description"; Rec."Error Description")
                 {

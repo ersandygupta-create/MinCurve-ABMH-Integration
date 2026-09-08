@@ -22,7 +22,7 @@ tableextension 50003 "E3 HIS G/L Entry" extends "G/L Entry"
             DataClassification = CustomerContent;
             Caption = 'Store Code';
         }
-        field(50012; "E3 Sub Group Code"; Code[10])
+        field(50012; "E3 Sub Group Code"; Code[50])
         {
             DataClassification = CustomerContent;
             Caption = 'Sub Group Code';

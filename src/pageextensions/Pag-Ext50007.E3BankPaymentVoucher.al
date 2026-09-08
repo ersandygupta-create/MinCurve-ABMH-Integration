@@ -120,4 +120,13 @@ pageextension 50007 "E3 Bank Payment Voucher" extends "Bank Payment Voucher"
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get(UserId());
+
+        if not UserSetup."Bank Payment Voucher" then
+            Error('You do not have permission to open Bank Payment Voucher.');
+    end;
 }

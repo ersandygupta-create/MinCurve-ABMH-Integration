@@ -623,6 +623,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
     var
         GenJournalLine: Record "Gen. Journal Line";
         HISGLAccountMapping: Record "E3 HIS GL Accounts Mapping";
+        CollectionMop: Boolean;
         intLineNo: Integer;
         MOPLbl: Label 'MOP Setup not found for Mode of payment %1.';
         DocumentTypeLbl: Label 'Setup not found for Document Type %1.';
@@ -657,7 +658,7 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                         intLineNo := GenJournalLine."Line No."
                     ELSE
                         intLineNo := 10000;
-
+                    collectionMop := FALSE;
                     GenJournalLine.INIT();
                     GenJournalLine.VALIDATE(GenJournalLine."Journal Template Name", IntegrationSetupLine."General Journal Template Code");
                     GenJournalLine.VALIDATE(GenJournalLine."Journal Batch Name", IntegrationSetupLine."General Journal Batch Code");
@@ -671,7 +672,8 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     HISGLAccountMapping.SetRange(Type, HISGLAccountMapping.Type::MOP);
                     HISGLAccountMapping.SetRange("MOP Code", HISRevenueStaging."Mode of Payment");
                     if HISGLAccountMapping.FindFirst() then begin
-
+                        if HISGLAccountMapping."Account Type" = hisglaccountmapping."Account Type"::"Bank Account" then
+                            collectionMop := TRUE;
                         GenJournalLine.VALIDATE("Account Type", HISGLAccountMapping."Account Type");
                         GenJournalLine.VALIDATE("Account No.", HISGLAccountMapping."Account No.");
                     end ELSE
@@ -714,15 +716,21 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     GenJournalLine.VALIDATE("Document No.", HISRevenueStaging."Document No.");
                     GenJournalLine.VALIDATE("Posting Date", HISRevenueStaging."Document Date");
 
-                    HISGLAccountMapping.Reset();
-                    HISGLAccountMapping.SetRange(Type, HISGLAccountMapping.Type::Collection);
-                    HISGLAccountMapping.SetRange("Service/Station Head", HISRevenueStaging."HIS Document Type");
-                    if HISGLAccountMapping.FindFirst() then begin
+                    if collectionMop = true then begin
+                        GenJournalLine.VALIDATE("Account Type", HISGLAccountMapping."Account Type"::Customer);
+                        GenJournalLine.VALIDATE("Account No.", hisrevenuestaging."Sponsor Code");
+                    end else begin
+                        HISGLAccountMapping.Reset();
+                        HISGLAccountMapping.SetRange(Type, HISGLAccountMapping.Type::Collection);
+                        HISGLAccountMapping.SetRange("Service/Station Head", HISRevenueStaging."HIS Document Type");
+                        if HISGLAccountMapping.FindFirst() then begin
 
-                        GenJournalLine.VALIDATE("Account Type", HISGLAccountMapping."Account Type");
-                        GenJournalLine.VALIDATE("Account No.", HISGLAccountMapping."Account No.");
-                    end ELSE
-                        Error(DocumentTypeLbl, HISRevenueStaging."HIS Document Type");
+                            GenJournalLine.VALIDATE("Account Type", HISGLAccountMapping."Account Type");
+                            GenJournalLine.VALIDATE("Account No.", HISGLAccountMapping."Account No.");
+                        end
+                        ELSE
+                            Error(DocumentTypeLbl, HISRevenueStaging."HIS Document Type");
+                    end;
 
                     GenJournalLine.VALIDATE(Amount, -HISRevenueStaging.Amount);
                     GenJournalLine.validate("Bal. Account Type", GenJournalLine."Bal. Account Type"::"G/L Account");

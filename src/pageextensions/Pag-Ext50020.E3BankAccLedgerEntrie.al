@@ -166,5 +166,14 @@ pageextension 50020 "E3 Bank Acc. Ledger Entrie" extends "Bank Account Ledger En
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get(UserId());
+
+        if not UserSetup."Bank Ledger View" then
+            Error('You do not have permission to view Bank Account Ledger Entries.');
+    end;
 }
 

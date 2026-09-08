@@ -61,4 +61,45 @@ tableextension 50001 "E3 HIS Customer Ext" extends Customer
             Error('You cannot modify the Customer No.');
     end;
 
+    trigger OnBeforeInsert()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if not UserSetup.Get(UserId()) then
+            Error('User Setup is not configured for user %1.', UserId());
+
+        if not UserSetup."Customer Insert" then
+            Error(
+                'You do not have permission to create a new Customer. ' +
+                'Please contact your administrator.');
+    end;
+
+    trigger OnBeforeModify()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if not UserSetup.Get(UserId()) then
+            Error('User Setup is not configured for user %1.', UserId());
+
+        if not UserSetup."Customer Modify" then
+            Error(
+                'You do not have permission to modify Customer %1. ' +
+                'Please contact your administrator.',
+                Rec."No.");
+    end;
+
+    trigger OnBeforeDelete()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if not UserSetup.Get(UserId()) then
+            Error('User Setup is not configured for user %1.', UserId());
+
+        if not UserSetup."Customer Delete" then
+            Error(
+                'You do not have permission to delete Customer %1. ' +
+                'Please contact your administrator.',
+                Rec."No.");
+    end;
+
 }

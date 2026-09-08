@@ -31,4 +31,12 @@ pageextension 50011 "E3 HIS Cash Payment Voucherr" extends "Cash Payment Voucher
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get(UserId());
+        if not UserSetup."Cash Payment Voucher" then
+            Error('You do not have permission to open Cash Payment Voucher.');
+    end;
 }

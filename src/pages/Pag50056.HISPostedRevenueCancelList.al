@@ -187,6 +187,12 @@ page 50056 "E3 HIS Posted Rev Cancel List"
                     Caption = 'Discharge Bed Category';
                     Visible = false;
                 }
+                field("External Document No."; Rec."External Document No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'External Document No.';
+                    Caption = 'Exteranl Document No.';
+                }
                 field("Error Description"; Rec."Error Description")
                 {
                     ApplicationArea = All;

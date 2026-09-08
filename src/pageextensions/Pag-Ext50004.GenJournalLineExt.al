@@ -2,6 +2,10 @@ pageextension 50004 "E3 HIS General Journal" extends "General Journal"
 {
     layout
     {
+        modify(Description)
+        {
+            visible = false;
+        }
         addafter("External Document No.")
         {
             field("E3 Narration"; Rec."E3 Narration")
