@@ -70,6 +70,19 @@ pageextension 50050 "E3 HIS Purch. Order Subform" extends "Purchase Order Subfor
                 ToolTip = 'Specifies Indent Line No. for the line.';
             }
         }
+        addafter("Unit Cost (LCY)")
+        {
+            field("AMC Start Date"; Rec."AMC Start Date")
+            {
+                ApplicationArea = All;
+                ToolTip = 'AMC Start Date';
+            }
+            field("AMC End Date"; Rec."AMC End Date")
+            {
+                ApplicationArea = All;
+                ToolTip = 'AMC End Date';
+            }
+        }
     }
     var
         IsLineEditable: Boolean;

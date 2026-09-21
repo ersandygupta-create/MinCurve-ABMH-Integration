@@ -1,5 +1,9 @@
 pageextension 50055 "E3 HIS Posted Purch. Cr. Memo" extends "Posted Purchase Credit Memo"
 {
+    layout
+    {
+
+    }
     actions
     {
         addlast(IncomingDocument)

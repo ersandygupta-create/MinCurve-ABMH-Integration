@@ -909,6 +909,21 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
             group("E3 Indent Module")
             {
                 Caption = 'Indent Module';
+
+                group(Setup)
+                {
+                    Caption = 'Project Master';
+                    action("E3 Project Setup")
+                    {
+                        AccessByPermission = TableData "E3 Project Master" = IMD;
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Project Master';
+                        Image = Archive;
+                        RunObject = Page "E3 Project Master List";
+                        RunPageMode = Create;
+                        ToolTip = 'Executes the Create Project Master.';
+                    }
+                }
                 group(CreateIndent)
                 {
                     Caption = 'Create Indent';
@@ -919,16 +934,6 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                         Caption = 'System Indent Entries';
                         Image = Archive;
                         RunObject = Page "E3 Indent List";
-                        RunPageMode = Create;
-                        ToolTip = 'Executes the Create Indent Entries action.';
-                    }
-                    action("E3 HIS Indent Entries")
-                    {
-                        AccessByPermission = TableData "E3 Indent Header" = IMD;
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'HIS Indent Entries';
-                        Image = Archive;
-                        RunObject = Page "E3 HIS Indent List";
                         RunPageMode = Create;
                         ToolTip = 'Executes the Create Indent Entries action.';
                     }
@@ -943,13 +948,6 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                         ApplicationArea = All;
                         RunObject = Page "E3 Approved Indent List";
                         ToolTip = 'Specify a value System Approved Indent List field.';
-                    }
-                    action(HISApprovedIndents)
-                    {
-                        Caption = 'HIS Approved Indent List';
-                        ApplicationArea = All;
-                        RunObject = Page "E3 Approved HIS Indent List";
-                        ToolTip = 'Executes the Vendor Quotation action.';
                     }
                 }
                 group(Quotation)

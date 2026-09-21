@@ -161,10 +161,16 @@ codeunit 50033 "E3 Indent Approval Mgmt."
     local procedure IndentRelease(RecRef: RecordRef; var Handled: Boolean)
     var
         E3IndentHeader: Record "E3 Indent Header";
+        ApprovalEntry: Record "Approval Entry";
     begin
         if RecRef.Number = DATABASE::"E3 Indent Header" Then begin
             RecRef.SETTABLE(E3IndentHeader);
             E3IndentHeader.VALIDATE(Status, E3IndentHeader.Status::Approved);
+            ApprovalEntry.Reset();
+            ApprovalEntry.SetFilter("Table ID", '%1', 50036);
+            ApprovalEntry.SetRange("Document No.", E3IndentHeader."Document No.");
+            if ApprovalEntry.Find('-') then
+                E3IndentHeader.validate("Approved By", ApprovalEntry."Approver ID");
             E3IndentHeader.MODIFY(true);
             EnqueueEmailToSender(E3IndentHeader);
             Handled := true;

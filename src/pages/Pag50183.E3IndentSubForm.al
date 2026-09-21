@@ -52,6 +52,8 @@ page 50183 "E3 Indent Line Subform"
                 {
                     ApplicationArea = All;
                     Editable = true;
+                    visible = false;
+
                 }
                 field("Unit Cost"; Rec."Unit Cost")
                 {
@@ -62,6 +64,35 @@ page 50183 "E3 Indent Line Subform"
                 {
                     ApplicationArea = All;
                     Editable = IsLineEditable;
+                }
+                field("AMC Start Date"; Rec."AMC Start Date")
+                {
+                    ToolTip = 'AMC/CMC Start Date';
+                    ApplicationArea = All;
+                    Editable = IsDateEdit;
+                }
+                field("AMC End Date"; Rec."AMC End Date")
+                {
+                    ToolTip = 'AMC/CMC End Date';
+                    ApplicationArea = All;
+                    Editable = IsDateEdit;
+                }
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the code for Shortcut Dimension 1, which is one of two global dimension codes that you set up in the General Ledger Setup window.';
+                }
+
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the code for Shortcut Dimension 2, which is one of two global dimension codes that you set up in the General Ledger Setup window.';
+                }
+
+                field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the code for Shortcut Dimension 3 that you set up in the General Ledger Setup window.';
                 }
                 field("Item Make Code"; Rec."Item Make Code")
                 {
@@ -87,6 +118,7 @@ page 50183 "E3 Indent Line Subform"
                 {
                     ApplicationArea = All;
                     Editable = IsLineEditable;
+                    visible = false;
                 }
             }
         }
@@ -94,6 +126,7 @@ page 50183 "E3 Indent Line Subform"
     var
         IsLineEditable: Boolean;
         IsApprovedQtyEditable: Boolean;
+        IsDateEdit: Boolean;
         IndentHeader: Record "E3 Indent Header";
 
     trigger OnOpenPage()
@@ -106,12 +139,21 @@ page 50183 "E3 Indent Line Subform"
         SetEditable();
     end;
 
+
     local procedure SetEditable()
     begin
         IsLineEditable := true;
         IsApprovedQtyEditable := false;
+        IsDateEdit := false;
 
         if IndentHeader.Get(Rec."Document No.") then begin
+            if IndentHeader."Indent Type" <> IndentHeader."Indent Type"::Opex then begin
+                IsDateEdit := false;
+                Rec."AMC Start Date" := 0D;
+                rec."AMC End Date" := 0D;
+            end else
+                IsDateEdit := true;
+
             case IndentHeader.Status of
                 IndentHeader.Status::Open:
                     begin
@@ -132,5 +174,11 @@ page 50183 "E3 Indent Line Subform"
                     end;
             end;
         end;
+    end;
+
+    procedure RefreshLines()
+    begin
+        SetEditable();
+        CurrPage.Update(false);
     end;
 }

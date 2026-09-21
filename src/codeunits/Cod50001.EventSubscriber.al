@@ -83,12 +83,12 @@ codeunit 50001 "E3 HIS Event Subscriber"
     begin
         BankAccountLedgerEntry."E3 UTR No." := GenJournalLine."E3 UTR No.";
         BankAccountLedgerEntry."E3 Narration" := GenJournalLine."E3 Narration";
-        if (GenJournalLine."Cheque No." <> '') then
-            BankAccountLedgerEntry."E3 UTR No." := GenJournalLine."Cheque No."
-        else
-            if (GenJournalLine."E3 UTR No." <> '') then
-                BankAccountLedgerEntry."E3 UTR No." := GenJournalLine."E3 UTR No.";
 
+        if (GenJournalLine."E3 UTR No." <> '') then
+            BankAccountLedgerEntry."E3 UTR No." := GenJournalLine."E3 UTR No."
+        else
+            if (GenJournalLine."Cheque No." <> '') then
+                BankAccountLedgerEntry."E3 UTR No." := GenJournalLine."Cheque No.";
         BankAccountLedgerEntry."Bank Integration" := GenJournalLine."Bank Integration";
         case GenJournalLine."Bal. Account Type" of
             "Gen. Journal Account Type"::Customer:
@@ -201,6 +201,10 @@ codeunit 50001 "E3 HIS Event Subscriber"
         GenJnlNarration: Record "Gen. Journal Narration";
         PurchCommentLine: Record "Purch. Comment Line";
     begin
+
+        PurchInvHeader."Indent Type" := PurchHeader."Indent Type";
+        PurchInvHeader."AMC/CMC" := PurchHeader."AMC/CMC";
+        PurchInvHeader."Project Code" := PurchHeader."Project Code";
         if PreviewMode then
             exit;
 
@@ -455,6 +459,32 @@ codeunit 50001 "E3 HIS Event Subscriber"
     local procedure OnAfterCopyGenJnlLineFromPurchHeader(PurchaseHeader: Record "Purchase Header"; var GenJournalLine: Record "Gen. Journal Line")
     begin
         GenJournalLine."E3 Narration" := PurchaseHeader."Purchase Narration";
+    end;
+
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePurchRcptHeaderInsert', '', false, false)]
+    local procedure TransferHeaderCustomField(var PurchRcptHeader: Record "Purch. Rcpt. Header"; var PurchaseHeader: Record "Purchase Header")
+    begin
+        PurchRcptHeader."Project Code" := PurchaseHeader."Project Code";
+        PurchRcptHeader."AMC/CMC" := PurchaseHeader."AMC/CMC";
+        PurchaseHeader."Indent Type" := PurchaseHeader."Indent Type";
+    end;
+
+    // 2. Transfer Line Field from Purchase Line to Purchase Receipt Line
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePurchRcptLineInsert', '', false, false)]
+    local procedure TransferLineCustomField(var PurchRcptLine: Record "Purch. Rcpt. Line"; PurchLine: Record "Purchase Line")
+    begin
+        // Replace "Your Custom Line Field" with the actual name of your field
+        PurchRcptLine."AMC End Date" := PurchLine."AMC End Date";
+        PurchRcptLine."AMC Start Date" := PurchLine."AMC Start Date";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePurchInvLineInsert', '', false, false)]
+    local procedure TransferInvLineCustomField(var PurchInvLine: Record "Purch. Inv. Line"; PurchaseLine: Record "Purchase Line")
+    begin
+        PurchInvLine."AMC Start Date" := PurchaseLine."AMC Start Date";
+        PurchInvLine."AMC End Date" := PurchaseLine."AMC End Date";
     end;
 
 }

@@ -50,6 +50,11 @@ pageextension 50023 "E3 User Setup Ext" extends "User Setup"
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Short Close Indent field.';
             }
+
+        }
+        modify("Purchase Resp. Ctr. Filter")
+        {
+            Editable = true;
         }
     }
     actions
@@ -66,6 +71,11 @@ pageextension 50023 "E3 User Setup Ext" extends "User Setup"
                 RunObject = page "E3 Advanced User Control Setup";
                 RunPageLink = "User ID" = field("User ID");
             }
+        }
+        modify(UserRespCenter_Promoted)
+        {
+            Visible = true;
+
         }
     }
 

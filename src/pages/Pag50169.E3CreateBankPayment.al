@@ -394,12 +394,12 @@ page 50169 "Create Bank Payment"
             if not KeepSavedDocumentNo then NextDocNo := ''
         end
         else begin
-            GenJournalLine.SetRange("Journal Template Name", JournalTemplateName);
-            GenJournalLine.SetRange("Journal Batch Name", JournalBatchName);
-            if GenJournalLine.FindLast() then
-                NextDocNo := IncStr(GenJournalLine."Document No.")
-            else
-                NextDocNo := NoSeriesBatch.GetNextNo(GenJournalBatchNoSeries, PostingDate, true);
+            // GenJournalLine.SetRange("Journal Template Name", JournalTemplateName);
+            // GenJournalLine.SetRange("Journal Batch Name", JournalBatchName);
+            // if GenJournalLine.FindLast() then
+            //     NextDocNo := IncStr(GenJournalLine."Document No.")
+            // else
+            NextDocNo := NoSeriesBatch.GetNextNo(GenJournalBatchNoSeries, PostingDate, true);
         end;
     end;
 

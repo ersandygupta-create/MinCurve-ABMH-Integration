@@ -18,6 +18,16 @@ tableextension 50018 "E3 HIS Purch. Inv. Line" extends "Purch. Inv. Line"
             Caption = 'HIS Type';
             DataClassification = CustomerContent;
         }
+        field(50005; "AMC Start Date"; Date)
+        {
+            Caption = 'AMC/CMC Start Date';
+            DataClassification = CustomerContent;
+        }
+        field(50006; "AMC End Date"; Date)
+        {
+            Caption = 'AMC/CMC End Date';
+            DataClassification = CustomerContent;
+        }
 
     }
 }

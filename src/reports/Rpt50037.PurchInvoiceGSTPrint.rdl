@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-07-27T10:22:33.3925597Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-09-19T12:47:15.6620840Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -3985,7 +3985,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>="Narration : " &amp; Fields!CommentTxt.Value</Value>
+                                  <Value>="Narration : " &amp; Replace(Fields!CommentTxt.Value, "\", vbCrLf)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Segoe UI</FontFamily>

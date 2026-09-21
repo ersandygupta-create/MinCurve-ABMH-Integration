@@ -70,10 +70,22 @@ page 50192 "E3 Quotation"
                     Caption = 'Amount';
                     ToolTip = 'Specifies the required Amount.';
                 }
+                field("AMC Start Date"; Rec."AMC Start Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'AMC/CMC Start Date';
+                }
+                field("AMC End Date"; Rec."AMC End Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'AMC/CMC End Date';
+                }
                 field("Approved Qty"; Rec."Approved Qty")
                 {
                     ToolTip = 'Specifies the required Approved Qty.';
-                    Editable = CanEdit;
+                    Editable = false;
                 }
                 field("Ordered Qty"; Rec."Ordered Qty")
                 {

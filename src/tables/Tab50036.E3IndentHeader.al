@@ -15,34 +15,19 @@ table 50036 "E3 Indent Header"
         {
             Caption = 'Requested To';
             DataClassification = CustomerContent;
-            TableRelation = "E3 Indenter Master"."Indenter Name" where("Indenter Type" = filter("Requested By"));
+
+            TableRelation = "Dimension Value".Code where("Dimension Code" = const('DEPT'));
 
             trigger OnValidate()
             var
-                IndenterMaster: Record "E3 Indenter Master";
-                IndentLine: Record "E3 Indent Line";
+                dimValue: Record "Dimension Value";
             begin
-                Clear("Shortcut Dimension 2 Code");
-                Clear("Department Name");
-                Clear("Shortcut Dimension 1 Code");
-                Clear("Business Unit Name");
-                Clear("Location Code");
-                Clear("Location Name");
-
-                IndenterMaster.Reset();
-                IndenterMaster.SetRange("Indenter Name", "Requested To");
-                IndenterMaster.SetRange("Indenter Type", IndenterMaster."Indenter Type"::"Requested By");
-
-                if IndenterMaster.FindFirst() then begin
-                    Validate("Shortcut Dimension 2 Code", IndenterMaster."Department Code");
-                    "Department Name" := IndenterMaster."Department Name";
-
-                    Validate("Shortcut Dimension 1 Code", IndenterMaster."Business Unit Code");
-                    "Business Unit Name" := IndenterMaster."Business Unit Name";
-
-                    Validate("Location Code", IndenterMaster."Default Location Code");
-                    "Location Name" := IndenterMaster."Default Location Name";
-                end;
+                "To Department Code" := rec."Requested To";
+                dimValue.Reset();
+                dimValue.SetFilter("Dimension Code", '%1', 'DEPT');
+                dimValue.SetRange(Code, Rec."Requested To");
+                if dimValue.Find('-') then
+                    "To Department Name" := dimValue.Name;
             end;
         }
         field(3; "Request Date"; Date)
@@ -359,6 +344,58 @@ table 50036 "E3 Indent Header"
             Caption = 'Utilized Amount';
             DataClassification = CustomerContent;
         }
+        field(35; "Requested By"; Text[60])
+        {
+            Caption = 'Requested By';
+            DataClassification = CustomerContent;
+            TableRelation = "E3 Indenter Master"."Indenter Name" where("Indenter Type" = filter("Requested By"));
+
+            trigger OnValidate()
+            var
+                IndenterMaster: Record "E3 Indenter Master";
+                IndentLine: Record "E3 Indent Line";
+            begin
+                Clear("Shortcut Dimension 2 Code");
+                Clear("Department Name");
+                Clear("Shortcut Dimension 1 Code");
+                Clear("Business Unit Name");
+                Clear("Location Code");
+                Clear("Location Name");
+
+                IndenterMaster.Reset();
+                IndenterMaster.SetRange("Indenter Name", "Requested By");
+                IndenterMaster.SetRange("Indenter Type", IndenterMaster."Indenter Type"::"Requested By");
+
+                if IndenterMaster.FindFirst() then begin
+                    Validate("Shortcut Dimension 2 Code", IndenterMaster."Department Code");
+                    "Department Name" := IndenterMaster."Department Name";
+
+                    Validate("Shortcut Dimension 1 Code", IndenterMaster."Business Unit Code");
+                    "Business Unit Name" := IndenterMaster."Business Unit Name";
+
+                    Validate("Location Code", IndenterMaster."Default Location Code");
+                    "Location Name" := IndenterMaster."Default Location Name";
+                end;
+            end;
+        }
+        field(36; "Indent Type"; enum "E3 Capex Type")
+        {
+            Caption = 'Indent Type';
+            DataClassification = ToBeClassified;
+        }
+        field(37; "AMC/CMC"; Enum "E3 AMC CMC")
+        {
+            Caption = 'AMC/CMC';
+            DataClassification = ToBeClassified;
+        }
+
+
+        field(39; "Project Code"; Code[20])
+        {
+            Caption = 'Project Code';
+            DataClassification = ToBeClassified;
+            TableRelation = "E3 Project Master"."Project Code";
+        }
 
     }
 
@@ -379,6 +416,7 @@ table 50036 "E3 Indent Header"
     var
         PurchSetup: Record "Purchases & Payables Setup";
         NoSeries: Codeunit "No. Series";
+        UserSetup: Record user;
     begin
         if "Document No." = '' then begin
             PurchSetup.Get();
@@ -386,6 +424,13 @@ table 50036 "E3 Indent Header"
 
             "Document No." :=
                 NoSeries.GetNextNo(PurchSetup."Indent Nos.", WorkDate());
+
+        end;
+        userSetup.Reset();
+        usersetup.SetRange("user name", userid());
+        if usersetup.FindFirst() then begin
+            Indenter := usersetup."user name";
+            "Indenter Name" := usersetup."Full Name";
         end;
     end;
 

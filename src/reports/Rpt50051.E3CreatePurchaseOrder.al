@@ -76,7 +76,12 @@ report 50051 "E3 Create Purchase Order"
 
                 end;
 
-                Message('Purchase Order created for the selected records.');
+                // --- NEW CODE: Final Message ---
+                if CreatedPOCount > 0 then
+                    Message('%1 Purchase Order(s) created successfully:\%2', CreatedPOCount, CreatedPOList)
+                else
+                    Message('No Purchase Orders were created.');
+                // -------------------------------
             end;
 
             trigger OnPreDataItem()
@@ -99,7 +104,8 @@ report 50051 "E3 Create Purchase Order"
             // Only mark as purchased when fully ordered
             if GetRemainingQty(IndentLine) = 0 then
                 IndentLine.SetPurchased(PurchaseHeader."No.");
-        end;
+        end else
+            Message('Vendor PO Creation should be enable.');
     end;
 
     local procedure CreatePurchaseHeader(IndentLine: Record "E3 Indent Line"; PurchHeaderType: Integer)
@@ -107,12 +113,33 @@ report 50051 "E3 Create Purchase Order"
         RequistionHeader: Record "E3 Indent Header";
         NoSeriesManagement: Codeunit "No. Series";
         RecordLinkManagement: Codeunit "Record Link Management";
+        NoSeriesTable: Record "No. Series";
     begin
+        RequistionHeader.Get(IndentLine."Document No.");
+        if RequistionHeader."Indent Type" <> RequistionHeader."Indent Type"::" " then begin
+            NoSeriesTable.Reset();
+            NoSeriesTable.SetRange("Indent Type", RequistionHeader."Indent Type");
+            if NoSeriesTable.FindFirst() then;
+            NoSeries := NoSeriesTable.Code;
+        end;
+
         PurchaseHeader.Init();
         PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Order;
         PurchaseHeader."No." := NoSeriesManagement.GetNextNo(NoSeries, Today, true);
-        PurchaseHeader."E3 Capex Type" := IndentHeader."Procurement Type";
+        PurchaseHeader."E3 Capex Type" := RequistionHeader."Procurement Type";
+        PurchaseHeader."Indent Type" := RequistionHeader."Indent Type";
+        PurchaseHeader."AMC/CMC" := RequistionHeader."AMC/CMC";
+        PurchaseHeader."Project Code" := RequistionHeader."Project Code";
         PurchaseHeader.Insert(true);
+
+        // --- NEW CODE: Track created POs for final message ---
+        CreatedPOCount += 1;
+        if CreatedPOList = '' then
+            CreatedPOList := PurchaseHeader."No."
+        else
+            CreatedPOList += '\' + PurchaseHeader."No."; // Backslash adds a new line in Message strings
+        // -----------------------------------------------------
+
         Case PurchHeaderType of
             1:
                 PurchaseHeader.Validate("Buy-from Vendor No.", IndentLine."Vendor No.");
@@ -125,8 +152,8 @@ report 50051 "E3 Create Purchase Order"
                 PurchaseHeader.Validate(PurchaseHeader."Currency Code", IndentLine."Currency Code");
         end;
         PurchaseHeader."Responsibility Center" := IndentLine."Shortcut Dimension 1 Code";
-        PurchaseHeader.Validate(PurchaseHeader."Shortcut Dimension 1 Code", IndentHeader."Shortcut Dimension 1 Code");
-        PurchaseHeader.Validate(PurchaseHeader."Shortcut Dimension 2 Code", IndentHeader."Shortcut Dimension 2 Code");
+        PurchaseHeader.Validate(PurchaseHeader."Shortcut Dimension 1 Code", RequistionHeader."Shortcut Dimension 1 Code");
+        PurchaseHeader.Validate(PurchaseHeader."Shortcut Dimension 2 Code", RequistionHeader."Shortcut Dimension 2 Code");
         RequistionHeader.Get(IndentLine."Document No.");
         RecordLinkManagement.CopyLinks(RequistionHeader, PurchaseHeader);
         PurchaseHeader.Modify();
@@ -181,7 +208,8 @@ report 50051 "E3 Create Purchase Order"
                 PurchaseLine.Validate("Line Discount %", IndentLine."Discount %");
         end;
         PurchaseLine.Validate("Description 2", CopyStr(IndentLine.Remarks, 1, 50));
-
+        PurchaseLine."AMC Start Date" := IndentLine."AMC Start Date";
+        PurchaseLine."AMC End Date" := IndentLine."AMC End Date";
         PurchaseLine."Vendor Item No." := IndentLine."No.";
         PurchaseLine.Insert(true);
         InsertIndentLineDetails(IndentLine);
@@ -215,7 +243,6 @@ report 50051 "E3 Create Purchase Order"
 
         IndentLineDetails.Insert(true);
     end;
-
 
     local procedure GetRemainingQty(IndentLine: Record "E3 Indent Line"): Decimal
     var
@@ -267,4 +294,8 @@ report 50051 "E3 Create Purchase Order"
         DialogWindow: Dialog;
         IndentHeader: Record "E3 Indent Header";
 
+        // --- NEW CODE: Global Variables for tracking POs ---
+        CreatedPOCount: Integer;
+        CreatedPOList: Text;
+    // ---------------------------------------------------
 }

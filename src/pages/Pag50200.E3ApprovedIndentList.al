@@ -49,16 +49,7 @@ page 50200 "E3 Approved Indent List"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the current status of the indent.';
                 }
-                field("Voucher Type Code"; Rec."Voucher Type Code")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the voucher type associated with the indent.';
-                }
-                field("Voucher Type Name"; Rec."Voucher Type Name")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the voucher type Name associated with the indent.';
-                }
+
                 field("Approved By"; Rec."Approved By")
                 {
                     ApplicationArea = All;
@@ -67,4 +58,10 @@ page 50200 "E3 Approved Indent List"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        Rec.FilterGroup(2);                    // Switch to FilterGroup 2 (Locked/Page Filters)
+        Rec.SetFilter(Indenter, '%1', UserId); // Apply the locked filter
+        Rec.FilterGroup(0);
+    end;
 }

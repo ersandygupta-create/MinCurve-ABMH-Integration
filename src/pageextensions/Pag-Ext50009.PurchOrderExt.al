@@ -30,6 +30,25 @@ pageextension 50009 "E3 HIS Purchase Order" extends "Purchase Order"
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Advance PO field';
             }
+            field("Indent Type"; Rec."Indent Type")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Indent Type';
+                Editable = false;
+            }
+            field("Project Code"; Rec."Project Code")
+            {
+                ApplicationArea = all;
+                Editable = false;
+                ToolTip = 'Project Code';
+            }
+            field("AMC/CMC"; Rec."AMC/CMC")
+            {
+                ApplicationArea = all;
+                Editable = false;
+                ToolTip = 'AMC/CMC';
+            }
+
         }
     }
 

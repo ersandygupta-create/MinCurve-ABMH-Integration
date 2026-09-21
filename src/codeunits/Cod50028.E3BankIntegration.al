@@ -150,7 +150,7 @@ codeunit 50028 "E3 Bank Integration"
         BankAccountTable.SetRange("No.", TempBankAccountLedgerEntry."Bank Account No.");
         if BankAccountTable.find('-') then;
 
-        FileName := StrSubstNo('%1_%2_%3%4%5.%6', T1Lbl, T2Lbl, DayTxt, MonthTxt, YearTxt, CurrentValue);
+        FileName := StrSubstNo('%1_%2_%3%4%5_%6', T1Lbl, T2Lbl, DayTxt, MonthTxt, YearTxt, CurrentValue);
 
         //  FileName := StrSubstNo('H2HCBX_RBINE_RBINE%1%2.%3', DayTxt, MonthTxt, CurrentValue);
 
@@ -254,7 +254,7 @@ codeunit 50028 "E3 Bank Integration"
                     BankIntegrationTable."Name of Beneficiary" := "Name of Beneficiary";
                     BankIntegrationTable."Instrument Amount" := "Instrument Amount";
                     BankIntegrationTable."Payment Date" := "Payment Date";
-                    BankIntegrationTable."Cheque Number" := "Cheque Number";
+                    BankIntegrationTable."Cheque Number" := '';//"Cheque Number";
                     BankIntegrationTable."Debit Account No." := "Debit Account No.";
                     BankIntegrationTable."Beneficiary Bank A/c No" := "Beneficiary Bank A/c No";
                     BankIntegrationTable."IFSC Code" := "IFSC Code";
@@ -294,7 +294,7 @@ codeunit 50028 "E3 Bank Integration"
                         BeneficiaryName + ',' +
                         DelChr(DelChr(Format(TempBankAccountLedgerEntry.Amount, 0, 1), '=', ','), '=', '-') + ',' +
                         Format(TempBankAccountLedgerEntry."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + ',' +
-                        TempBankAccountLedgerEntry."Cheque No." + ',' +
+                        '' + ',' +
                         BankAcc."Bank Account No." + ',' +
                         TempBankAccountLedgerEntry."Recipient Bank Account" + ',' +
                         TempBankAccountLedgerEntry."Recipient Bank IFSC Code" + ',' +
@@ -345,7 +345,7 @@ codeunit 50028 "E3 Bank Integration"
 #pragma warning disable AA0470
         Text001Lbl: Label '%1 journal';
         T1Lbl: Label 'ADBMHVEN';
-        T2Lbl: Label 'ADBMHVENSAP';
+        T2Lbl: Label 'ADBMHVENSFTPUP';
 #pragma warning restore AA0470
         Text002Lbl: Label 'RECURRING';
         Text003Lbl: Label 'Recurring General Journal';

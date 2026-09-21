@@ -39,5 +39,15 @@ tableextension 50016 "E3 HIS Purcha Line" extends "Purchase Line"
             Caption = 'Indent Line No.';
             DataClassification = CustomerContent;
         }
+        field(50105; "AMC Start Date"; Date)
+        {
+            Caption = 'AMC/CMC Start Date';
+            DataClassification = CustomerContent;
+        }
+        field(50106; "AMC End Date"; Date)
+        {
+            Caption = 'AMC/CMC End Date';
+            DataClassification = CustomerContent;
+        }
     }
 }

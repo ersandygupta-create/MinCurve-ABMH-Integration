@@ -5,7 +5,7 @@ table 50042 E3SettlementType
 
     fields
     {
-        field(1; SettlementType; Code[20])
+        field(1; SettlementType; Code[60])
         {
             DataClassification = ToBeClassified;
             Caption = 'Settlement Type';

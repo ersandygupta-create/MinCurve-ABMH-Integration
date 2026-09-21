@@ -27,6 +27,25 @@ tableextension 50006 "E3 HIS Purch. Rcpt. Header" extends "Purch. Rcpt. Header"
             DataClassification = CustomerContent;
             Caption = 'Store Name';
         }
+        field(60006; "Indent Type"; enum "E3 Capex Type")
+        {
+            Caption = 'Indent Type';
+            DataClassification = ToBeClassified;
+        }
+        field(60007; "AMC/CMC"; Enum "E3 AMC CMC")
+        {
+            Caption = 'AMC/CMC';
+            DataClassification = ToBeClassified;
+        }
+
+
+        field(70008; "Project Code"; Code[20])
+        {
+            Caption = 'Project Code';
+            DataClassification = ToBeClassified;
+            TableRelation = "E3 Project Master"."Project Code";
+        }
+
 
     }
 }

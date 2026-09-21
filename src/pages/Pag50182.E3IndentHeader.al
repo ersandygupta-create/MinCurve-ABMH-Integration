@@ -28,12 +28,17 @@ page 50182 "E3 Indent Card"
                 field(Indentor; Rec.Indenter)
                 {
                     ApplicationArea = All;
-                    Editable = IsPageEditable;
+                    Editable = false;
                 }
-                field("Requested To"; Rec."Requested To")
+                field("Requested To"; Rec."Requested By")
                 {
                     ApplicationArea = All;
                     Editable = IsPageEditable;
+                }
+                field(RequestedTo; Rec."Requested To")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Requested to';
                 }
 
                 field("Request Date"; Rec."Request Date")
@@ -83,38 +88,90 @@ page 50182 "E3 Indent Card"
                 {
                     ApplicationArea = All;
                     Editable = IsPageEditable;
+                    visible = false;
+                }
+                field("Indent Type"; Rec."Indent Type")
+                {
+                    ToolTip = 'Indent Type';
+                    trigger OnValidate()
+                    begin
+                        if Rec."Indent Type" = rec."Indent Type"::Opex then
+                            AmountEdit := true;
+                        if Rec."Indent Type" = rec."Indent Type"::Capex then begin
+                            rec."AMC/CMC" := rec."AMC/CMC"::" ";
+                            AmountEdit := false;
+                        end;
+                        if rec."Indent Type" = rec."Indent Type"::" " then begin
+                            rec."AMC/CMC" := rec."AMC/CMC"::" ";
+                            AmountEdit := false;
+                        end;
+
+                        CurrPage.Update(true);
+
+                        // 2. Call the public procedure you created on the subform
+                        // Replace 'IndentLines' with the exact Name of your subform part
+                        CurrPage.IndentLines.PAGE.RefreshLines();
+
+                    end;
+
+                }
+                field("Project Code"; Rec."Project Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Project Code';
                 }
                 field("Approval Date Time"; Rec."Approval Date Time")
                 {
                     ApplicationArea = All;
                     Editable = IsPageEditable;
+                    visible = false;
                 }
                 field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                     Editable = IsPageEditable;
+                    visible = false;
                 }
                 field("Budget Type"; Rec."Budget Type")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the budget type for this record.';
+                    editable = false;
                 }
 
                 field("Budgeted Amount"; Rec."Budgeted Amount")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the budgeted amount for this record.';
+                    editable = false;
                 }
                 field("Utilized Amount"; Rec."Utilized Amount")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the Utilized amount for this record.';
+                    visible = false;
                 }
                 field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the actual amount for this record.';
+                    editable = false;
                 }
+                field("AMC/CMC"; Rec."AMC/CMC")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'AMC/CMC';
+                    Editable = AmountEdit;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+
+                        // 2. Call the public procedure you created on the subform
+                        // Replace 'IndentLines' with the exact Name of your subform part
+                        CurrPage.IndentLines.PAGE.RefreshLines();
+                    end;
+                }
+
             }
 
             group("Dimensions")
@@ -172,6 +229,7 @@ page 50182 "E3 Indent Card"
                     ApplicationArea = All;
                     Editable = false;
                 }
+
             }
             part(IndentLines; "E3 Indent Line Subform")
             {
@@ -227,10 +285,6 @@ page 50182 "E3 Indent Card"
                                       'Requested Qty must be greater than 0 for Line No. %1.',
                                       IndentLine."Line No.");
 
-                                if IndentLine."Approved Qty" <= 0 then
-                                    Error(
-                                      'Approved Qty must be greater than 0 for Line No. %1.',
-                                      IndentLine."Line No.");
                             until IndentLine.Next() = 0;
 
                         IndentApproval.OnSendIndentDocForApproval(Rec);
@@ -311,6 +365,7 @@ page 50182 "E3 Indent Card"
     var
         IsPageEditable: Boolean;
         IsEditable: Boolean;
+        AmountEdit: Boolean;
         ShowApprovalActions: Boolean;
 
     trigger OnNewRecord(BelowxRec: Boolean)
@@ -324,6 +379,7 @@ page 50182 "E3 Indent Card"
 
         Rec."Source Type" := Rec."Source Type"::D365;
         IsEditable := Rec.Status <> Rec.Status::Approved;
+        AmountEdit := false;
         SetPageEditable();
     end;
 

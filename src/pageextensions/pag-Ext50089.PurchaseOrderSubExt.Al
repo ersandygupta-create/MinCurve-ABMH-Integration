@@ -10,6 +10,8 @@ pageextension 50089 E3PurchaseOrderSub extends 54
                 ToolTip = 'FA Posting Type';
             }
         }
+
+
     }
 
 

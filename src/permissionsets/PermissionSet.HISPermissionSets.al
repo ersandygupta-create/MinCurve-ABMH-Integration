@@ -4,6 +4,7 @@ permissionset 50000 "E3 HIS Permission"
     Caption = 'HIS Permission Sets', MaxLength = 30;
     Permissions = table "E3 HIS Consumption Entries" = X,
         tabledata "E3 Akhil Integration Setup" = RIMD,
+        tabledata "E3 Project Master" = RIMD,
         tabledata "E3 API Supplier Update Log" = RIMD,
         tabledata "E3 Deleted G/L Entry" = RIMD,
         tabledata "E3 HIS Consumption Entries" = RIMD,
@@ -28,6 +29,7 @@ permissionset 50000 "E3 HIS Permission"
         tabledata "E3 HIS UOM Mapping" = RIMD,
         table "E3 Akhil Integration Setup" = X,
         table "E3AdvanceSetllementSetup" = X,
+        table "E3 Project Master" = X,
         table "E3 API Supplier Update Log" = X,
         table "E3 Deleted G/L Entry" = X,
         table "E3 HIS Customer Mapping" = X,

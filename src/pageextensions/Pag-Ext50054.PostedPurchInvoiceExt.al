@@ -11,6 +11,24 @@ pageextension 50054 "E3 HIS Posted Purch. Invoice" extends "Posted Purchase Invo
                 Editable = false;
                 ToolTip = 'Specifies the value of the Store Name field.';
             }
+            field("Indent Type"; Rec."Indent Type")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Indent Type';
+                Editable = false;
+            }
+            field("Project Code"; Rec."Project Code")
+            {
+                ApplicationArea = all;
+                Editable = false;
+                ToolTip = 'Project Code';
+            }
+            field("AMC/CMC"; Rec."AMC/CMC")
+            {
+                ApplicationArea = all;
+                Editable = false;
+                ToolTip = 'AMC/CMC';
+            }
         }
     }
 

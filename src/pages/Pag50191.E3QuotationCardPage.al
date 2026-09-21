@@ -36,18 +36,6 @@ page 50191 "E3 Quotation Card"
                     Editable = HeaderEditable;
                     ToolTip = 'Specifies the request date of the Request Date.';
                 }
-                field("Voucher Type Code"; Rec."Voucher Type Code")
-                {
-                    ApplicationArea = All;
-                    Editable = HeaderEditable;
-                    ToolTip = 'Specifies the voucher type code of the Voucher Type Code.';
-                }
-                field("Voucher Type Name"; Rec."Voucher Type Name")
-                {
-                    ApplicationArea = All;
-                    Editable = HeaderEditable;
-                    ToolTip = 'Specifies the voucher type name of the Voucher Type Name.';
-                }
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
@@ -67,6 +55,24 @@ page 50191 "E3 Quotation Card"
                     ApplicationArea = All;
                     Editable = HeaderEditable;
                     ToolTip = 'Specifies the approved by of the Approved By.';
+                }
+                field("Indent Type"; Rec."Indent Type")
+                {
+                    ToolTip = 'Indent Type';
+                    ApplicationArea = All;
+                    Editable = HeaderEditable;
+                }
+                field("Project Code"; Rec."Project Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Project Code';
+                    Editable = HeaderEditable;
+                }
+                field("AMC/CMC"; Rec."AMC/CMC")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'AMC/CMC';
+                    Editable = HeaderEditable;
                 }
             }
             part("Quotation 1"; "E3 Quotation")
@@ -105,6 +111,7 @@ page 50191 "E3 Quotation Card"
                 var
                     Location: Record Location;
                     IndentLine: Record "E3 Indent Line";
+                    IndentlineRec: Record "E3 Indent Line";
                 begin
                     if not Confirm('Do you want to create Purchase Order?', true) then
                         exit;
@@ -114,8 +121,19 @@ page 50191 "E3 Quotation Card"
                     Location.Get(Rec."Location Code");
                     Location.TestField("E3 Indent PO Series");
 
+                    IndentlineRec.Reset();
+                    indentlineRec.SetRange("Document No.", Rec."Document No.");
+                    if indentlineRec.FindSet() then
+                        repeat
+                            IndentLineRec.TestField("Vendor No.");
+
+
+                        until indentlineRec.Next() = 0;
+
                     IndentLine.Reset();
                     IndentLine.SetRange("Document No.", Rec."Document No.");
+
+
 
                     Clear(CreatePurchaseOrders);
                     CreatePurchaseOrders.SetNoSeries(Location."E3 Indent PO Series");

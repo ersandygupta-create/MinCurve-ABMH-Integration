@@ -19,6 +19,24 @@ pageextension 50061 "E3 HIS Purchase Invoice Card" extends "Purchase Invoice"
                     UpdatePurchCommentLines(Rec);
                 end;
             }
+            field("Indent Type"; Rec."Indent Type")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Indent Type';
+                Editable = false;
+            }
+            field("Project Code"; Rec."Project Code")
+            {
+                ApplicationArea = all;
+                Editable = false;
+                ToolTip = 'Project Code';
+            }
+            field("AMC/CMC"; Rec."AMC/CMC")
+            {
+                ApplicationArea = all;
+                Editable = false;
+                ToolTip = 'AMC/CMC';
+            }
         }
     }
     actions

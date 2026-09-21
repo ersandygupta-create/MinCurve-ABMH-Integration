@@ -116,6 +116,9 @@ table 50037 "E3 Indent Line"
             begin
                 if ("Requested Qty" <> 0) then
                     Amount := "Requested Qty" * "Unit Cost";
+                "Approved Qty" := "Requested Qty";
+                "Ordered Qty" := "Requested Qty";
+                "Indent Approved Qty" := "Requested Qty";
             end;
         }
         field(8; "Unit Cost"; Decimal)
@@ -183,7 +186,8 @@ table 50037 "E3 Indent Line"
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
-                "Quotation Amount" := "Approved Qty" * "Quotation Price";
+                "Quotation Amount" := "Ordered Qty" * "Quotation Price";
+                "Quotation Amount" := "Quotation Amount" - "Quotation Amount" * "discount %" / 100;
             end;
         }
         field(16; "Quotation Amount"; Decimal)
@@ -248,12 +252,7 @@ table 50037 "E3 Indent Line"
             Caption = 'Vendor PO Creation';
             DataClassification = CustomerContent;
         }
-        field(25; "Shortcut Dimension 1 Code"; Code[10])
-        {
-            Caption = 'Shortcut Dimension 1 Code';
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
-            ValidateTableRelation = false;
-        }
+
         field(26; "Purchase Order No."; Code[20])
         {
             Caption = 'Purchase Order No.';
@@ -269,6 +268,10 @@ table 50037 "E3 Indent Line"
         {
             Caption = 'discount %';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                "Quotation Amount" := "Quotation Amount" - "Quotation Amount" * "discount %" / 100;
+            end;
         }
         field(29; "Fixed Assets No."; Code[20])
         {
@@ -303,14 +306,7 @@ table 50037 "E3 Indent Line"
             Caption = 'CMC Amount';
             DataClassification = CustomerContent;
         }
-        field(35; "Shortcut Dimension 2 Code"; Code[20])
-        {
-            Caption = 'Department Code';
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
-            ValidateTableRelation = false;
-            DataClassification = ToBeClassified;
-            Editable = true;
-        }
+
         field(36; Released; Boolean)
         {
             Caption = 'Released';
@@ -369,6 +365,67 @@ table 50037 "E3 Indent Line"
             DataClassification = CustomerContent;
             DecimalPlaces = 0 : 5;
         }
+        field(47; "AMC Start Date"; Date)
+        {
+            Caption = 'AMC/CMC Start Date';
+            DataClassification = CustomerContent;
+        }
+        field(48; "AMC End Date"; Date)
+        {
+            Caption = 'AMC/CMC End Date';
+            DataClassification = CustomerContent;
+        }
+        field(25; "Shortcut Dimension 1 Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Shortcut Dimension 1 Code';
+            CaptionClass = '1,2,1';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+
+            trigger OnValidate()
+            begin
+                // Optional: Trigger dimension update logic if using Dimension Set IDs
+            end;
+        }
+
+        field(35; "Shortcut Dimension 2 Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Shortcut Dimension 2 Code';
+            CaptionClass = '1,2,2';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2), Blocked = CONST(false));
+
+            trigger OnValidate()
+            begin
+                // Optional: Trigger dimension update logic if using Dimension Set IDs
+            end;
+        }
+
+        field(51; "Shortcut Dimension 3 Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Shortcut Dimension 3 Code';
+            CaptionClass = '1,2,3';
+            // TableRelation cannot be used here for dimensions 3-8
+
+            trigger OnLookup()
+            var
+                DimMgt: Codeunit DimensionManagement;
+            begin
+                DimMgt.LookupDimValueCode(3, Rec."Shortcut Dimension 3 Code");
+            end;
+
+            trigger OnValidate()
+            var
+                DimMgt: Codeunit DimensionManagement;
+            begin
+                // If the user types a value instead of looking it up, validate it exists in GL Setup Slot 3
+                DimMgt.ValidateDimValueCode(3, Rec."Shortcut Dimension 3 Code");
+
+                // Optional: Trigger dimension update logic if using Dimension Set IDs
+            end;
+        }
+
         field(80285; "Currency Code"; Code[10])
         {
             DataClassification = CustomerContent;

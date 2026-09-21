@@ -23,5 +23,15 @@ tableextension 50017 "E3 HIS Purch. Recpt. Line" extends "Purch. Rcpt. Line"
             Caption = 'Indent Line No.';
             DataClassification = CustomerContent;
         }
+        field(50005; "AMC Start Date"; Date)
+        {
+            Caption = 'AMC/CMC Start Date';
+            DataClassification = CustomerContent;
+        }
+        field(50006; "AMC End Date"; Date)
+        {
+            Caption = 'AMC/CMC End Date';
+            DataClassification = CustomerContent;
+        }
     }
 }

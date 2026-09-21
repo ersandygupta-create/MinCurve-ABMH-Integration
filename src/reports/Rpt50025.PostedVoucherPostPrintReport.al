@@ -14,7 +14,7 @@ report 50025 "Posted Voucher - Post Voucher"
                                 ORDER(Descending);
             RequestFilterFields = "Posting Date", "Document No.";
 
-            column(VoucherSourceDescription; 'Contra Voucher')
+            column(VoucherSourceDescription; ReportTitle)
             {
             }
             column(PreparedBy; UserId)
@@ -108,6 +108,12 @@ report 50025 "Posted Voucher - Post Voucher"
 
             trigger OnAfterGetRecord()
             begin
+
+                SourceCode.Reset();
+                SourceCode.SetRange(Code, "G/L Entry"."Source Code");
+                if SourceCode.find('-') then
+                    ReportTitle := SourceCode.Description;
+
                 ReceiptByCaption := 'Checked by:';
                 GLAccName := FindGLAccName("Source Type", "Entry No.", "Source No.", "G/L Account No.");
 
@@ -387,6 +393,7 @@ report 50025 "Posted Voucher - Post Voucher"
         GeneralLedgerSetup: Record 98;
         Location: Record Location;
         LocationName: Text[60];
+        ReportTitle: Text[100];
         GSTN: Record 79;
         GSTIN: Code[30];
         LocAdd: Code[300];
