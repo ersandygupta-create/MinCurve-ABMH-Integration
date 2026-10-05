@@ -118,7 +118,7 @@ table 50004 "E3 HIS GL Accounts Mapping"
             Caption = 'Sub Category Name';
             DataClassification = CustomerContent;
         }
-        field(26; "MOP Code"; Text[30])
+        field(26; "MOP Code"; Text[60])
         {
             Caption = 'MOP Code';
             DataClassification = CustomerContent;

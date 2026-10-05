@@ -64,7 +64,7 @@ pageextension 50023 "E3 User Setup Ext" extends "User Setup"
             action("E3 Master Permissions")
             {
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
                 Caption = 'Advanced Controls';
                 ToolTip = 'Open the master permissions for the selected user.';
                 Image = Permission;

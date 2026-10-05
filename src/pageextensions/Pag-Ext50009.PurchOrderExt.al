@@ -50,6 +50,22 @@ pageextension 50009 "E3 HIS Purchase Order" extends "Purchase Order"
             }
 
         }
+        addafter(PurchLines)
+        {
+            group("TermsAndConditionsGroup")
+            {
+                Caption = 'Terms & Conditions';
+
+                part(POTermsSubpage; "PO Terms Subpage")
+                {
+                    ApplicationArea = All;
+                    SubPageView = sorting("Document Type", "Document No.", "Term Code");
+                    SubPageLink = "Document Type" = field("Document Type"),
+                                  "Document No." = field("No.");
+                    UpdatePropagation = Both;
+                }
+            }
+        }
     }
 
     actions

@@ -487,4 +487,26 @@ codeunit 50001 "E3 HIS Event Subscriber"
         PurchInvLine."AMC End Date" := PurchaseLine."AMC End Date";
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPurchInvHeaderInsert', '', false, false)]
+    local procedure OnAfterPurchInvHeaderInsert(var PurchInvHeader: Record "Purch. Inv. Header"; var PurchHeader: Record "Purchase Header")
+    var
+        POTerms: Record "PO Selected Terms Condition";
+        PostedTerms: Record "PO Selected Terms Condition";
+    begin
+        POTerms.SetRange("Document Type", PurchHeader."Document Type");
+        POTerms.SetRange("Document No.", PurchHeader."No.");
+
+        if POTerms.FindSet() then
+            repeat
+                PostedTerms.Init();
+                PostedTerms."Document Type" := POTerms."Document Type";
+                PostedTerms."Document No." := ''; // Clear PO number reference for posted context
+                PostedTerms."Posted Invoice No." := PurchInvHeader."No.";
+                PostedTerms."Term Code" := POTerms."Term Code";
+                PostedTerms.Description := POTerms.Description;
+                PostedTerms."Condition Text" := POTerms."Condition Text";
+                PostedTerms.Insert();
+            until POTerms.Next() = 0;
+    end;
+
 }

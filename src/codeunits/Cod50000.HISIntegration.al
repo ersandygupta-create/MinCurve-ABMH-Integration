@@ -918,44 +918,6 @@ codeunit 50000 "E3 HIS Integration Mgmt."
 
                     GenJournalLine.INSERT();
 
-                    // GenJournalLine.INIT();
-                    // GenJournalLine.VALIDATE(GenJournalLine."Journal Template Name", IntegrationSetupLine."General Journal Template Code");
-                    // GenJournalLine.VALIDATE(GenJournalLine."Journal Batch Name", IntegrationSetupLine."General Journal Batch Code");
-                    // intLineNo += 10000;
-                    // GenJournalLine."Line No." := intLineNo;
-                    // GenJournalLine.VALIDATE("Document Type", HISSettlementStaging."Document Type");
-                    // GenJournalLine.VALIDATE("Document No.", HISSettlementStaging."Document No.");
-                    // GenJournalLine.VALIDATE("Posting Date", HISSettlementStaging."Document Date");
-
-                    // GenJournalLine.VALIDATE(Amount, -HISSettlementStaging.Amount);
-                    // GenJournalLine.validate("Account Type", HISSettlementStaging."Bal. Account Type");
-                    // GenJournalLine.validate("Account No.", HISSettlementStaging."Bal. Account No");
-                    // GenJournalLine.VALIDATE("Cheque Date", HISSettlementStaging."Cheque Date");
-                    // GenJournalLine.VALIDATE("Cheque No.", COPYSTR(HISSettlementStaging."Cheque No.", 1, 10));
-                    // if HISSettlementStaging."Shortcut Dimension 1 Code" <> '' then begin
-                    //     GenJournalLine.VALIDATE("Location Code", HISSettlementStaging."Shortcut Dimension 1 Code");
-                    //     GenJournalLine.VALIDATE("Shortcut Dimension 1 Code", HISSettlementStaging."Shortcut Dimension 1 Code");
-                    // end;
-
-                    // if HISSettlementStaging."Shortcut Dimension 1 Code" <> '' then
-                    //     GenJournalLine.VALIDATE("Shortcut Dimension 2 Code", GetMappedDimension(HISSettlementStaging."Shortcut Dimension 2 Code"));
-
-                    // GenJournalLine.VALIDATE("External Document No.", HISSettlementStaging."External Document No.");
-                    // GenJournalLine."E3 Narration" := COPYSTR(HISSettlementStaging."Line Narration", 1, 50);
-                    // GenJournalLine."E3 HIS Module" := HISSettlementStaging."HIS Module";
-                    // GenJournalLine."E3 HIS Document Type" := COPYSTR(HISSettlementStaging."HIS Document Type", 1, 60);
-                    // GenJournalLine."E3 UTR No." := HISSettlementStaging."Cheque No.";
-                    // GenJournalLine."E3 Sub Group Code" := HISSettlementStaging."Sub Group";
-                    // GenJournalLine."E3 Receipt No." := COPYSTR(HISSettlementStaging."Receipt No.", 1, 20);
-                    // GenJournalLine."E3 UHID" := HISSettlementStaging.UHID;
-                    // GenJournalLine."E3 Validation Key" := HISSettlementStaging."Validation HIS Key";
-                    // GenJournalLine."E3 Store Code" := HISSettlementStaging."Store Code";
-                    // GenJournalLine."E3 Patient Name" := HISSettlementStaging."Patient Name";
-                    // GenJournalLine."E3 Transaction Type" := HISSettlementStaging.TRANSACTION_TYPE;
-                    // GenJournalLine."E3 Sponsor Code" := HISSettlementStaging."Sponsor Code";
-                    // GenJournalLine."E3 Sponsor Name" := HISSettlementStaging."Sponsor Name";
-                    // GenJournalLine.INSERT();
-
                     HISSettlementStaging."Created By" := USERID;
                     HISSettlementStaging."Created Date Time" := CURRENTDATETIME;
                     HISSettlementStaging."General Entries Created" := TRUE;
