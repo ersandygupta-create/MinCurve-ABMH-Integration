@@ -221,27 +221,27 @@ report 50032 "EDC Fixed Assets Register"
         ClearAmounts();
         MinDate := DMY2DATE(1, 1, 1900);
 
-        OpenCost := CalcLedger(MinDate, FromDate - 1, FALedg."FA Posting Type"::"Acquisition Cost", false);
-        AddCost := CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::"Acquisition Cost", false);
+        OpenCost := abs(CalcLedger(MinDate, FromDate - 1, FALedg."FA Posting Type"::"Acquisition Cost", false));
+        AddCost := abs(CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::"Acquisition Cost", false));
 
         DispCost :=
-            CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::"Acquisition Cost", true) +
-            CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::"Write-Down", false);
+            abs(CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::"Acquisition Cost", true)) +
+            abs(CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::"Write-Down", false));
 
-        CloseCost := OpenCost + AddCost - DispCost;
+        CloseCost := Abs(OpenCost) + Abs(AddCost) - Abs(DispCost);
 
-        OpenDep := CalcLedger(MinDate, FromDate - 1, FALedg."FA Posting Type"::Depreciation, false);
-        AddDep := CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::Depreciation, false);
-        DepDisp := CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::Depreciation, true);
+        OpenDep := abs(CalcLedger(MinDate, FromDate - 1, FALedg."FA Posting Type"::Depreciation, false));
+        AddDep := abs(CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::Depreciation, false));
+        DepDisp := abs(CalcLedger(FromDate, ToDate, FALedg."FA Posting Type"::Depreciation, true));
 
-        CloseDep := OpenDep + AddDep - DepDisp;
+        CloseDep := Abs(OpenDep) + Abs(AddDep) - Abs(DepDisp);
 
-        OpenNBV := OpenCost - OpenDep;
-        CloseNBV := CloseCost - CloseDep;
+        OpenNBV := Abs(OpenCost) - Abs(OpenDep);
+        CloseNBV := Abs(CloseCost) - Abs(CloseDep);
     end;
 
     // ================= LEDGER CORE =================
-    local procedure CalcLedger(FromDt: Date; ToDt: Date; PostingType: Option; IsDisposal: Boolean): Decimal
+    local procedure CalcLedger(FromDt: Date; ToDt: Date; PostingType: enum "FA ledger entry fa posting type"; IsDisposal: Boolean): Decimal
     var
         Amt: Decimal;
     begin
@@ -257,7 +257,7 @@ report 50032 "EDC Fixed Assets Register"
 
         if FALedg.FindSet() then
             repeat
-                Amt += Abs(FALedg.Amount);
+                Amt += (FALedg.Amount);
             until FALedg.Next() = 0;
 
         exit(Amt);
