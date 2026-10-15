@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-10-15T11:41:38.0253898Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-10-15T12:23:30.7491715Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -24,142 +24,6 @@
       <rd:DataSourceID>17dc27b6-994e-46ab-98e1-9afc52b4560b</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="CompanyLogo">
-          <DataField>CompanyLogo</DataField>
-        </Field>
-        <Field Name="CompName">
-          <DataField>CompName</DataField>
-        </Field>
-        <Field Name="COMPANNo">
-          <DataField>COMPANNo</DataField>
-        </Field>
-        <Field Name="CompanyGSTIN">
-          <DataField>CompanyGSTIN</DataField>
-        </Field>
-        <Field Name="ComanyFAX">
-          <DataField>ComanyFAX</DataField>
-        </Field>
-        <Field Name="TelNo">
-          <DataField>TelNo</DataField>
-        </Field>
-        <Field Name="LocationName">
-          <DataField>LocationName</DataField>
-        </Field>
-        <Field Name="LocationAdd">
-          <DataField>LocationAdd</DataField>
-        </Field>
-        <Field Name="LocationGSTIN">
-          <DataField>LocationGSTIN</DataField>
-        </Field>
-        <Field Name="Dept">
-          <DataField>Dept</DataField>
-        </Field>
-        <Field Name="Locationcode">
-          <DataField>Locationcode</DataField>
-        </Field>
-        <Field Name="GRNNo">
-          <DataField>GRNNo</DataField>
-        </Field>
-        <Field Name="VenPhone">
-          <DataField>VenPhone</DataField>
-        </Field>
-        <Field Name="DelTerms">
-          <DataField>DelTerms</DataField>
-        </Field>
-        <Field Name="VedrEmail">
-          <DataField>VedrEmail</DataField>
-        </Field>
-        <Field Name="VendorPANNo">
-          <DataField>VendorPANNo</DataField>
-        </Field>
-        <Field Name="City">
-          <DataField>City</DataField>
-        </Field>
-        <Field Name="PostCode">
-          <DataField>PostCode</DataField>
-        </Field>
-        <Field Name="GSRDate">
-          <DataField>GSRDate</DataField>
-        </Field>
-        <Field Name="PONo">
-          <DataField>PONo</DataField>
-        </Field>
-        <Field Name="PODate">
-          <DataField>PODate</DataField>
-        </Field>
-        <Field Name="CapexType">
-          <DataField>CapexType</DataField>
-        </Field>
-        <Field Name="Createdby">
-          <DataField>Createdby</DataField>
-        </Field>
-        <Field Name="ItemNo">
-          <DataField>ItemNo</DataField>
-        </Field>
-        <Field Name="ItemName">
-          <DataField>ItemName</DataField>
-        </Field>
-        <Field Name="HSNCode">
-          <DataField>HSNCode</DataField>
-        </Field>
-        <Field Name="UOM">
-          <DataField>UOM</DataField>
-        </Field>
-        <Field Name="ReceiptQTY">
-          <DataField>ReceiptQTY</DataField>
-        </Field>
-        <Field Name="ReceiptQTYFormat">
-          <DataField>ReceiptQTYFormat</DataField>
-        </Field>
-        <Field Name="QTYInvoiced">
-          <DataField>QTYInvoiced</DataField>
-        </Field>
-        <Field Name="QTYInvoicedFormat">
-          <DataField>QTYInvoicedFormat</DataField>
-        </Field>
-        <Field Name="VendorCode">
-          <DataField>VendorCode</DataField>
-        </Field>
-        <Field Name="VendorName">
-          <DataField>VendorName</DataField>
-        </Field>
-        <Field Name="VendorGSTIN">
-          <DataField>VendorGSTIN</DataField>
-        </Field>
-        <Field Name="VendorAddress">
-          <DataField>VendorAddress</DataField>
-        </Field>
-        <Field Name="Unitcost">
-          <DataField>Unitcost</DataField>
-        </Field>
-        <Field Name="UnitcostFormat">
-          <DataField>UnitcostFormat</DataField>
-        </Field>
-        <Field Name="Gstgrupcode">
-          <DataField>Gstgrupcode</DataField>
-        </Field>
-        <Field Name="GstbaseAmt">
-          <DataField>GstbaseAmt</DataField>
-        </Field>
-        <Field Name="GstbaseAmtFormat">
-          <DataField>GstbaseAmtFormat</DataField>
-        </Field>
-        <Field Name="LineGST">
-          <DataField>LineGST</DataField>
-        </Field>
-        <Field Name="LineGSTFormat">
-          <DataField>LineGSTFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -254,7 +118,7 @@
             <Top>0.8125in</Top>
             <Left>0.02778in</Left>
             <Height>0.20833in</Height>
-            <Width>7.90625in</Width>
+            <Width>7.51875in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1100,7 +964,7 @@
             <Top>2.16318in</Top>
             <Left>0.02778in</Left>
             <Height>0in</Height>
-            <Width>7.8993in</Width>
+            <Width>7.5868in</Width>
             <ZIndex>26</ZIndex>
             <Style>
               <Border>
@@ -1112,31 +976,31 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.43057in</Width>
+                  <Width>0.3889in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.95139in</Width>
+                  <Width>0.91667in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.89588in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.73958in</Width>
+                  <Width>0.7118in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.66312in</Width>
+                  <Width>0.57979in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64584in</Width>
+                  <Width>0.60417in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.66663in</Width>
+                  <Width>0.62496in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.48958in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.41671in</Width>
+                  <Width>0.37504in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -3058,7 +2922,7 @@
             <Top>2.23263in</Top>
             <Left>0.02778in</Left>
             <Height>2in</Height>
-            <Width>7.8993in</Width>
+            <Width>7.5868in</Width>
             <ZIndex>27</ZIndex>
             <Style>
               <Border>
@@ -3072,7 +2936,7 @@
             <MIMEType>image/jpeg</MIMEType>
             <Sizing>FitProportional</Sizing>
             <Top>0.03347in</Top>
-            <Left>6.85071in</Left>
+            <Left>6.46321in</Left>
             <Height>0.72347in</Height>
             <Width>1.08332in</Width>
             <ZIndex>28</ZIndex>
@@ -3087,7 +2951,7 @@
         <Height>4.26388in</Height>
         <Style />
       </Body>
-      <Width>7.93403in</Width>
+      <Width>7.61458in</Width>
       <Page>
         <PageHeight>11.69in</PageHeight>
         <PageWidth>8.27in</PageWidth>
@@ -3099,12 +2963,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3142,4 +3000,140 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyLogo">
+          <DataField>CompanyLogo</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="COMPANNo">
+          <DataField>COMPANNo</DataField>
+        </Field>
+        <Field Name="CompanyGSTIN">
+          <DataField>CompanyGSTIN</DataField>
+        </Field>
+        <Field Name="ComanyFAX">
+          <DataField>ComanyFAX</DataField>
+        </Field>
+        <Field Name="TelNo">
+          <DataField>TelNo</DataField>
+        </Field>
+        <Field Name="LocationName">
+          <DataField>LocationName</DataField>
+        </Field>
+        <Field Name="LocationAdd">
+          <DataField>LocationAdd</DataField>
+        </Field>
+        <Field Name="LocationGSTIN">
+          <DataField>LocationGSTIN</DataField>
+        </Field>
+        <Field Name="Dept">
+          <DataField>Dept</DataField>
+        </Field>
+        <Field Name="Locationcode">
+          <DataField>Locationcode</DataField>
+        </Field>
+        <Field Name="GRNNo">
+          <DataField>GRNNo</DataField>
+        </Field>
+        <Field Name="VenPhone">
+          <DataField>VenPhone</DataField>
+        </Field>
+        <Field Name="DelTerms">
+          <DataField>DelTerms</DataField>
+        </Field>
+        <Field Name="VedrEmail">
+          <DataField>VedrEmail</DataField>
+        </Field>
+        <Field Name="VendorPANNo">
+          <DataField>VendorPANNo</DataField>
+        </Field>
+        <Field Name="City">
+          <DataField>City</DataField>
+        </Field>
+        <Field Name="PostCode">
+          <DataField>PostCode</DataField>
+        </Field>
+        <Field Name="GSRDate">
+          <DataField>GSRDate</DataField>
+        </Field>
+        <Field Name="PONo">
+          <DataField>PONo</DataField>
+        </Field>
+        <Field Name="PODate">
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="CapexType">
+          <DataField>CapexType</DataField>
+        </Field>
+        <Field Name="Createdby">
+          <DataField>Createdby</DataField>
+        </Field>
+        <Field Name="ItemNo">
+          <DataField>ItemNo</DataField>
+        </Field>
+        <Field Name="ItemName">
+          <DataField>ItemName</DataField>
+        </Field>
+        <Field Name="HSNCode">
+          <DataField>HSNCode</DataField>
+        </Field>
+        <Field Name="UOM">
+          <DataField>UOM</DataField>
+        </Field>
+        <Field Name="ReceiptQTY">
+          <DataField>ReceiptQTY</DataField>
+        </Field>
+        <Field Name="ReceiptQTYFormat">
+          <DataField>ReceiptQTYFormat</DataField>
+        </Field>
+        <Field Name="QTYInvoiced">
+          <DataField>QTYInvoiced</DataField>
+        </Field>
+        <Field Name="QTYInvoicedFormat">
+          <DataField>QTYInvoicedFormat</DataField>
+        </Field>
+        <Field Name="VendorCode">
+          <DataField>VendorCode</DataField>
+        </Field>
+        <Field Name="VendorName">
+          <DataField>VendorName</DataField>
+        </Field>
+        <Field Name="VendorGSTIN">
+          <DataField>VendorGSTIN</DataField>
+        </Field>
+        <Field Name="VendorAddress">
+          <DataField>VendorAddress</DataField>
+        </Field>
+        <Field Name="Unitcost">
+          <DataField>Unitcost</DataField>
+        </Field>
+        <Field Name="UnitcostFormat">
+          <DataField>UnitcostFormat</DataField>
+        </Field>
+        <Field Name="Gstgrupcode">
+          <DataField>Gstgrupcode</DataField>
+        </Field>
+        <Field Name="GstbaseAmt">
+          <DataField>GstbaseAmt</DataField>
+        </Field>
+        <Field Name="GstbaseAmtFormat">
+          <DataField>GstbaseAmtFormat</DataField>
+        </Field>
+        <Field Name="LineGST">
+          <DataField>LineGST</DataField>
+        </Field>
+        <Field Name="LineGSTFormat">
+          <DataField>LineGSTFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -109,7 +109,7 @@ report 50061 "Vendor Ledger Report Excel"
                         txtChequeNo := recBankAccountLedgerEntry."Cheque No.";
                         dtChequeDate := recBankAccountLedgerEntry."Cheque Date";
                     end;
-
+                    "Vendor Ledger Entry".CalcFields("E3 Narration");
                     // Fetch TDS Information
                     decTDSBaseAmount := 0;
                     decTDSAmount := 0;
@@ -130,12 +130,10 @@ report 50061 "Vendor Ledger Report Excel"
                     ExcelBuf.AddColumn("Document No.", false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn("Document Type", false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(VendInvNo, false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
-                    if VendInvDate <> 0D then
-                        ExcelBuf.AddColumn(VendInvDate, false, '', false, false, false, 'yyyy-mm-dd', ExcelBuf."Cell Type"::Date)
-                    else
-                        ExcelBuf.AddColumn('', false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn(LineNarrationValue, false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn(txtChequeNo, false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+
+                    ExcelBuf.AddColumn("Document Date", false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+                    ExcelBuf.AddColumn("Vendor Ledger Entry"."E3 Narration", false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+                    // ExcelBuf.AddColumn(txtChequeNo, false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(cdAssessCode, false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(decTDSBaseAmount, false, '', false, false, false, '#,##0.00', ExcelBuf."Cell Type"::Number);
                     ExcelBuf.AddColumn(decTDSAmount, false, '', false, false, false, '#,##0.00', ExcelBuf."Cell Type"::Number);
@@ -362,7 +360,7 @@ report 50061 "Vendor Ledger Report Excel"
         ExcelBuf.AddColumn('Bill No', false, '', true, false, true, '', ExcelBuf."Cell Type"::Text);
         ExcelBuf.AddColumn('Bill Date', false, '', true, false, true, '', ExcelBuf."Cell Type"::Text);
         ExcelBuf.AddColumn('Narration', false, '', true, false, true, '', ExcelBuf."Cell Type"::Text);
-        ExcelBuf.AddColumn('Cheque No.', false, '', true, false, true, '', ExcelBuf."Cell Type"::Text);
+        //ExcelBuf.AddColumn('Cheque No.', false, '', true, false, true, '', ExcelBuf."Cell Type"::Text);
         ExcelBuf.AddColumn('Assessee Code', false, '', true, false, true, '', ExcelBuf."Cell Type"::Text);
         ExcelBuf.AddColumn('TDS Base Amount', false, '', true, false, true, '', ExcelBuf."Cell Type"::Text);
         ExcelBuf.AddColumn('TDS Amount', false, '', true, false, true, '', ExcelBuf."Cell Type"::Text);
