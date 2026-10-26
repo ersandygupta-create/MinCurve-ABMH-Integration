@@ -330,6 +330,7 @@ report 50015 "Purchase Order Print"
             end;
 
         }
+
         dataitem(PurchaseLine; "Purchase Line")
         {
             DataItemLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("No.");
@@ -454,6 +455,23 @@ report 50015 "Purchase Order Print"
 
             End;
         }
+        dataitem(TermsAndConditions; "PO Selected Terms Condition")
+        {
+            DataItemLink = "Document Type" = field("Document Type"),
+                               "Document No." = field("No.");
+            DataItemLinkReference = purchaseHeader;
+            DataItemTableView = sorting("Document Type", "Document No.", "Term Code") where(Description = filter(<> ''));
+            column(Term_Code; "Term Code") { }
+            column(Term_Description; Description) { }
+            column(Term_ConditionText; "Condition Text") { }
+            column(SrNo; SrNo)
+            { }
+            trigger OnAfterGetRecord()
+            begin
+                SrNo += 1;
+            end;
+
+        }
     }
     requestpage
     {
@@ -490,6 +508,7 @@ report 50015 "Purchase Order Print"
         CompInfo: Record "Company Information";
         Customer: Record "Vendor";
         CompAdd: Text[500];
+        SrNo: Integer;
         recState: Record State;
         CountryRegion: Record "Country/Region";
         Email: Text[100];
