@@ -55,6 +55,9 @@ codeunit 50001 "E3 HIS Event Subscriber"
         VendorLedgerEntry."E3 UHID" := GenJournalLine."E3 UHID";
         VendorLedgerEntry."E3 Patient Name" := GenJournalLine."E3 Patient Name";
         VendorLedgerEntry."Bank Integration" := GenJournalLine."Bank Integration";
+        VendorLedgerEntry."E3 Bank Account No." := GenJournalLine."E3 Bank Account No.";
+        VendorLedgerEntry."E3 IFSC Code" := GenJournalLine."E3 IFSC Code";
+        VendorLedgerEntry."E3 Branch" := GenJournalLine."E3 Branch";
         IF VendorLedgerEntry."Vendor Name" = '' then begin
             IF GenJournalLine."Account Type" = GenJournalLine."Account Type"::Vendor THEN
                 IF Vendor.Get(GenJournalLine."Account No.") then
