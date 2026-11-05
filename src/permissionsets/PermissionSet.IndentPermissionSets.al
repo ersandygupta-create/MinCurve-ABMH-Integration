@@ -7,6 +7,8 @@ permissionset 50001 "E3 Indent Permission"
     table "E3 Indent Line" = X,
     tabledata "E3 Indent Line" = RIMD,
     table "E3 Indenter Master" = X,
+    table "HIS Payment Document Mapping" = X,
+    tabledata "HIS Payment Document Mapping" = RIMD,
     tabledata "E3 Indenter Master" = RIMD,
     page "E3 Indent List" = X,
     page "E3 Indent Card" = X,

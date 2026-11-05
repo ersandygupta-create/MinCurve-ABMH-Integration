@@ -114,6 +114,15 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                             RunPageMode = Create;
                             ToolTip = 'Executes the Payment Advice E-Mail Setups action.';
                         }
+                        action("E3 Payment Type Setups")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            Caption = 'Payment Type setup for UHID Report';
+                            Image = Setup;
+                            RunObject = Page "HIS Payment Mapping List";
+                            RunPageMode = Create;
+                            ToolTip = 'Executes the Type Setup for UHID Report.';
+                        }
                     }
                     group("E3 HIS Mapping")
                     {
