@@ -761,6 +761,9 @@ codeunit 50000 "E3 HIS Integration Mgmt."
                     GenJournalLine."E3 Transaction Type" := HISRevenueStaging.TRANSACTION_TYPE;
                     GenJournalLine."E3 Encounter No." := HISRevenueStaging."Encounter No.";
                     GenJournalLine."HIS User Name" := HISRevenueStaging."HIS User Name";
+                    GenJournalLine."E3 Bank Account No." := HISRevenueStaging."E3 Bank Account No.";
+                    GenJournalLine."E3 IFSC Code" := HISRevenueStaging."E3 IFSC Code";
+                    GenJournalLine."E3 Branch" := HISRevenueStaging."E3 Branch";
                     GenJournalLine.INSERT();
 
                     HISRevenueStaging."Created By" := USERID;

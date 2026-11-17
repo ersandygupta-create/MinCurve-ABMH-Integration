@@ -4,18 +4,18 @@ codeunit 50009 "E3 Revenue Post Mgmt."
 
     trigger OnRun()
     begin
-        xRevHeader.Copy(Rec);
-        PostLine(xRevHeader);
-        Rec := xRevHeader;
+        ProcessRevenue(Rec);
     end;
 
-    local procedure PostLine(var RevHeader: Record "E3 HIS Revenue Header")
+    local procedure ProcessRevenue(var RevHeader: Record "E3 HIS Revenue Header")
+    var
+        IntegrationMgmt: Codeunit "E3 HIS Integration Mgmt.";
     begin
         Clear(IntegrationMgmt);
-        IntegrationMgmt.CreateAndPostRevenueInvoice(RevHeader);
-    end;
 
-    var
-        xRevHeader: Record "E3 HIS Revenue Header";
-        IntegrationMgmt: Codeunit "E3 HIS Integration Mgmt.";
+        IntegrationMgmt.InitRevenueInvoice(
+            RevHeader."Record Type",
+            RevHeader."Document Type",
+            RevHeader."Document No.");
+    end;
 }
