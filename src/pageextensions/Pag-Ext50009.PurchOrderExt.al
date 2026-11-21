@@ -52,6 +52,15 @@ pageextension 50009 "E3 HIS Purchase Order" extends "Purchase Order"
         }
         addafter(PurchLines)
         {
+            group(Remarks)
+            {
+                Caption = 'Remark';
+                field(Remark; Rec.Remark)
+                {
+                    ToolTip = 'Remark';
+                    ApplicationArea = All;
+                }
+            }
             group("TermsAndConditionsGroup")
             {
                 Caption = 'Terms & Conditions';

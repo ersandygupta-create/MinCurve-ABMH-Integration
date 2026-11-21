@@ -661,6 +661,15 @@ pageextension 50003 "E3 HIS Business Manager RC" extends "Business Manager Role 
                         RunPageMode = Create;
                         ToolTip = 'Create a new Gate Entry Inward for Vendor.';
                     }
+                    action("E3 Gate Entry Inward Posted")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Inward Gate Entry (Header & Lines).';
+                        Image = Archive;
+                        RunObject = Page 50214;
+                        RunPageMode = View;
+                        ToolTip = 'Posted Gate Entry (Header & Lines).';
+                    }
                 }
 
                 group("E3 Posted Gate Entry")

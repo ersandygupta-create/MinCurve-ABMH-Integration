@@ -18,6 +18,10 @@ report 50015 "Purchase Order Print"
             column(CompanyName; compinfo.Name)
             {
             }
+            column(Remark; Remark)
+            {
+
+            }
             column(CompanyName2;
             CompInfo."Name 2")
             {

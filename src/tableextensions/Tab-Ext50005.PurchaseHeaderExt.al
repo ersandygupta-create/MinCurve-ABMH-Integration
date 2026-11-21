@@ -95,6 +95,11 @@ tableextension 50005 "E3 HIS Purchase Header" extends "Purchase Header"
             DataClassification = ToBeClassified;
             TableRelation = "E3 Project Master"."Project Code";
         }
+        field(90001; "Remark"; Text[2048])
+        {
+            Caption = 'Remark';
+            DataClassification = ToBeClassified;
+        }
 
 
     }
