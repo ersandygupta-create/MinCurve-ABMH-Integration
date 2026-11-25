@@ -6,7 +6,7 @@
             "request": "launch",
             "type": "al",
             "environmentType": "Sandbox",
-            "environmentName": "Replica",
+            "environmentName": "ProdSandbox",
             "startupObjectId": 22,
             "startupObjectType": "Page",
             "breakOnError": "All",
