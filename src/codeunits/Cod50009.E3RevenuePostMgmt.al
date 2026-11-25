@@ -3,19 +3,21 @@ codeunit 50009 "E3 Revenue Post Mgmt."
     TableNo = "E3 HIS Revenue Header";
 
     trigger OnRun()
-    begin
-        ProcessRevenue(Rec);
-    end;
-
-    local procedure ProcessRevenue(var RevHeader: Record "E3 HIS Revenue Header")
     var
         IntegrationMgmt: Codeunit "E3 HIS Integration Mgmt.";
     begin
-        Clear(IntegrationMgmt);
+        if Rec."Create Revenue" then
+            exit;
+
+        if Rec."Record Type" <> Rec."Record Type"::Revenue then
+            exit;
+
+        if Rec."Document Type" <> Rec."Document Type"::Invoice then
+            exit;
 
         IntegrationMgmt.InitRevenueInvoice(
-            RevHeader."Record Type",
-            RevHeader."Document Type",
-            RevHeader."Document No.");
+            Rec."Record Type",
+            Rec."Document Type",
+            Rec."Document No.");
     end;
 }

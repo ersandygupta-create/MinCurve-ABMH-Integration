@@ -10,48 +10,39 @@ codeunit 50005 "E3 Rev./Rev. Ret. Scheduler"
 
     local procedure ProcessData()
     var
-        ErrorText: Text;
+        RevenueHeader: Record "E3 HIS Revenue Header";
+        HeaderToPost: Record "E3 HIS Revenue Header";
+        FailedHeader: Record "E3 HIS Revenue Header";
+        RevenuePostMgmt: Codeunit "E3 Revenue Post Mgmt.";
+        HeaderSystemId: Guid;
+        PostingError: Text;
+        UnknownPostingErr: Label 'An unknown error occurred during revenue invoice posting.';
     begin
-        xRevHeader.Reset();
-        xRevHeader.SetRange("Create Revenue", false);
-        xRevHeader.SetRange("Error Description", '');
-        xRevHeader.SetFilter("Customer No.", '<>%1', '');
-        xRevHeader.SetFilter("No. of Lines", '<>%1', 0);
-        xRevHeader.SetRange("Error 1", false);
-        xRevHeader.SetRange("Error 2", false);
-        xRevHeader.SetRange("Error 3", false);
-        xRevHeader.SetRange("Error 4", false);
+        RevenueHeader.SetRange("Record Type", RevenueHeader."Record Type"::Revenue);
+        RevenueHeader.SetRange("Document Type", RevenueHeader."Document Type"::Invoice);
+        RevenueHeader.SetRange("Create Revenue", false);
+        RevenueHeader.SetRange("Error Description", '');
 
-        if xRevHeader.FindSet() then
+        if RevenueHeader.FindSet() then
             repeat
-                RevHeader := xRevHeader;
+                HeaderToPost := RevenueHeader;
+                HeaderSystemId := HeaderToPost.SystemId;
 
+                Clear(RevenuePostMgmt);
                 ClearLastError();
-                Clear(RevPostMgmt);
+                if not RevenuePostMgmt.Run(HeaderToPost) then begin
+                    PostingError := GetLastErrorText();
+                    if PostingError = '' then
+                        PostingError := UnknownPostingErr;
 
-                // Process one document independently
-                if not RevPostMgmt.Run(RevHeader) then begin
-
-                    // Capture the processing error
-                    ErrorText := GetLastErrorText();
-
-                    if ErrorText = '' then
-                        ErrorText := 'Unknown error occurred during revenue processing.';
-
-                    // Update failed document header
-                    xRevHeader."Error Description" :=
-                        CopyStr(
-                            ErrorText,
-                            1,
-                            MaxStrLen(xRevHeader."Error Description"));
-
-                    xRevHeader.Modify(true);
-
-                    // Save error and continue with next document
-                    Commit();
+                    if FailedHeader.GetBySystemId(HeaderSystemId) then begin
+                        FailedHeader."Error Description" :=
+                            CopyStr(PostingError, 1, MaxStrLen(FailedHeader."Error Description"));
+                        FailedHeader.Modify(true);
+                        Commit();
+                    end;
                 end;
-
-            until xRevHeader.Next() = 0;
+            until RevenueHeader.Next() = 0;
     end;
 
     var
